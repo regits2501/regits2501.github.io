@@ -1,0 +1,78 @@
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+.navbar {
+   position: absolute;
+   top:100px;
+   z-index:2;
+}
+.navbar div{
+   height:50px;
+   width:50px;
+   border:2px solid blue;
+  
+}
+.scene {
+   height: 100%;
+   perspective: 700px;             /*set observer perspective (how small/big we as viewers are  to the element)*/
+}
+
+.cube {
+   height:100%;
+   position:relative;                     /* position element relative to its parent*/
+   transform-style: preserve-3d;          /* cube child elements (sides) live in same 3d space as cube */
+   transition: transform 1s;
+}
+
+.side {                   
+   min-height:100%;                     /**/ 
+   min-width:100%;
+ /*  opacity: 0.8; */
+   position: absolute;
+ /*  border: 2px solid #0abf85; */
+}
+
+.home {                                /* front */
+  background-color: #2a2a2e;
+                                       /* does nothing (good for reference)*/
+}
+
+.cv {                                  /* back */
+  background-color:#2a2d2a;
+  transform: rotateY(180deg);          /* translateZ(50%);*/             
+  
+}
+
+.quote-owlet {                         /* bottom*/
+  background-color: #333333;
+  transform: rotateX(-90deg); 
+}
+
+.twiz-client{                         /* top*/
+  background-color: #333333;
+  transform: rotateX(90deg);
+}
+
+.twiz-server {                        /* left */
+  background-color: #333333;
+  transform: rotateY(-90deg);
+}
+
+.hmac-sha1 {                         /* right */
+  background-color:#333333;
+  transform: rotateY(90deg);
+}
+
+.title {
+  text-align:center;
+  color:white;
+  font-size:2.5em;
+}
+
+
+/*
+  colors:    
+*/

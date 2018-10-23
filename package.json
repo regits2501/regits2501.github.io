@@ -1,0 +1,31 @@
+{
+  "name": "portfolio",
+  "version": "0.1.0",
+  "description": "Portfolio website written in AngularJS",
+  "private": true,
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "karma start --single-run --browsers Chrome client/tests/karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angularjs-in-action/angello.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "karma": "^2.0.5",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-cli": "0.0.4",
+    "karma-mocha": "^1.3.0",
+    "karma-ng-html2js-preprocessor": "^0.1.2",
+    "karma-power-assert": "^1.0.0",
+    "mocha": "^5.2.0",
+    "power-assert": "^1.6.0"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {}
+}

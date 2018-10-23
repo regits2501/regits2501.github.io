@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="Portfolio">
+   <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="client/assets/css/normalize.css" type="text/css">
+      <link rel="stylesheet" href="client/assets/css/styles.css" type="text/css"></link>
+
+       <script src="client/vendor/head.load.min.js"></script>
+       <script src="client/assets/js/boot.js"></script>
+
+     
+   </head>
+
+ <body ng-controller="MainCtrl as main">
+
+    <div class="navbar">
+        <div class="nav-{{side.name}}" 
+             ng-repeat="side in main.sides" 
+             ng-click="main.rotateCube(side)">
+
+             {{side.name}}
+        </div>
+    </div>
+
+    <div ng-view="" class="scene">
+    </div>
+ </body>
+<html>
