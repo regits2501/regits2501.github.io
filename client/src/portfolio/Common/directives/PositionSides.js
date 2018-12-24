@@ -1,38 +1,36 @@
 angular.module('Portfolio.Common')
- .directive('positionside', function(CalculateOffsetService){
+ .directive('positionside', function(PositionService, $window){
 
       console.log('positionSide directive')
 
       let linker = function(scope, elem, attrs, ctrl){
-          //  console.log('scope:', scope) 
+              //  console.log('scope:', scope) 
            
-           
-              let side = scope.side;                             // reference of the side from ng-repeat 
-              let parent = elem.parent()[0];
-           
-              let scene = angular.element(document.querySelector('.scene'));
-                       
-              let sceneWidth  = scene.outerWidth()     //elem.parent()[0].clientWidth;   // get hight of the cube
-              let sceneHeight = scene.outerHeight();   //elem.parent()[0].clientHeight;  // get width of the cube
-              if(attrs.class.indexOf(side.name) !== -1){        // when side name is in class string
-                  let offset = CalculateOffsetService.calc({           // calcualte offset for moving side 
-                       position: side.position,
-                       width:    sceneWidth,
-                       height:   sceneHeight
-                  }); 
-                 
-                  elem.css({                     // height and width are taken from scene in order for all sides
-                                                 // to have perfect fit on window dimensions
-                     transform: side.rotate + ' translateZ('+ offset +'px)'
-                  })                                            // 'translateZ('+offset+'px)')
+              let domArgs = {
+                 'side' : scope.side,                             // reference of the side from ng-repeat 
+                 'elem' : elem,                                   // jquery wrapper on dom object
+                 'scene': angular.element(document.querySelector('.scene'))
               }
-      }
+              
+              let cssArgs = {                                  
+                 rotateSide: true,                           // We re position side
+                 rotate: 'first'                            // first we are going to rotate side element
+              }
 
-          
-      
+              let PositionSide = PositionService.bind(null, domArgs,cssArgs) // Position side in order to form
+                                                                             // box/cube
+              if(attrs.class.indexOf(scope.side.name) !== -1)      
+                 PositionSide();                                         // position side when directive is added 
 
-      return {
-         restrict: 'A',
-         link: linker,
-      }
+              angular.element($window).on('resize', PositionSide);      // Do the same when window size changes
+              
+              scope.$on('$destroy', function(){
+                 angular.element($window).off('resize', PositionSide); // When scope dies prevent leaks    
+              })
+       }
+
+       return {
+          restrict: 'A',
+          link: linker
+       }
  })

@@ -1,0 +1,83 @@
+/* home styles*/
+
+.home {                              
+  background-color: #333333;          /*#1b1b1d; */         /* #2a2a2d; */ 
+  font-family: "Inconsolata";           
+}
+.home h1{
+  color: #e1e1e1;
+  font-size:2.5em;
+  
+  text-align:center;
+}
+.home h2 {
+  color: #87c6ff;
+  font-size:2.3em;
+}
+.home p {
+   color: #e1e1e1;
+   font-size:1.3em;
+}
+.home .upper {
+   padding:8.333%;
+}
+
+.programming {
+  font-family: "MKR17";
+  font-size: 1.3em;
+  line-height: 4;
+}
+  
+.project-container {
+   margin-left:62px;
+   padding:0 8.3333%;
+   
+}
+
+.project {
+   display: inline-block;
+   width:60%;
+   height:250px;
+   background-color: #1f1f1f;
+   border:1px solid #505050;
+   margin: 10px 20%; 
+}
+
+
+
+@media (min-width: 1024px){
+  .home .upper {
+      margin-left:62px;            /* on this size navbar is positioned to the left screen edge */
+  }
+}
+
+@media (min-width: 420px) and (max-width: 1024px){ 
+  .home .upper {
+
+     margin-top: 62px;
+  }
+}
+
+@media (max-width: 420px){
+
+  .home .upper {
+      margin-top: 52px;          /* since nav is smaller make margin smaller*/
+      
+   }
+}
+
+@media (max-width: 725px) {
+   .home .upper-left{
+     
+   }
+
+   .home .upper-right{
+     
+   }
+   .home .main{
+     
+   }
+
+}
+
+

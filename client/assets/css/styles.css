@@ -1,23 +1,88 @@
+@font-face{
+  font-family:"Inconsolata";
+  src: url('fonts/Inconsolata/inconsolata-webfont.ttf') format("truetype"),
+       url('fonts/Inconsolata/inconsolata-webfont.woff') format("woff"),
+       url('fonts/Inconsolata/inconsolata-webfont.woff2') format("woff2");
+}
+
+@font-face{
+  font-family:"MKR17";
+  src: url('fonts/MKR17/mkr17-webfont.ttf') format("truetype"),
+       url('fonts/MKR17/mkr17-webfont.woff') format("woff"),
+       url('fonts/MKR17/mkr17-webfont.woff2') format("woff2");
+}
+
+/* -------- sceletor --------- */
+
+.col-1 { width: 8.33%; }
+.col-2 { width: 16.66%; }
+.col-3 { width: 25%; }
+.col-4 { width: 33.33%; }
+.col-5 { width: 41.66%; }
+.col-6 { width: 50%; }
+.col-7 { width: 58.33%; }
+.col-8 { width: 66.66%; }
+.col-9 { width: 75%; }
+.col-10{ width: 83.33%; }
+.col-11{ width: 91.66%; }
+.col-12{ width: 100%; }
+/* ------ end --------------- */
+
 html {
   height: 100%;
 }
 body {
   height: 100%;
 }
+.miaxHeight {
+   height:100%;
+}
 .navbar {
    position: absolute;
-   top:100px;
    z-index:2;
+   border-width:1px;
+   border-style: solid;
+   border-color: #505050;           /*  #c8c8c84d;*/
+   font-family: "Inconsolata";
+   width:375px;
+   top:5px;
+   left:0;
+   right:0;
+   margin:auto;
 }
 .navbar div{
-   height:50px;
-   width:50px;
-   border:2px solid blue;
-  
+   height:62px;
+   width:62px;
+   border-right: 1px solid #505050;
+   color: #b3b3b3 ;
+   background-color: #333333;
+   text-align: center;
+   font-weight: bold;
+   display:inline-block;
+
+   transition: background-color 0s;
+    
 }
+
+div .selected {
+   background-color: #292929;
+}
+.element {
+   font-size: 2.1em;
+   padding: 15% 10% 0;
+}
+.element-info {
+   font-weight:normal;
+}
+.navbar div:last-child{
+   border-right:none;
+}
+
+
 .scene {
    height: 100%;
-   perspective: 700px;             /*set observer perspective (how small/big we as viewers are  to the element)*/
+   perspective: 1100px;         /* set observer perspective (how small/big we as viewers are  to the element) */
+  /* overflow:hidden;*/ 
 }
 
 .cube {
@@ -26,24 +91,18 @@ body {
    transform-style: preserve-3d;          /* cube child elements (sides) live in same 3d space as cube */
    transition: transform 1s;
 }
-
 .side {                   
-   min-height:100%;                     /**/ 
+   min-height:100%;                       /* */ 
    min-width:100%;
- /*  opacity: 0.8; */
+   /* opacity: 0.8; */   
    position: absolute;
- /*  border: 2px solid #0abf85; */
+ /*  border: 2px solid #0abf85;*/ 
 }
 
-.home {                                /* front */
-  background-color: #2a2a2e;
-                                       /* does nothing (good for reference)*/
-}
 
 .cv {                                  /* back */
   background-color:#2a2d2a;
   transform: rotateY(180deg);          /* translateZ(50%);*/             
-  
 }
 
 .quote-owlet {                         /* bottom*/
@@ -66,13 +125,263 @@ body {
   transform: rotateY(90deg);
 }
 
-.title {
+.tittle {
   text-align:center;
-  color:white;
+  color: #87c6ff;                                    /* does nothing (good for reference)*/
   font-size:2.5em;
 }
 
+.red-pill .pill {            /* position the pill */
+       display:inline-block;
+       width: 40px;
+       height:14px;
+       margin:36% auto 3px;;
+       background-color: gray;
+       border-radius: 6px;
+}
+.red-pill .element-info {
+       margin-top:1.2%;
+}
+.navbar-abstract {
+   left:45%;
+}
+@media (min-width: 1024px) {
+   .navbar {                       /* position navbar to the left screen edge */
+      top:100px;
+      width: auto; 
+      height: 436px;              /* 7 x 62 px*/
+      right: initial;
+      left:5px;
+      transition: left .6s;
+   }
 
-/*
-  colors:    
-*/
+   .navbar div {                   /* verticaly align nav blocks */  
+      border-right: initial;
+      border-bottom: 1px solid #505050;
+      display: block;
+   }
+  
+   .navbar div:last-child{           /* remove bottom border from last element */
+      border-bottom:none;
+   }
+
+   div .navbar-abstract {            /* position the hide-show element to the middle of the navabar*/
+      position:relative;
+      top:-45%;
+      left:65px;
+      border-bottom:none;
+      width: 31px;
+      background-color:transparent;
+   }
+   
+   div .screen-edge {
+      position:relative;
+      display:inline-block;
+      border-left: 5px solid #505050;
+      height:52px;
+      bottom:5px;
+      border-bottom:none;
+      width:5px;
+      left:10px;
+      transition: left 0.6s;
+   }
+   div .nav {
+      position:relative;
+      display:inline-block;
+      left:-9px;
+      border-left: 1px solid #505050; 
+      width:1px;
+      transition: left 0.6s;
+   } 
+   
+   .red-pill{                   /* set red-pill navbar block to the empty place of navbar abstract */
+      position:relative;
+      top:-62px;
+   }
+
+   div .screen-edge-vertical-hide {
+
+     left: 0px;
+   }
+   div .nav-vertical-hide {
+
+     left:-5px;
+   }
+
+}
+
+.navbar-vertical-hide {
+    left: -64px;
+}
+
+@media (max-width: 1023px){
+
+   .navbar {
+      width:436px;
+      height:64px;
+
+      transition: top .6s;
+   }
+  
+   div .navbar-abstract {
+      position:relative;
+      top: -30px;
+     /* left:160px; */
+      border-right:none;
+      width: 62px;
+      height:31px;
+      
+      background-color:transparent;
+      
+   }
+
+
+   div .screen-edge {
+      position:relative;
+      display:inline-block;
+      border-top: 5px solid #505050;
+      height:5px;
+      width:52px;
+      bottom:5px;
+      border-bottom:none;
+
+      top:16px;                  /* 6px transition */
+      transition: top .6s;
+
+   }
+
+   div .screen-edge-horizontal-hide {
+      top:6px;
+   }
+
+   div .nav {
+     position:relative;
+     width:62px;
+     height:1px;
+     border-bottom: 1px solid #505050;
+    
+     bottom: 9px;              /* 5px transition */
+     transition: bottom .6s;
+   }
+ 
+   div .nav-horizontal-hide {
+     bottom: 5px;
+   }
+
+   div .red-pill { 
+     background-color: #101011;
+     position:relative;
+     top:-62px;
+     left: 302px;
+   } 
+
+}
+.navbar-horizontal-hide {
+      top: -67px;
+}
+
+@media (min-width:366px) and (max-width: 440px) {
+
+   .navbar {                      /* reduce width of the navbar*/
+     width: 366px;
+     height: 54px;
+   }
+   .navbar div {                  /* reduce the size of navbar */
+      height: 52px;
+      width:52px;
+
+   }
+   
+   .element {
+      font-size: 1.761em;        /* 83% of the font-size that we set when screen width is >= 1024*/
+   }
+    
+   .element-info {               /* 83% of the font-size that we set when screen width is >= 1024*/
+      font-size: 0.8387em;       
+   }
+
+   div .navbar-abstract {
+     /* right: 30px; */
+      top: -26px;
+   }
+
+   div .screen-edge {
+      width: 42px;
+      height: 5px;
+   }
+
+   div .nav {
+     height:1px;
+   }
+
+   div .red-pill {
+      top:-52px; 
+      left: 252px;
+   }
+
+   .red-pill .element-info {            /* position the pill */
+      position:relative;
+      top:-3px; 
+   }
+   
+}
+
+.navbar-horizontal-hide2 {
+     top:-53px;
+}
+
+@media (max-width:365px){
+   
+   .navbar {
+      height:47px;
+      width:317px;
+   } 
+   .navbar div {
+      height: 45px;
+      width: 45px;
+   }
+   
+   .element { 
+      font-size: 1.45em;       /* 0.72% of the default em size */
+   } 
+
+   .element-info {
+      font-size: 0.725em;  /* 72.5% of the default em size*/
+   }
+  
+   div .navbar-abstract {
+     /* left:140px; */
+      top:-20px;
+   }
+
+   div .screen-edge {
+      width: 35px;
+      height: 5px;
+   }
+
+   div .nav {
+     height:1px;
+   }
+
+   div .red-pill {
+      top:-45px; 
+      left: 217px;
+   }
+
+   div .red-pill .pill {            /* position the pill */
+       position:relative;
+       width: 36px;
+       height:13px;
+
+   }
+
+   div .red-pill .element-info {
+       position:relative;
+       bottom:5.5px;
+        
+   }
+}
+
+.navbar-horizontal-hide3 {
+  top: -47px;
+}

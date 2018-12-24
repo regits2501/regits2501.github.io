@@ -1,0 +1,18 @@
+<div class="home-wrapper" equal-dimensions="">
+  <div class="home">
+     <div class="upper">
+        <h1>{{side.name}}</h1>
+        <h2>Greetings visitor.</h2>
+        <p>I do web programing. Bellow you can check some of my work. Thanks </p>
+      </div>
+
+      <div class="project-container">     
+         <div class="project" 
+            ng-repeat="side in main.sides | filter: main.projectsOnly()" >
+            <p>{{side.name}}</p>
+         </div>
+      </div> 
+  </div>  
+  
+ 
+  </div>

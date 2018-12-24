@@ -1,1 +1,1 @@
-angular.module('Portfolio.Common',[]);
+angular.module('Portfolio.Common', ['Portfolio.Home']);

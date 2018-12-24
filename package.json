@@ -27,5 +27,7 @@
   },
   "license": "MIT",
   "readmeFilename": "README.md",
-  "dependencies": {}
+  "dependencies": {
+    "serve": "^10.0.2"
+  }
 }

@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html ng-app="Portfolio">
+
    <head>
       <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="client/assets/css/normalize.css" type="text/css">
       <link rel="stylesheet" href="client/assets/css/styles.css" type="text/css"></link>
+      <link rel="stylesheet" href="client/assets/css/home.css">
+      <link rel="stylesheet" href="client/assets/css/reset.css">
+      
+      
 
-       <script src="client/vendor/head.load.min.js"></script>
-       <script src="client/assets/js/boot.js"></script>
+      <script src="client/vendor/head.load.min.js"></script>
+      <script src="client/assets/js/boot.js"></script>
 
      
    </head>
@@ -14,15 +20,29 @@
  <body ng-controller="MainCtrl as main">
 
     <div class="navbar">
+
         <div class="nav-{{side.name}}" 
              ng-repeat="side in main.sides" 
              ng-click="main.rotateCube(side)">
 
-             {{side.name}}
+             <p class="element">{{ side.position | abbreviate }}</p>
+             <p class="element-info">{{ side.name | shorten }}</p>
+        </div>
+
+        <div class="navbar-abstract" set-navbar="" ng-click="main.setNavbar()"> 
+            <div class="screen-edge">
+            </div>
+             <div class="nav">
+            </div>
+        </div>
+        <div class="red-pill">
+            <div class="pill"></div>
+            <p class="element-info"> pill</p>
         </div>
     </div>
 
     <div ng-view="" class="scene">
     </div>
  </body>
+
 <html>

@@ -19,5 +19,5 @@ angular.module('Portfolio.Common')
                                                          // to parent's height
            
 
-       }
+      }
  })
