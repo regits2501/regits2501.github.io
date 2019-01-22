@@ -1,6 +1,8 @@
 angular.module('Portfolio.Common')
  .filter('shorten', function(){
-    return function(input){
+    return function(input, smallScreen){
+        if(smallScreen === false) return input;
+        
         switch(input){
          case "twiz-server":
               return "twiz-s";
@@ -50,10 +52,11 @@ angular.module('Portfolio.Common')
        }
     }
  })
- .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION,
+ .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION, RESIZE_EVENT,
+                                  ShortenOnSmallScreensService, HidesAddressBarEventService,
                                   RotateCubeEventService, EqualDimensionsEventService,
                                   HideTopAndBottomEventService, SetNavbarEventService,
-                                  SelectNavbarOptionService){ 
+                                  SelectNavbarOptionService, ShowProjectService){ 
    
      let main = this;
 
@@ -83,7 +86,12 @@ angular.module('Portfolio.Common')
           rotateSide: 'rotateX(-90deg)',
 	  rotateCube: 'rotateX(90deg)',
           url: 'client/src/portfolio/QuoteOwlet/tmpl/quote-owlet.html',
-          selected: ''
+          selected: '',
+          info:{
+            desc: 'Random quote machine. Integrates Twiz in order to interact with Twitter.',
+            tech: 'Vanilla JS.',
+            github: 'https://github.com/gits2501/QuoteOwlet'
+          }
         },
         {
           name: "hmac-sha1",            // "right"
@@ -94,8 +102,8 @@ angular.module('Portfolio.Common')
           url: 'client/src/portfolio/HmacSha1/tmpl/hmac-sha1.html',
           selected: '',
           info: {
-             desc: "Form of a digital signature",
-             main: "Can produce hash string that is used to provide data integrity and authentication checks.",
+             desc: "Form of a digital signature. Can produce hash string that is used to provide data integrity and authentication.",
+             tech: " Vanilla JS, NPM, Node, Crypto, Tap. ",
              github: "https://github.com/gits2501/Hmac_Sha1"
           }
         },
@@ -106,7 +114,12 @@ angular.module('Portfolio.Common')
           rotateSide: 'rotateX(90deg)',
           rotateCube:'rotateX(-90deg)',
           url: 'client/src/portfolio/TwizClient/tmpl/twiz-client.html',
-          selected:''
+          selected:'',
+          info: {
+            desc: 'Browser part of Twitter\'s authentication and authorization algorithm (OAuth 1.0a).',
+            tech: 'Vanilla JS, Browserify, NPM, Istanbul, Mocha, Coveralls, Mocha-Headless-Chrome, Eslint.',
+            github: 'https://github.com/gits2501/twiz-client'
+          }
         },
         {
           name: "twiz-server",          // "left"
@@ -115,7 +128,12 @@ angular.module('Portfolio.Common')
           rotateSide: "rotateY(-90deg)",  // Initail rotation this side has when cube/box forms
           rotateCube: 'rotateY(90deg)',   // Rotation that cube element needs to have in order to show this side
           url: 'client/src/portfolio/TwizServer/tmpl/twiz-server.html',
-          selected:''
+          selected:'',
+          info: {
+             desc: 'Server part of Twitter\'s authentication and authorization algorithm (OAuth 1.0a).',
+             tech: 'Node, Express, NPM, Nyc, Mocha, Nock, Node-Mocks-Http, Coveralls, Eslint.' ,
+             github: 'https://github.com/gits2501/twiz-server'
+          }
         }
      ];
 
@@ -130,10 +148,14 @@ angular.module('Portfolio.Common')
          this.setEqualDimensions();               // Set dimension to equal those of the window/tab
          this.hideTopAndBottom();                 // Hides top and bottom sides when when other sides are shown
          this.selectNavbarOption(this.sides);     // Handles css animation for selected (clicked) navbar option
-
      }
-
+     setTimeout(function(){
+        main.setEqualDimensions();     
+     }, 0)
+   
      main.setEqualDimensions = function(){ console.log('main.setEqualDimensions')
+
+         RESIZE_EVENT.value = false;              // mark that EqualDim(..) was not called on resize event
          EqualDimensionsEventService.broadcast(); // brodcast event for setting height and width to all sides
      }
  
@@ -141,7 +163,7 @@ angular.module('Portfolio.Common')
         CURRENT_SIDE.value     = side;           // ref to the side object
 
         CURRENT_SIDE.previous_position = CURRENT_SIDE.current_position || '';  // remember previous position
-        CURRENT_SIDE.current_position  = side.position                          // set current position 
+        CURRENT_SIDE.current_position  = side.position;                        // set current position 
      }
      
                 
@@ -167,7 +189,15 @@ angular.module('Portfolio.Common')
             return side.name === 'quote-owlet' || side.name === 'twiz-client';  // anything else then those 2
          }
      }      
-    
+
+     main.pickedProject;         
+     main.previousPickedOnLine;  // previously clicked text near horizontal line
+
+     main.pickProject = function(side){ console.log("pickedProject: ", side)
+          ShowProjectService(side, this, $scope);
+        
+     } 
+
      main.projectsOnly = function(){
  
         return function(side){
@@ -175,7 +205,14 @@ angular.module('Portfolio.Common')
             if(side.name !== 'cv' && side.name !== 'home') return true;
                    
         }  
-     } 
+     }
+     
+     
+     HidesAddressBarEventService();                              // (dont chop off page)  
+    // main.smallScreen =  ShortenOnSmallScreensService();// shorten proj.names when screns are small (see service)
+    
  })
- .value('CURRENT_SIDE', { value:''}) // descibes currently shown side of the cube/box
- .value('NAVBAR_POSITION', { shown:''})
+ .value('CURRENT_SIDE',       { value:'', toBeShown: {}}) // descibes currently shown side of the cube/box
+ .value('NAVBAR_POSITION',    { shown:''})
+ .value('ADDRESS_BAR_HIDDEN', { value:'', counter: 6 })
+ .value('RESIZE_EVENT',       { value: ''})

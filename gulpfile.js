@@ -6,6 +6,8 @@ gulp.task('concat', function(){
      return gulp.src([ 
           
           base + 'Home/Home.js',
+          base + 'Home/services/ShowProjectService.js',
+          base + 'Home/services/ShortenOnSmallScreensService.js',
           base + 'Home/directives/GetContent.js',
 
           base + 'Common/Common.js',
@@ -13,6 +15,8 @@ gulp.task('concat', function(){
           base + 'Common/services/RotateCubeEventService.js', 
           base + 'Common/services/PositionService.js', 
           base + 'Common/services/EqualDimensionsEventService.js',
+          base + 'Common/services/HidesAddressBarEventService.js',
+          base + 'Common/services/NotShownPagesCleanService.js',
           base + 'Common/services/EqualDimensionsService.js', 
 
           base + 'Common/services/HideTopAndBottomEventService.js', 

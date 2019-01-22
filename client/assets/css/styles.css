@@ -100,11 +100,7 @@ div .selected {
 }
 
 
-.cv {                                  /* back */
-  background-color:#2a2d2a;
-  transform: rotateY(180deg);          /* translateZ(50%);*/             
-}
-
+/* delete this class when you start working on this page*/
 .quote-owlet {                         /* bottom*/
   background-color: #333333;
   transform: rotateX(-90deg); 

@@ -1,6 +1,7 @@
 angular.module('Portfolio.Common')
 
- .directive('equalDimensions', function($window, EqualDimensionsService, EqualDimensionsEventService){
+ .directive('equalDimensions', function($window, EqualDimensionsService, EqualDimensionsEventService,
+                                         RESIZE_EVENT){
 
        let linker = function(scope, elem, attrs, ctrl){
           console.log('equalDimensions DIRECTIVE')
@@ -16,12 +17,18 @@ angular.module('Portfolio.Common')
              })
           }
 
-          EqualDimensionsEventService.listen(EqualDimensions)
+          EqualDimensionsEventService.listen(EqualDimensions);    // Set listener for any broadcast events
           
-          angular.element($window).on('resize', EqualDimensions);      // Do the same when window size changes
+          function EqualDimensionsOnResize(){
+                                              console.log('EqualDimensions on RESIZE_EVENT')
+              RESIZE_EVENT.value = true;                         // Mark that EqualDims was called on resize evt
+              EqualDimensions();
+          }
+
+          angular.element($window).on('resize', EqualDimensionsOnResize); // Do the same when window size changes
               
           scope.$on('$destroy', function(){
-             angular.element($window).off('resize', EqualDimensions); // When scope dies prevent leaks    
+             angular.element($window).off('resize', EqualDimensionsOnResize); // When scope dies prevent leaks    
           })
  
 

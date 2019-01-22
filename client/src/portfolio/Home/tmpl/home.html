@@ -3,14 +3,49 @@
      <div class="upper">
         <h1>{{side.name}}</h1>
         <h2>Greetings visitor.</h2>
-        <p>I do web programing. Bellow you can check some of my work. Thanks </p>
+        <p>I do web programming. Bellow you can check some of my work.</p>
       </div>
 
-      <div class="project-container">     
-         <div class="project" 
-            ng-repeat="side in main.sides | filter: main.projectsOnly()" >
-            <p>{{side.name}}</p>
-         </div>
+      <div class="project-container">    
+
+         <div class="picker-container">
+           <div class="project-sphere-outer hide-corona">
+              <div class="project-sphere">
+              </div>
+           </div>
+           <div class="picker-line">
+             <div class="project-picker">
+                <p class="pick-{{side.name}} picker-width pick-font-color"
+                  ng-repeat="side in main.sides | filter: main.projectsOnly()"
+                  ng-click="main.pickProject(side)">
+                  {{ side.name }}
+                </p>
+             </div>
+           </div>
+           <div class="project-view hide-view">
+               <div class="left">
+                  <h3>Info</h3>
+                 <div class="text-padding">
+                    <p class="shost-desc pick-font-color wrap-words" >
+                      {{ main.pickedProject.info.desc }}
+                    </p>
+                  </div>
+               </div>
+
+              <div class="right">
+                  <h3>Tech</h3>
+                  <div class="text-padding">
+                     <p class="pick-font-color wrap-words"> 
+                         {{ main.pickedProject.info.tech }} 
+                     </p>
+                  </div>
+              </div>
+              <div class="github-link">
+                      <a href="{{ main.pickedProject.info.github }}"><img class="github-image" src="client/assets/pics/GitHub-Mark-Light-64px.png" alt="github link" height="42" width="42"></img></a>
+               </div>
+            </div>
+         </div>         
+
       </div> 
   </div>  
   

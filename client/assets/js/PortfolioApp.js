@@ -1,5 +1,89 @@
 angular.module('Portfolio.Home', []);
 
+angular.module('Portfolio.Home')
+ .factory('ShowProjectService', function(){
+        
+     function showProject(side, main, mainScope){
+                          // side , sides      , pickedProject
+
+         // pick sphere and projectview to animate
+         // t1 - when project is chosen (hide corona from sphere)
+         //      add chosen project corona
+         // t1 -same time dim the project view (chenge color/ shadow of border to mach chosen project color)
+         //     show the project view
+        let outerSphere   = angular.element(document.querySelector('.project-sphere-outer'));
+        let projectView   = angular.element(document.querySelector('.project-view'));
+        let pickedOnLine  = angular.element(document.querySelector('.pick-'+ side.name)); // Text near sphere 
+
+                         
+        let previousProject = main.pickedProject;
+        let project = side.name;
+        let delay = 200; // 200 ms
+
+        function showProject (async){
+          
+           main.pickedProject = side;                   // update model
+           if(async) mainScope.$apply();                // triggers digest cycle only for main scope 
+
+           outerSphere.removeClass('hide-corona'); 
+           outerSphere.addClass(project + '-corona')   // t2 add this project corona
+           
+           projectView.addClass(project + '-border')    //  t2 add project border color / shadow
+           projectView.removeClass('hide-view')         //  t2 show the projec-view 
+ 
+           pickOnLine();
+        }
+
+        function hideProject (){                        // t1
+           outerSphere.addClass('hide-corona');         // project was picked previously, hide its corona
+           projectView.addClass('hide-view');           // hide the view
+          
+        }
+     
+        function clean(){                               // remove classes that we added on last click/pick
+           outerSphere.removeClass(previousProject.name + '-corona');
+           projectView.removeClass(previousProject.name + '-border');
+        } 
+
+
+
+        function pickOnLine (){
+           if(main.previousPickedOnLine) 
+               if(main.previousPickedOnLine !== pickedOnLine) 
+                  main.previousPickedOnLine.removeClass(previousProject.name + '-on-line')
+          
+           pickedOnLine.addClass(project + '-on-line');
+           main.previousPickedOnLine = pickedOnLine;            
+        }
+
+        if(previousProject){           // a project was picked previously
+
+           hideProject();           // hide corona and project view
+
+           setTimeout(function(){  // show projects corona, add its border and show the project
+              clean();
+              showProject(true);
+           }, delay)
+           
+        }
+        else showProject();       // first pick, just add its corona, add border and show project
+
+             
+     }
+
+     return showProject
+ })
+
+angular.module('Portfolio.Home')
+ .factory('ShortenOnSmallScreensService', function($window){ // DELETE THIS SERVICE
+
+      function shortenOnSmallScreens(){  // detect sceens smaller then 400px 
+         return angular.element($window).outerWidth() <= 400 ? true : false;    
+      }
+
+      return shortenOnSmallScreens;
+ })
+
 angular.module('Portfolio.Home')             // move it to Portfolio.Common it beleongs there,
                                                                      // since  its generic tmpl pull
  .directive('getcontent', function(CalculateOffsetService){
@@ -112,13 +196,67 @@ angular.module('Portfolio.Common')
  })
 
 angular.module('Portfolio.Common')
- .factory('EqualDimensionsService', function(CURRENT_SIDE){ // set element's height and width to be just like window's
-                                                // all in order for a cube/box to rotate without pages 
-                                                // sticking out form each other 
+ .factory('HidesAddressBarEventService', function($window, ADDRESS_BAR_HIDDEN){ // Checks if browser 
+                                                          // (usualy on mobile) hides address 
+                                                          // bar in order not to trigger EqualDimension service
+                                                          // so we don't have page size chop off in the  middle
+                                                          // of scroll.
+   function hidesAddressBarFix(){   // Puts flags that make EqualDimension(..) NOT execute when browser
+                                    // hides address(url) bar
 
-       
+      let window_ = angular.element($window);
+      
+      window_.on('touchmove', function(){ // Mark potential address bar hide on resize event, after touchmove evt
+                                          console.log('::touchMove event')
+          ADDRESS_BAR_HIDDEN.value = true;
+          ADDRESS_BAR_HIDDEN.counter = 6;   // set counter number, since afther touchmove we have resize event
+      }); 
+
+      window_.on('orientationchange', function(){ console.log(' ~~ orientation-CHANGE ~~');
+          
+          ADDRESS_BAR_HIDDEN.value = true;             // If there was flag set before this event, clean it
+          ADDRESS_BAR_HIDDEN.counter = 6;
+      });
+    } 
+    
+    return hidesAddressBarFix;
+ })
+
+angular.module('Portfolio.Common')
+ .factory('NotShownPagesCleanService', function(){
+   
+     function notShownPagesClean(CURRENT_SIDE, pageName){
+         
+        for(let name in CURRENT_SIDE.toBeShown){ 
+              
+             if(name !== pageName){ clearTimeout(CURRENT_SIDE.toBeShown[name])}
+
+        };
+
+     }
+    
+     return notShownPagesClean
+ })
+
+angular.module('Portfolio.Common')
+ .factory('EqualDimensionsService', function(CURRENT_SIDE, ADDRESS_BAR_HIDDEN, RESIZE_EVENT,
+                                              NotShownPagesCleanService){ // set element's height and width 
+                                                                         // to be just like window's
+                                                          // all in order for a cube/box to rotate without pages 
+                                                          // sticking out form each other
+             
        function EqualDimensions(args){
+             console.log("ADDRESS_BAR_HIDDEN: ", ADDRESS_BAR_HIDDEN.value, " RESIZE_EVENT: ", RESIZE_EVENT.value) 
+           if(ADDRESS_BAR_HIDDEN.value && RESIZE_EVENT.value){ // Address bar is hiden and EqualDims(..) fired
+                                                               // on resize event
+                                                 console.log("EqualDimensions DOESNT fire:", args.page)
+                ADDRESS_BAR_HIDDEN.counter--;       // decrease counter uppon each of 6 EqualDimensions(..) calls
+                if(ADDRESS_BAR_HIDDEN.counter === 0) ADDRESS_BAR_HIDDEN.value = false;   
 
+                return;                                        // Browser hided address bar, don't chop off page
+           }
+     
+           console.log('EqualDimensions fires:', args.page)
            let sceneHeight = args.scene.outerHeight() + 'px'; //  Height of the scene elment (root elment where 
                                                               //  3D context is set)
            let sceneWidth  = args.scene.outerWidth() + 'px';  //  Width of the scene
@@ -137,8 +275,11 @@ angular.module('Portfolio.Common')
            })
           
            if(CURRENT_SIDE.value.name === pageName){ // if we are on the side the is shown to the user
-              console.log("SHOWN SIDE IS -> ", pageName)   
-              setTimeout(function removeEqualDimensions(){ // return dimensions after one sec to page default values
+               console.log("SHOWN SIDE IS -> ", pageName)
+              // remove any not pageName from sides to be shown
+              NotShownPagesCleanService(CURRENT_SIDE, pageName);
+              
+              CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){ // return dimensions after one sec to page default values
                    page.css({
                       height: 'initial',
                       width: 'initial',
@@ -386,7 +527,9 @@ angular.module('Portfolio.Common')
 
 angular.module('Portfolio.Common')
  .filter('shorten', function(){
-    return function(input){
+    return function(input, smallScreen){
+        if(smallScreen === false) return input;
+        
         switch(input){
          case "twiz-server":
               return "twiz-s";
@@ -436,10 +579,11 @@ angular.module('Portfolio.Common')
        }
     }
  })
- .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION,
+ .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION, RESIZE_EVENT,
+                                  ShortenOnSmallScreensService, HidesAddressBarEventService,
                                   RotateCubeEventService, EqualDimensionsEventService,
                                   HideTopAndBottomEventService, SetNavbarEventService,
-                                  SelectNavbarOptionService){ 
+                                  SelectNavbarOptionService, ShowProjectService){ 
    
      let main = this;
 
@@ -469,7 +613,12 @@ angular.module('Portfolio.Common')
           rotateSide: 'rotateX(-90deg)',
 	  rotateCube: 'rotateX(90deg)',
           url: 'client/src/portfolio/QuoteOwlet/tmpl/quote-owlet.html',
-          selected: ''
+          selected: '',
+          info:{
+            desc: 'Random quote machine. Integrates Twiz in order to interact with Twitter.',
+            tech: 'Vanilla JS.',
+            github: 'https://github.com/gits2501/QuoteOwlet'
+          }
         },
         {
           name: "hmac-sha1",            // "right"
@@ -480,8 +629,8 @@ angular.module('Portfolio.Common')
           url: 'client/src/portfolio/HmacSha1/tmpl/hmac-sha1.html',
           selected: '',
           info: {
-             desc: "Form of a digital signature",
-             main: "Can produce hash string that is used to provide data integrity and authentication checks.",
+             desc: "Form of a digital signature. Can produce hash string that is used to provide data integrity and authentication.",
+             tech: " Vanilla JS, NPM, Node, Crypto, Tap. ",
              github: "https://github.com/gits2501/Hmac_Sha1"
           }
         },
@@ -492,7 +641,12 @@ angular.module('Portfolio.Common')
           rotateSide: 'rotateX(90deg)',
           rotateCube:'rotateX(-90deg)',
           url: 'client/src/portfolio/TwizClient/tmpl/twiz-client.html',
-          selected:''
+          selected:'',
+          info: {
+            desc: 'Browser part of Twitter\'s authentication and authorization algorithm (OAuth 1.0a).',
+            tech: 'Vanilla JS, Browserify, NPM, Istanbul, Mocha, Coveralls, Mocha-Headless-Chrome, Eslint.',
+            github: 'https://github.com/gits2501/twiz-client'
+          }
         },
         {
           name: "twiz-server",          // "left"
@@ -501,7 +655,12 @@ angular.module('Portfolio.Common')
           rotateSide: "rotateY(-90deg)",  // Initail rotation this side has when cube/box forms
           rotateCube: 'rotateY(90deg)',   // Rotation that cube element needs to have in order to show this side
           url: 'client/src/portfolio/TwizServer/tmpl/twiz-server.html',
-          selected:''
+          selected:'',
+          info: {
+             desc: 'Server part of Twitter\'s authentication and authorization algorithm (OAuth 1.0a).',
+             tech: 'Node, Express, NPM, Nyc, Mocha, Nock, Node-Mocks-Http, Coveralls, Eslint.' ,
+             github: 'https://github.com/gits2501/twiz-server'
+          }
         }
      ];
 
@@ -516,10 +675,14 @@ angular.module('Portfolio.Common')
          this.setEqualDimensions();               // Set dimension to equal those of the window/tab
          this.hideTopAndBottom();                 // Hides top and bottom sides when when other sides are shown
          this.selectNavbarOption(this.sides);     // Handles css animation for selected (clicked) navbar option
-
      }
-
+     setTimeout(function(){
+        main.setEqualDimensions();     
+     }, 0)
+   
      main.setEqualDimensions = function(){ console.log('main.setEqualDimensions')
+
+         RESIZE_EVENT.value = false;              // mark that EqualDim(..) was not called on resize event
          EqualDimensionsEventService.broadcast(); // brodcast event for setting height and width to all sides
      }
  
@@ -527,7 +690,7 @@ angular.module('Portfolio.Common')
         CURRENT_SIDE.value     = side;           // ref to the side object
 
         CURRENT_SIDE.previous_position = CURRENT_SIDE.current_position || '';  // remember previous position
-        CURRENT_SIDE.current_position  = side.position                          // set current position 
+        CURRENT_SIDE.current_position  = side.position;                        // set current position 
      }
      
                 
@@ -553,7 +716,15 @@ angular.module('Portfolio.Common')
             return side.name === 'quote-owlet' || side.name === 'twiz-client';  // anything else then those 2
          }
      }      
-    
+
+     main.pickedProject;         
+     main.previousPickedOnLine;  // previously clicked text near horizontal line
+
+     main.pickProject = function(side){ console.log("pickedProject: ", side)
+          ShowProjectService(side, this, $scope);
+        
+     } 
+
      main.projectsOnly = function(){
  
         return function(side){
@@ -561,10 +732,17 @@ angular.module('Portfolio.Common')
             if(side.name !== 'cv' && side.name !== 'home') return true;
                    
         }  
-     } 
+     }
+     
+     
+     HidesAddressBarEventService();                              // (dont chop off page)  
+    // main.smallScreen =  ShortenOnSmallScreensService();// shorten proj.names when screns are small (see service)
+    
  })
- .value('CURRENT_SIDE', { value:''}) // descibes currently shown side of the cube/box
- .value('NAVBAR_POSITION', { shown:''})
+ .value('CURRENT_SIDE',       { value:'', toBeShown: {}}) // descibes currently shown side of the cube/box
+ .value('NAVBAR_POSITION',    { shown:''})
+ .value('ADDRESS_BAR_HIDDEN', { value:'', counter: 6 })
+ .value('RESIZE_EVENT',       { value: ''})
 
 angular.module('Portfolio.Common')
  .directive('positionside', function(PositionService, $window){
@@ -701,7 +879,8 @@ angular.module('Portfolio.Common')
 
 angular.module('Portfolio.Common')
 
- .directive('equalDimensions', function($window, EqualDimensionsService, EqualDimensionsEventService){
+ .directive('equalDimensions', function($window, EqualDimensionsService, EqualDimensionsEventService,
+                                         RESIZE_EVENT){
 
        let linker = function(scope, elem, attrs, ctrl){
           console.log('equalDimensions DIRECTIVE')
@@ -717,12 +896,18 @@ angular.module('Portfolio.Common')
              })
           }
 
-          EqualDimensionsEventService.listen(EqualDimensions)
+          EqualDimensionsEventService.listen(EqualDimensions);    // Set listener for any broadcast events
           
-          angular.element($window).on('resize', EqualDimensions);      // Do the same when window size changes
+          function EqualDimensionsOnResize(){
+                                              console.log('EqualDimensions on RESIZE_EVENT')
+              RESIZE_EVENT.value = true;                         // Mark that EqualDims was called on resize evt
+              EqualDimensions();
+          }
+
+          angular.element($window).on('resize', EqualDimensionsOnResize); // Do the same when window size changes
               
           scope.$on('$destroy', function(){
-             angular.element($window).off('resize', EqualDimensions); // When scope dies prevent leaks    
+             angular.element($window).off('resize', EqualDimensionsOnResize); // When scope dies prevent leaks    
           })
  
 
