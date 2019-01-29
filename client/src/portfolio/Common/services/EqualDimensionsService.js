@@ -39,11 +39,16 @@ angular.module('Portfolio.Common')
               // remove any not pageName from sides to be shown
               NotShownPagesCleanService(CURRENT_SIDE, pageName);
               
-              CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){ // return dimensions after one sec to page default values
+              CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){// Return dimensions
+                                                                         // after one sec to page default values
+                   let lateralSide = (pageName !== "quote-owlet" && pageName !== 'twiz-client') // Check if
+                                                                        //  we are on any lateral side of the box
                    page.css({
-                      height: 'initial',
-                      width: 'initial',
-                      overflow: 'visible',
+                      height: lateralSide ? 'initial' : sceneHeight ,  // sceneHeight we need for top and bottom
+                                                                       // page scroll bug 
+                      width: 'initial',  
+                      overflow: lateralSide ? 'visible': 'auto'  // was 'visible' check this on any cross 
+                                                   // browser issues with vertical scroll on top and bottom pages
                    })
               }, 1000)                                    // 1s is the time the cube rotates to any of it's side
  

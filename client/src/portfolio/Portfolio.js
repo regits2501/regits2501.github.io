@@ -2,7 +2,8 @@ var portfolio = angular.module('Portfolio', [
     'ngAnimate',
     'ngRoute',
     'ngMessages',
-    'Portfolio.Common'
+    'Portfolio.Common',
+    'Portfolio.QuoteOwlet'
 ])
 
 portfolio.config(function($routeProvider){

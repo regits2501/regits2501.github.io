@@ -279,11 +279,16 @@ angular.module('Portfolio.Common')
               // remove any not pageName from sides to be shown
               NotShownPagesCleanService(CURRENT_SIDE, pageName);
               
-              CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){ // return dimensions after one sec to page default values
+              CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){// Return dimensions
+                                                                         // after one sec to page default values
+                   let lateralSide = (pageName !== "quote-owlet" && pageName !== 'twiz-client') // Check if
+                                                                        //  we are on any lateral side of the box
                    page.css({
-                      height: 'initial',
-                      width: 'initial',
-                      overflow: 'visible',
+                      height: lateralSide ? 'initial' : sceneHeight ,  // sceneHeight we need for top and bottom
+                                                                       // page scroll bug 
+                      width: 'initial',  
+                      overflow: lateralSide ? 'visible': 'auto'  // was 'visible' check this on any cross 
+                                                   // browser issues with vertical scroll on top and bottom pages
                    })
               }, 1000)                                    // 1s is the time the cube rotates to any of it's side
  
@@ -736,7 +741,6 @@ angular.module('Portfolio.Common')
      
      
      HidesAddressBarEventService();                              // (dont chop off page)  
-    // main.smallScreen =  ShortenOnSmallScreensService();// shorten proj.names when screns are small (see service)
     
  })
  .value('CURRENT_SIDE',       { value:'', toBeShown: {}}) // descibes currently shown side of the cube/box
@@ -964,11 +968,235 @@ angular.module('Portfolio.Common')
       }
  })
 
+angular.module('Portfolio.QuoteOwlet', ['Portfolio.Common'])
+
+angular.module('Portfolio.QuoteOwlet')
+ .service('AnimationService', function(){
+     
+     let  animation = this;
+
+     animation.preQuote = function(num){  // adds css class to a given quote elements specified with 'num'
+        this[num] = {};
+  
+        this[num].quote  = angular.element(document.querySelector('#_'+ num));           // Get quote element
+        this[num].text   = angular.element(document.querySelector('#_'+ num + " .text"));// Text of quote in 'num'
+        this[num].author = angular.element(document.querySelector('#_'+ num + " .author")); // Author of quote ..
+       // console.log('quote Animation ::: ', quote);
+        // add on click animations
+       
+        this[num].quote.addClass('quote-on-click') 
+        this[num].text.addClass('text-on-click');
+        this[num].author.addClass('author-on-click')
+     };
+
+ 
+     animation.postQuote = function(num){
+        this[num].quote.removeClass('quote-on-click');
+        this[num].text.removeClass('text-on-click');
+        this[num].author.removeClass('author-on-click');
+     };
+         
+     
+ })
+
+angular.module('Portfolio.QuoteOwlet')
+ .factory('FormEncodeService', function($window){
+
+     function formEncode(dataObj, spaces){
+        var pairs = [];
+        var value;
+        var key;
+        var type;
+
+        for(var name in dataObj){
+            type = typeof dataObj[name];
+
+             if(dataObj.hasOwnProperty(name) && type !== "function" && dataObj[name] !== "null"){ // only props 
+                                                                                                 // in dataObj 
+
+                  let encodeURIComponent = $window.encodeURIComponent
+
+                  key = encodeURIComponent(name);   // encode property name
+
+                  if(type === 'object'){                         
+                     value = formEncode(dataObj[name], spaces); // form encode object
+                     value = encodeURIComponent(value)          // since return value is string, uri encode it
+                  }                      
+                  else value = encodeURIComponent(dataObj[name]) // property is not object, just uri encode it
+                  
+                  if(!spaces){
+                     key = key.replace(/%20/g, "+") 
+                     value = value.replace(/%20/g, "+"); // substitute space encoding for +
+                  }
+                 
+                  pairs.push(key + "=" + value)                 
+             }
+         }
+
+         return pairs.join("&");
+     }
+
+     return formEncode;
+})
+
+angular.module('Portfolio.QuoteOwlet')
+ .service('UtilsService', function(){
+    
+     let utils = this;
+
+     utils.parseQuote = function(response){      // Parses quote text and quote author from string 
+       if(response.data.length !== 0){
+         let q = response.data             // Take string that server has sent
+                                            // Server response is in text format like bellow:
+                                            // This is the quote string. (Here goes the author)  
+         
+         let quoteEnd = (q.indexOf("(") === -1) ? q.length : (q.indexOf("(") - 1); // Get index of the "(" - 1. 
+                                                                                   // Emty space before "(" .
+         var quoteText = q.substring(0,quoteEnd);   // Get quote string up to dot(including).
+        
+         let authorEnd = q.indexOf(")");
+         var quoteAuthor = "";
+
+         if(authorEnd !== -1) quoteAuthor = q.substring(quoteEnd+2, authorEnd);// Get author string, 
+                                                                               // up to ")" . If there is one.
+       }
+       else{
+           console.log('There is no quote string from server ...');
+           return;  
+       }
+        
+       return { 'text': quoteText , 'author': quoteAuthor}; // return quote text and quote author
+     }
+     
+ })
+
+angular.module('Portfolio.QuoteOwlet')
+ .service('ConfigureRequestService', function(FormEncodeService){ // sets config object used to fetch a quote
+                                                                  // from server
+
+      let crs = this;
+
+      crs.config = {
+         method: "GET",    
+         url: ""
+      } 
+
+      crs.setUrl = function(){
+         this.url = 'https://quoteowlet.herokuapp.com/fetch/https://api.forismatic.com/api/1.0/'// Server address
+                                                                                               // with endpoint.
+                                                                                               // (is proxy serv)
+         console.log('this.url:', this.url) 
+         this.queryParams = {      // making params object specific to server endpoint we are connnecting to. 
+             method: 'getQuote',
+             format: 'text',
+             key: 0,
+             lang: 'en'
+         };   
+        
+         this.setQuoteKey = function(){ // sets random quote key that server is using to generates data.
+            let value = Math.round( Math.random() * 100000); 
+            this.queryParams.key = value ;
+
+         }
+         
+            
+         this.setQueryString = function(){
+            this.queryString = FormEncodeService(this.queryParams);// Service uses form-url-encoded scheme to return
+                                                           //  query string
+           
+            if(this.url.indexOf("?") === -1) this.url+="?"; // if doesnt have query delimiter add it. 
+            this.url+= this.queryString; // Adds query string to url 
+
+
+         };
+ 
+         this.setQuoteKey();   // set random quote number
+         this.setQueryString() // add query string to url
+
+         this.config.url = this.url // set config url
+      }
+  
+ 
+      crs.init = function(){ 
+         
+         crs.setUrl();
+         return crs.config 
+      } // return config object for a request; 
+ })
+
+angular.module('Portfolio.QuoteOwlet')
+ .factory('GetQuoteModel', function($http, ConfigureRequestService, UtilsService){
+
+     function getQuote(){
+       return $http(ConfigureRequestService.init())
+                .then(function success(data){
+                                
+                    return UtilsService.parseQuote(data);
+                }
+                 , function failure(err){
+                     console.log('error --> :', err)
+                }) 
+
+     }
+
+     return getQuote;
+ })
+
+angular.module('Portfolio.QuoteOwlet')
+ .controller('QuoteOwletCtrl', function($scope, GetQuoteModel, AnimationService){ // GetQuote MODEl
+    
+      let owletCtrl = this;
+
+      owletCtrl.quotes = {
+         '1': { 
+             text: "Setting an example is not the main means of influencing another, it is the only means.",
+             author:'Albert Einstein'
+         },
+         '2': {
+            text:'What lies behind us and what lies before us are small matters compared to what lies within us. ',
+            author:'Oliver Holmes'
+         },
+         '3': {
+            text:'I am always doing that which I cannot do, in order that I may learn how to do it.',
+            author: 'Pablo Picaso',
+         },
+         '4': {
+            text:'When I let go of what I am, I become what I might be. ',
+            author:'Lao Tzu'
+         }
+      }
+     
+
+      owletCtrl.updateQuote = function(num) {
+           GetQuoteModel()
+           .then(function(quote){
+                console.log("in owletCtrl quote:", quote)
+    
+               
+                setTimeout(function(){                   // delay model update while post quote animation lasts
+                   $scope.$apply(function(){
+
+                      AnimationService.postQuote(num);     // css animation after we get quote data
+                      this.quotes[num].text   = quote.text;
+                      this.quotes[num].author = quote.author;
+                   }.bind(owletCtrl))
+                }, 400);
+                  
+           }.bind(this)
+            , function(err){
+               console.log('GetQuoteModel error: ', err );
+           }) 
+                  
+           AnimationService.preQuote(num);           // css animation before we get quote data
+      } 
+ })
+
 var portfolio = angular.module('Portfolio', [
     'ngAnimate',
     'ngRoute',
     'ngMessages',
-    'Portfolio.Common'
+    'Portfolio.Common',
+    'Portfolio.QuoteOwlet'
 ])
 
 portfolio.config(function($routeProvider){

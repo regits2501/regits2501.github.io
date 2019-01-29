@@ -209,7 +209,6 @@ angular.module('Portfolio.Common')
      
      
      HidesAddressBarEventService();                              // (dont chop off page)  
-    // main.smallScreen =  ShortenOnSmallScreensService();// shorten proj.names when screns are small (see service)
     
  })
  .value('CURRENT_SIDE',       { value:'', toBeShown: {}}) // descibes currently shown side of the cube/box

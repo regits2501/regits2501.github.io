@@ -1,0 +1,179 @@
+.upper {
+  padding-bottom: 6%;
+}
+.quote-owlet-wrapper {
+  background-color: #333333;
+  font-family:"Inconsolata";
+}
+.tittle {
+  margin-bottom:30px;
+}
+.description {
+  font-size:1.3em;
+  color: #e1e1e1;
+}
+.app-name {
+  font-size:1.6em;
+  color: #50e0c0;
+ 
+}
+.owlet-img {
+   height:120px;
+   width:120px;
+   margin:0px auto;
+}
+
+.quotes-wrap {
+  padding:0 8.3333%;
+  margin-left:62px;
+}
+.quote {
+  min-height:120px;
+  min-width: 50%;
+  /* border: 1px solid gray; */
+  margin: 15px 0px;
+  border-radius:2px;
+  font-size:1.3em;
+  color:#b3b3b3;
+  text-align:center;
+  background-color: #313131;
+  padding: 15px 10px 10px ;
+  border-left:4px double #50e0c0;
+  border-right:4px double #50e0c0;
+  box-shadow: 0px 0px 2px 1px #4d4d4d;
+  transition: border-right .5s, border-left .5s, min-height .5s;
+}
+.quote-on-click{                     /*quote-on-click*/
+  border-right:1px solid #4d4d4d;
+  border-left:1px solid #4d4d4d;
+  min-height:100px; 
+  
+}
+
+.text {
+  opacity:1;
+  transition: opacity .3s;
+}
+
+.text-on-click {  /* text-on-click*/
+   opacity:0;
+}
+ 
+.author {
+  display:inline-block; 
+  padding: 2px 5px;
+  background-color: #3a3e3d; /*#50e0c0;*/
+  border-radius: 2px;
+  position:absolute;
+  bottom:-10%;
+  color:#b3b3b3;
+  transition: color .3s;
+}
+
+.author-on-click{ /*author-on-click maybe*/
+  color:#333333;
+}
+
+.spacer {
+ /*min-height:120px;*/
+  display: hidden;
+}
+
+.text-padding {
+  padding:15px;
+}
+.relative {
+  position: relative;
+}
+.block {
+  display:block;
+}
+.quote.first {
+  left:40%;
+  margin-right:60%;
+}
+
+.quote.first .text {
+  margin:0 auto;
+/*  color:orange; */
+  
+}
+.quote.second  {
+   left:2%;
+   margin-right:52%;
+  /*color:lightblue;*/
+}
+.quote.third {
+   left:40%;
+   margin-right:90%;
+ /*color:lightgreen;*/
+}
+.quote.forth {
+   left:16%;
+   margin-right:66%;
+  /* color: lightgray; */
+}
+
+@media (max-width:1023px){
+    .tittle {
+
+       font-size:2.2em;
+       margin:10px 0px 20px
+    }
+    .quotes-wrap {
+
+       margin-left:0px;
+       padding-bottom:2%; 
+        
+    }
+   
+    .quote.first, .quote.second, .quote.third, .quote.forth{
+
+       left:0px;
+       margin-left:0px;
+       width:100%;
+    }
+
+    .quote.second .author {
+
+       left:20%;
+    }
+    .quote.forth .author {
+       left:20%;      
+    }
+  
+    
+}
+@media (max-width:650px){
+    
+    .upper {
+       margin-bottom:10%;
+    }
+    .description , .app-name{
+       font-size:1.2em;
+       margin-top:20px;
+    }
+    .text ,.author{
+       font-size:.86em;
+    } 
+
+    .quote {
+       margin: 0;
+    }
+
+    .author {
+      bottom:-5%;
+      z-index:2;
+    }
+}
+
+@media (max-width:413px){
+   .quote {
+      padding-bottom:0;
+   }
+   .author {
+       position:static;
+       margin-top:10px;
+    }
+   
+}

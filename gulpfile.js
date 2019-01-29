@@ -36,8 +36,19 @@ gulp.task('concat', function(){
 	  base + 'Common/directives/EqualDimensions.js',
           base + 'Common/directives/HideTopAndBottom.js', 
           base + 'Common/directives/SetNavbar.js', 
+   
+          base + 'QuoteOwlet/QuoteOwlet.js',
+          base + 'QuoteOwlet/services/AnimationService.js',
+          base + 'QuoteOwlet/services/FormEncodeService.js',
+          base + 'QuoteOwlet/services/UtilsService.js',
+          base + 'QuoteOwlet/services/ConfigureRequestService.js',
+          base + 'QuoteOwlet/models/GetQuoteModel.js',
+
+          base + 'QuoteOwlet/controllers/QuoteOwletController.js',
+      //    base + 'QuoteOwlet/services/.js', // module needs here
+          
                   
-          base + 'Portfolio.js',
+          base + 'Portfolio.js'
      ])
      .pipe(concat('PortfolioApp.js'))
      .pipe(gulp.dest('client/assets/js')) 

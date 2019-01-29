@@ -1,3 +1,44 @@
 <div class="quote-owlet-wrapper" equal-dimensions="">
-  <p class="tittle">{{side.name}}</p>
+  <div class="quote-owlet">
+    <div class="upper">
+      <p class="tittle">{{side.name}}</p>
+      <p class="description"> <span class="app-name">Quote owlet</span> is SPA that uses twiz (client and server) under the hood.Is able to demonstrate important features of it, like tweeting and signing-in with twitter with <span class="point-out">one click</span>. </p>
+    </div>
+    <div class="quotes-wrap" ng-controller="QuoteOwletCtrl as owletCtrl">
+       <div class="quote first relative block" ng-click="owletCtrl.updateQuote('1')" id="_1">
+          <p class="text text-padding">
+               {{owletCtrl.quotes['1'].text}}
+          </p>
+          <p class="author">
+               {{owletCtrl.quotes['1'].author}}
+          </p>
+       </div>
+       <div class="quote second relative block" ng-click="owletCtrl.updateQuote('2')" id="_2">
+           <p class="text text-padding">
+               {{owletCtrl.quotes['2'].text}}
+            </p>
+            <p class="author">
+               {{owletCtrl.quotes['2'].author}}
+            </p>
+       </div>
+       <div class="quote third relative block" ng-click="owletCtrl.updateQuote('3')" id="_3">
+          <p class="text text-padding">
+               {{owletCtrl.quotes['3'].text}}
+          </p>
+          <p class="author">
+               {{owletCtrl.quotes['3'].author}}
+          </p>
+       </div>
+       <div class="quote forth relative block" ng-click="owletCtrl.updateQuote('4')" id="_4"> 
+          <p class="text text-padding">
+               {{owletCtrl.quotes['4'].text}}
+          </p>
+          <p class="author">
+               {{owletCtrl.quotes['4'].author}}
+          </p>
+       </div>     
+      
+      
+    </div>
+  </div>
 </div>
