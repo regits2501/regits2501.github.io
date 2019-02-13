@@ -114,11 +114,6 @@ div .selected {
   transform: rotateY(-90deg);
 }
 
-.hmac-sha1 {                         /* right */
-  background-color:#333333;
-  transform: rotateY(90deg);
-}
-
 .tittle {
   text-align:center;
   color: #87c6ff;                                    /* does nothing (good for reference)*/
@@ -322,6 +317,10 @@ div .selected {
 
 .navbar-horizontal-hide2 {
      top:-53px;
+}
+.main-padding {
+  padding:8.3333%;
+  margin-left:62px;  
 }
 
 @media (max-width:365px){

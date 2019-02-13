@@ -45,6 +45,16 @@ gulp.task('concat', function(){
           base + 'QuoteOwlet/models/GetQuoteModel.js',
 
           base + 'QuoteOwlet/controllers/QuoteOwletController.js',
+
+          base + 'HmacSha1/HmacSha1.js',
+          base + 'HmacSha1/services/CreateHashStringService.js',
+          base + 'HmacSha1/services/HideNumbersService.js',
+          base + 'HmacSha1/services/AnimateApstractionService.js',
+          base + 'HmacSha1/services/AnimateHashNumbersService.js',
+
+          base + 'HmacSha1/controllers/HmacSha1Controller.js',  
+         
+
       //    base + 'QuoteOwlet/services/.js', // module needs here
           
                   

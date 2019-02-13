@@ -9,7 +9,7 @@ angular.module('Portfolio.QuoteOwlet')
         this[num].quote  = angular.element(document.querySelector('#_'+ num));           // Get quote element
         this[num].text   = angular.element(document.querySelector('#_'+ num + " .text"));// Text of quote in 'num'
         this[num].author = angular.element(document.querySelector('#_'+ num + " .author")); // Author of quote ..
-       // console.log('quote Animation ::: ', quote);
+        // console.log('quote Animation ::: ', quote);
         // add on click animations
        
         this[num].quote.addClass('quote-on-click') 

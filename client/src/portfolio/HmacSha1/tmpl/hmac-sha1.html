@@ -1,3 +1,29 @@
 <div class="hmac-sha1-wrapper" equal-dimensions="">
-  <p class="tittle">{{side.name}}</p>
+  <div class="hmac-sha1">
+    <div class="upper">
+      <p class="tittle">{{side.name}}</p>
+      <p class="description"> <span class="app-name">Hmac-Sha1</span> is a function that takes two parameters a secret key and data (massage). It outputs 20byte long hash string. Hash string is assurance that data did not change (integrity) and that it belongs to whomever secret key belongs (authentication). 
+      </p>
+    </div>
+
+    <div class="hmac-main main-padding" ng-controller="HmacSha1Controller as hs1Ctrl">
+      <div class="function italics">
+         <p class="function-call" ng-click="hs1Ctrl.animateHashNumbers()">HmacSha1(key, message)</p>
+         
+         <div class="function-apstraction">
+            <div class="row" id="r1">
+            </div>
+            <div class="row" id="r2">
+            </div>
+            <div class="row" id="r3">
+            </div>
+         </div>
+     </div>
+
+     <div class="hash-wrap">
+       <div class="typer">
+           <div class="hash">
+          </div>
+       </div>
+    </div>
 </div>

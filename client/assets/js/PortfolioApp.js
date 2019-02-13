@@ -710,7 +710,7 @@ angular.module('Portfolio.Common')
      }
 
      main.selectNavbarOption = function(){ // makes css animation on selected navbar option
-         SelectNavbarOptionService(this.sides);
+        SelectNavbarOptionService(this.sides);
      }
 
      main.hmacAndTwizServ = function(include){    //  filter two related projects
@@ -981,7 +981,7 @@ angular.module('Portfolio.QuoteOwlet')
         this[num].quote  = angular.element(document.querySelector('#_'+ num));           // Get quote element
         this[num].text   = angular.element(document.querySelector('#_'+ num + " .text"));// Text of quote in 'num'
         this[num].author = angular.element(document.querySelector('#_'+ num + " .author")); // Author of quote ..
-       // console.log('quote Animation ::: ', quote);
+        // console.log('quote Animation ::: ', quote);
         // add on click animations
        
         this[num].quote.addClass('quote-on-click') 
@@ -1191,12 +1191,142 @@ angular.module('Portfolio.QuoteOwlet')
       } 
  })
 
+angular.module('Portfolio.HmacSha1', ['Portfolio.Common'])
+
+angular.module('Portfolio.HmacSha1')
+ .factory('CreateHashStringService', function(){
+
+     return function createHashString(){
+         
+        let alphaNums = '5ab1cd4e2f0g3h7ij4kl6mn2o8pqr9stu0vwxy1z';
+        let length = alphaNums.length -1 ;
+        let hash = '';
+        let k; // index
+
+        for (let i = 0; i < 40; i++){
+            k = Math.round( Math.random() * length); // Make index number random, goes up to aplhanum.length
+            hash += alphaNums[k];                    // Take char from k-th place in alphaNums and put in hash
+        }
+      
+        return hash;
+     }
+
+     
+ })
+
+angular.module('Portfolio.HmacSha1')
+ .factory('HideNumbersService', function(){
+   
+
+    return function hideNumbers(){
+     
+      let hashNums = document.querySelectorAll('.hash-num'); 
+      let len = hashNums.length;
+
+      if( len === 0) return;
+         
+      for(let i = 0; i < len; i++){
+        
+           let num = angular.element(hashNums[i]);
+           num.addClass('hash-num-hide');
+
+          
+      }
+      
+
+    }
+ })
+
+angular.module('Portfolio.HmacSha1')
+ .factory('AnimateApstractionService', function(){
+
+     // get all 3 dotted border elements
+     // add css classes 
+     let rows = []
+     rows.push(angular.element('#r1'));
+     rows.push(angular.element('#r2'));
+     rows.push(angular.element('#r3'));
+     
+     function jqClass(action){           // uses jquery addClass or removeClass
+        let command = action + 'Class';  // make jquery function name
+        for (let i in rows){
+          let k = Number(i);
+             rows[i][command]('border-color-'+ (++k)) // adds or removes css class
+        }
+
+     }
+
+     return function animateApstraction(){
+       
+      
+            jqClass('add');
+
+        let interval = 700;
+        setTimeout(function(){
+            jqClass('remove');
+        }, interval += 120)
+     }
+
+ })
+
+angular.module('Portfolio.HmacSha1')
+ .factory('AnimateHashNumbersService', function($window, CreateHashStringService){
+
+     // take element that will contain numbers 
+     // produce hash string of 40 chars
+     // add numbers one by one to container
+     // add css classes to numbers
+    return function animateHashNumbers(){
+
+       let windowSize = angular.element($window).innerWidth();
+       let hash_El = angular.element(document.querySelector('.hash')) // get reference of container
+       let hash    = CreateHashStringService();                       // generate hash numbers
+
+       if(windowSize < 414) hash = hash.slice(0,-5);           // cut off last 5 numbers (so string can fit
+                                                                // screen without having to decrese font size)
+       hash_El.empty();    // remove eny previous hash numbers
+
+       let interval = 0;  // 
+       
+       for(let i in hash){
+
+              hash_El.append('<span class="hash-num" id="h_'+i +'">'+ hash[i] +'</span>'); // append a number
+              let span = angular.element(document.querySelector('#h_'+i));                 
+              
+             setTimeout(function() {
+                 span.addClass('drop-number');
+              }, interval +=60 )               // every 60 ms drop a number
+
+       }
+    }
+  
+ })
+
+angular.module('Portfolio.HmacSha1')
+ .controller('HmacSha1Controller', function(AnimateHashNumbersService, AnimateApstractionService, HideNumbersService){
+
+    let hs1Ctrl= this;
+   
+    hs1Ctrl.animateHashNumbers = function (){ 
+       AnimateApstractionService(); 
+       
+       setTimeout(function(){
+         HideNumbersService();
+       }, 460);
+
+       setTimeout(function(){
+          AnimateHashNumbersService();
+       },750);
+   }
+ })
+
 var portfolio = angular.module('Portfolio', [
     'ngAnimate',
     'ngRoute',
     'ngMessages',
     'Portfolio.Common',
-    'Portfolio.QuoteOwlet'
+    'Portfolio.QuoteOwlet',
+    'Portfolio.HmacSha1'
 ])
 
 portfolio.config(function($routeProvider){

@@ -178,7 +178,7 @@ angular.module('Portfolio.Common')
      }
 
      main.selectNavbarOption = function(){ // makes css animation on selected navbar option
-         SelectNavbarOptionService(this.sides);
+        SelectNavbarOptionService(this.sides);
      }
 
      main.hmacAndTwizServ = function(include){    //  filter two related projects

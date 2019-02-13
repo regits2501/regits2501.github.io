@@ -3,7 +3,8 @@ var portfolio = angular.module('Portfolio', [
     'ngRoute',
     'ngMessages',
     'Portfolio.Common',
-    'Portfolio.QuoteOwlet'
+    'Portfolio.QuoteOwlet',
+    'Portfolio.HmacSha1'
 ])
 
 portfolio.config(function($routeProvider){
