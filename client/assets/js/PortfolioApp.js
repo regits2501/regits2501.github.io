@@ -243,17 +243,22 @@ angular.module('Portfolio.Common')
                                               NotShownPagesCleanService){ // set element's height and width 
                                                                          // to be just like window's
                                                           // all in order for a cube/box to rotate without pages 
-                                                          // sticking out form each other
+                                                          // sticking out from it and each other
              
        function EqualDimensions(args){
-             console.log("ADDRESS_BAR_HIDDEN: ", ADDRESS_BAR_HIDDEN.value, " RESIZE_EVENT: ", RESIZE_EVENT.value) 
+             console.log("ADDRESS_BAR_HIDDEN: ", ADDRESS_BAR_HIDDEN.value, " RESIZE_EVENT: ", RESIZE_EVENT.value)     
+           let overflow = false;
+
            if(ADDRESS_BAR_HIDDEN.value && RESIZE_EVENT.value){ // Address bar is hiden and EqualDims(..) fired
                                                                // on resize event
-                                                 console.log("EqualDimensions DOESNT fire:", args.page)
+                                                 //console.log("EqualDimensions DOESNT fire:", args.page)
                 ADDRESS_BAR_HIDDEN.counter--;       // decrease counter uppon each of 6 EqualDimensions(..) calls
-                if(ADDRESS_BAR_HIDDEN.counter === 0) ADDRESS_BAR_HIDDEN.value = false;   
+                if(ADDRESS_BAR_HIDDEN.counter === 0){ 
+                     ADDRESS_BAR_HIDDEN.value = false; 
+                     overflow = false; 
+                } 
 
-                return;                                        // Browser hided address bar, don't chop off page
+                overflow = true;  // return               // Browser hided address bar, don't chop off page;
            }
      
            console.log('EqualDimensions fires:', args.page)
@@ -266,32 +271,57 @@ angular.module('Portfolio.Common')
            let attrs       = args.attrs;       //  Side is ancestor of the page element
            let pageName    = attrs.class;
                pageName    = pageName.substring(0, pageName.indexOf('-wrapper')) // get page NAme
+         
+       //////////// NEW SERVICE /////
+           let overflowSide = sideWithOtherOverflow(pageName); // check if side needs overflow to be auto (other then visible)
+           let respectSideValue = '';
 
+           if(overflowSide) respectOverflow = 'visible';// for sides that have vertical scroll issue(chrome mobile)
+           else respectOverflow = 'auto';
+      ////////////////////////////////////////////
 
-           page.css({                          // set high and width to be just like window height and width
-               height: sceneHeight,
-               width:  sceneWidth,
-               overflow: 'hidden'
-           })
-          
+           let dimensionsAndOverflow = {
+
+               height: sceneHeight, 
+               width:  sceneWidth
+           }
+
+           if(overflow && CURRENT_SIDE.value.name === pageName) dimensionsAndOverflow.overflow = respectOverflow;
+           else dimensionsAndOverflow.overflow = 'hidden'
+
+           page.css(dimensionsAndOverflow);
+         
+                    
+ 
            if(CURRENT_SIDE.value.name === pageName){ // if we are on the side the is shown to the user
                console.log("SHOWN SIDE IS -> ", pageName)
-              // remove any not pageName from sides to be shown
+                                                              // remove any not pageName from sides to be shown
               NotShownPagesCleanService(CURRENT_SIDE, pageName);
-              
+
               CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){// Return dimensions
-                                                                         // after one sec to page default values
-                   let lateralSide = (pageName !== "quote-owlet" && pageName !== 'twiz-client') // Check if
+                                                                         // after one sec to whatever page height
+
+                   let overflowSide = sideWithOtherOverflow(pageName);
+                                                                         // Check if
                                                                         //  we are on any lateral side of the box
+
                    page.css({
-                      height: lateralSide ? 'initial' : sceneHeight ,  // sceneHeight we need for top and bottom
-                                                                       // page scroll bug 
+                      height: overflowSide ? 'initial' : sceneHeight ,  // sceneHeight we need for top and bottom
+                                                                       // page (scroll bug on chrome mobile)
                       width: 'initial',  
-                      overflow: lateralSide ? 'visible': 'auto'  // was 'visible' check this on any cross 
+                      overflow: overflowSide ? 'visible' : 'auto'  // was 'visible' check this on any cross 
                                                    // browser issues with vertical scroll on top and bottom pages
                    })
               }, 1000)                                    // 1s is the time the cube rotates to any of it's side
+              
  
+           }
+
+           function sideWithOtherOverflow(pageName){           // Sides that need overflow value other then 'visible'
+                                                    // in order for vertical scroll to work (chrome mobile issue)
+                return   (pageName !== 'quote-owlet' 
+                       && pageName !== 'twiz-client'
+                       && pageName !== 'hmac-sha1'); 
            }
        };
 
@@ -1203,7 +1233,7 @@ angular.module('Portfolio.HmacSha1')
         let hash = '';
         let k; // index
 
-        for (let i = 0; i < 40; i++){
+        for (let i = 0; i < 35; i++){
             k = Math.round( Math.random() * length); // Make index number random, goes up to aplhanum.length
             hash += alphaNums[k];                    // Take char from k-th place in alphaNums and put in hash
         }
@@ -1282,8 +1312,6 @@ angular.module('Portfolio.HmacSha1')
        let hash_El = angular.element(document.querySelector('.hash')) // get reference of container
        let hash    = CreateHashStringService();                       // generate hash numbers
 
-       if(windowSize < 414) hash = hash.slice(0,-5);           // cut off last 5 numbers (so string can fit
-                                                                // screen without having to decrese font size)
        hash_El.empty();    // remove eny previous hash numbers
 
        let interval = 0;  // 
@@ -1320,13 +1348,134 @@ angular.module('Portfolio.HmacSha1')
    }
  })
 
+angular.module('Portfolio.TwizClient', ['Portfolio.Common']);
+
+angular.module('Portfolio.TwizClient')
+ .factory('GetCirclesService', function($window){ // Gets elements that represent circles on page, also set class
+                                              // names to be added to those elements
+
+     return function getCircles(){
+
+      
+        let circles = []; // placeholder for green and blue elements (mosty circles on page)  
+        
+        // Add to blue and green in format [element, className]
+
+        circles.push([ angular.element($window.document.querySelector('.twiz-start')), 'twiz-start-color']);
+        circles.push([ angular.element($window.document.querySelector('.col-right #out_1')), 'outer-blue']);
+        circles.push([ angular.element($window.document.querySelector('.col-left #out_2')), 'outer-green']);
+
+        // to outer 2 and 21  we add classes at same time also
+       let bothBlue = {
+            first: [ angular.element($window.document.querySelector('.col-right #out_2')), 'outer-blue'],
+            second: [ angular.element($window.document.querySelector('.col-right #out_21')), 'outer-blue']
+        }
+     
+        circles.push(bothBlue); 
+     
+        // to outer 3 and 31 we add clasess at same time (check loop below)
+        let bothGreen = {
+          first: [ angular.element($window.document.querySelector('.col-left #out_3')), 'outer-green'],
+          second: [ angular.element($window.document.querySelector('.col-left #out_31')), 'outer-green']
+        }
+   
+        circles.push(bothGreen)
+
+        circles.push([ angular.element($window.document.querySelector('.col-right #out_3')), 'outer-blue']);
+        circles.push([ angular.element($window.document.querySelector('.col-middle #out_4')),'col-middle outer-gray']);
+        circles.push([ angular.element($window.document.querySelector('.col-right #out_4')), 'outer-blue']);   
+        
+        return circles;
+     }
+
+ })
+
+angular.module('Portfolio.TwizClient')
+ .factory('AnimateTwizClientService', function($window, GetCirclesService){
+
+   
+
+     let timeouts = [];
+
+     function cancelTimeouts(){
+                                      console.log('in CANCEL TIMEOUTS');
+        let len = timeouts.length;
+                                        console.log('length:', len)
+        for(let i = 0; i < len; i++){
+              $window.clearTimeout(timeouts[i]);
+        }
+     }
+
+     let circles = GetCirclesService();        // Get elements that repesent circles and class names to be added 
+
+     return function animateTwizClient(){
+
+         if(timeouts.length) cancelTimeouts();
+
+         let timeStart = 0;
+         
+         function addClassTimeout(element, className, addTime, removeTime){
+
+            var removeTimeNegative;
+
+            if(removeTime + removeTime < 0){              // check if removeTime is negative
+                removeTimeNegative = true;
+                timeStart += removeTime;                  // timeStart is returned at same numbers like last one
+            }
+
+            let timeout_ =  setTimeout(function(){                        // add class
+               element.addClass(className);
+
+            }, addTime ? timeStart += addTime : timeStart )
+
+            timeouts.push(timeout_);                                // we push only timeouts that add classes
+
+            if(removeTimeNegative) removeTime = (-1) * removeTime; // Make it positive to set same offset for
+                                                                   // class removal like all in other calls
+
+            setTimeout(function(){                       // remove class
+               element.removeClass(className);
+            }, timeStart += removeTime) 
+         } 
+
+
+         let len = circles.length; //  longest array length           
+         for (let i = 0; i < len; i++){  
+            let circle = circles[i]; 
+                                         console.log('circle:', circle)
+            if(circle.first){
+               addClassTimeout(circle.first[0], circle.first[1], 400, 700)       
+               addClassTimeout(circle.second[0], circle.second[1], 0, -700); // we add 0 for same time as prevoius call
+            }
+            else addClassTimeout(circle[0], circle[1], 400, 700);
+            
+         }
+
+        
+     }
+
+ })
+
+angular.module('Portfolio.TwizClient')
+ .controller('TwizClientController', function(AnimateTwizClientService){
+
+
+     let twcCtrl = this;
+
+     twcCtrl.animateTwizClient = function(){
+          AnimateTwizClientService(); 
+     };
+
+ })
+
 var portfolio = angular.module('Portfolio', [
     'ngAnimate',
     'ngRoute',
     'ngMessages',
     'Portfolio.Common',
     'Portfolio.QuoteOwlet',
-    'Portfolio.HmacSha1'
+    'Portfolio.HmacSha1',
+    'Portfolio.TwizClient'
 ])
 
 portfolio.config(function($routeProvider){

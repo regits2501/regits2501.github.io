@@ -54,10 +54,12 @@ gulp.task('concat', function(){
 
           base + 'HmacSha1/controllers/HmacSha1Controller.js',  
          
-
-      //    base + 'QuoteOwlet/services/.js', // module needs here
-          
-                  
+          base + 'TwizClient/TwizClient.js',
+          base + 'TwizClient/services/GetCirclesService.js',
+          base + 'TwizClient/services/AnimateTwizClientService.js',
+          base + 'TwizClient/controllers/TwizClientController.js',
+                          
+ 
           base + 'Portfolio.js'
      ])
      .pipe(concat('PortfolioApp.js'))

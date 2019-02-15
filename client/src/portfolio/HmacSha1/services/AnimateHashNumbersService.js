@@ -11,8 +11,6 @@ angular.module('Portfolio.HmacSha1')
        let hash_El = angular.element(document.querySelector('.hash')) // get reference of container
        let hash    = CreateHashStringService();                       // generate hash numbers
 
-       if(windowSize < 414) hash = hash.slice(0,-5);           // cut off last 5 numbers (so string can fit
-                                                                // screen without having to decrese font size)
        hash_El.empty();    // remove eny previous hash numbers
 
        let interval = 0;  // 

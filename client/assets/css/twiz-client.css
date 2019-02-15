@@ -1,0 +1,267 @@
+.twiz-client {
+   font-family: 'Inconsolata';
+   background-color: #333333;
+  
+}
+.twiz-client .tittle {
+   text-align:right;
+                         /*#6e6e6e;*/
+   color: #6e6e6e;
+   padding: 2px 10px;
+   border-bottom:2px solid #6ebf62;
+}
+
+.twc-main {
+  position:relative;
+}
+
+.twiz-client .main-padding{
+   padding-top:0px;
+   padding-bottom:1%;
+}
+.pos-color {
+   width:20%;
+   float:left;
+   border-radius:2px;
+   margin-right:8.3333%;
+   background-color: #555555;
+}
+.col-left {
+   margin-left: 11.66%;
+   margin-right:8.3333%;
+}
+.col-middle {
+   margin-right: 8.3333%;
+   
+}
+.col-right {
+   margin-right:11.66%;
+}
+.col-name {
+   height:18px;
+   width:100%;
+   text-align:center;
+   line-height:1.8em;
+   font-size:1.3em;
+}
+.green {
+   color: #6ebf62;
+}
+.blue {
+   color: #87c6ff;
+}
+.twc-main:after {
+   visibility: hidden;
+   display: block;
+   font-size: 0;
+   content: " ";
+   clear: both;
+   height: 0;
+}
+
+.token-wrapper {
+   margin:11% auto;
+   text-align: center;
+}
+
+.twiz-start {
+   font-size:2.2em;
+   color: #292929;
+   text-align:center;
+   line-height:1.6em ;
+
+   -webkit-transition: color .7s;
+
+   -o-transition: color .7s;
+
+   transition: color .7s;
+}
+.twitter-end {
+   font-size: 2em;
+   text-align: center;
+   line-height: 1.6em;
+   
+}
+.outer {
+   height:76px;
+   width:76px;
+   border-radius:38px;
+   text-align:center;
+   margin-left:auto;
+   margin-right:auto; 
+   background-color:#555555;
+   position:relative;
+  
+   -webkit-transition: background-color .7s;
+  
+   -o-transition: background-color .7s;
+  
+   transition: background-color .7s;
+   
+}
+.inner {
+   width:70px;
+   height:70px;
+   border-radius:35px;
+   background-color:#292929;
+   margin:0;
+   position:absolute;
+   top:3px;
+   left:3px;
+}
+.token-text {
+   font-size:2.2em;
+   vertical-align:center;
+   font-weight:bold;
+   color:#505050;
+   line-height:2em;
+}
+.out-hidden {
+   visibility:hidden;
+}
+
+.col-left #wrp_3 .outer, .col-middle #wrp_2 .outer , .col-right #wrp_2 .outer{  /* group together circles*/
+   display:inline-block;
+}
+.twitter-img {
+   margin:14% 12% auto ;
+  
+}
+
+.twiz-start-color{                   /* for twiz-start*/
+   color:#6ebf62;
+}
+.outer-green {                      /* green for all twiz-clinet circles */
+   background-color: #6ebf62;
+}
+
+.outer-blue {                      /* blue for all twitter circles a*/
+   background-color: #87c6ff; 
+}
+.outer-gray {
+  background-color: #e1e1e1;
+}
+.text-legend {
+  color:#6e6e6e;
+  clear:both;
+  padding-top:13px;
+  font-size: .9em;
+}
+
+@media (min-width:1024px){
+    .twiz-start {
+       font-size:3em;
+    }
+}
+@media (max-width:1023px){
+   .twc-main {
+      margin-left:0px;
+    }
+}
+@media (max-width:768px){
+  .upper {
+     margin-bottom:13%;
+  }
+  .token-wrapper {
+
+    margin:13% auto;
+  }
+  .twiz-start {
+      font-size:2.2em;
+   }
+}
+
+@media (min-width:460px) and (max-width:1023px){
+    
+    .outer{
+       height:56px;
+       width:56px;
+       border-radius:28px;
+    }
+  
+    .inner {
+       height:50px;
+       width:50px;
+       border-radius:25px;
+    }
+
+    .token-text {
+       font-size:1.7em;
+       line-height:1.85em;
+
+    }
+
+    .twitter-img {
+       height:34px;
+       width:34px;
+       margin:16.5% 10.5% auto;
+    }
+        
+}
+
+@media (max-width:699px){
+   
+   .pos-color {              /*redo all with new values*/
+      width:30%;
+   }
+   .col-left {
+      margin-left:0%;
+      margin-right:0%;
+   }
+   .col-middle {
+      margin:0% 5%;
+      
+   }
+   .col-right {
+      margin-right:0%;
+   }
+     
+   .col-middle #out_4{
+      margin:auto;
+   } 
+}
+@media (max-width:459px){
+
+    .col-name {
+
+      font-size:1em;
+    }
+
+    .twiz-start {
+      font-size: 1.95em;
+      line-height:1.3em;
+    }
+    .token-wrapper {
+      margin: 16% auto;
+    }
+    .outer{
+       height:40px;
+       width:40px;
+       border-radius:20px;
+    }
+  
+    .inner {
+       height:36px;
+       width:36px;
+       border-radius:18px;
+       top: 2px;
+       left: 2px;
+    }
+
+    .token-text {
+       font-size:1.2em;
+       line-height:1.9em;
+
+    }
+
+    .twitter-img {
+       height:26px;
+       width:26px;
+       margin:13.5% 10.5% auto;
+    }
+
+    .twc-main {
+       padding-left: 7.3333%;
+       padding-right: 7.333%;
+    }
+}

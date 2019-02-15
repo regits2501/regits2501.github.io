@@ -4,7 +4,8 @@ var portfolio = angular.module('Portfolio', [
     'ngMessages',
     'Portfolio.Common',
     'Portfolio.QuoteOwlet',
-    'Portfolio.HmacSha1'
+    'Portfolio.HmacSha1',
+    'Portfolio.TwizClient'
 ])
 
 portfolio.config(function($routeProvider){

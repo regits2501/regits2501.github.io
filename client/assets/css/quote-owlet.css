@@ -40,7 +40,10 @@
   padding: 15px 10px 10px ;
   border-left:4px double #50e0c0;
   border-right:4px double #50e0c0;
-  box-shadow: 0px 0px 2px 1px #4d4d4d;
+  -webkit-box-shadow: 0px 0px 2px 1px #4d4d4d;
+          box-shadow: 0px 0px 2px 1px #4d4d4d;
+  -webkit-transition: border-right .5s, border-left .5s, min-height .5s;
+  -o-transition: border-right .5s, border-left .5s, min-height .5s;
   transition: border-right .5s, border-left .5s, min-height .5s;
 }
 .quote-on-click{                     /*quote-on-click*/
@@ -52,6 +55,8 @@
 
 .text {
   opacity:1;
+  -webkit-transition: opacity .3s;
+  -o-transition: opacity .3s;
   transition: opacity .3s;
 }
 
@@ -67,6 +72,8 @@
   position:absolute;
   bottom:-10%;
   color:#b3b3b3;
+  -webkit-transition: color .3s;
+  -o-transition: color .3s;
   transition: color .3s;
 }
 

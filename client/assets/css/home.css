@@ -94,11 +94,20 @@ div .pick-font-color {
    top: -30px;
  /*  box-shadow: -2px 16px 70px -64px red; */
 
-  transition: box-shadow .2s, opacity .2s;            /* border-left .3s, border-right .3s, border-bottom .3s; */
+  -webkit-transition: opacity .2s, -webkit-box-shadow .2s;
+
+  transition: opacity .2s, -webkit-box-shadow .2s;
+
+  -o-transition: box-shadow .2s, opacity .2s;
+
+  transition: box-shadow .2s, opacity .2s;
+
+  transition: box-shadow .2s, opacity .2s, -webkit-box-shadow .2s;            /* border-left .3s, border-right .3s, border-bottom .3s; */
 }
 .hide-view {
    opacity: 0; 
-   box-shadow: none;
+   -webkit-box-shadow: none; 
+           box-shadow: none;
 }
 
 .home .hmac-sha1-border {
@@ -122,10 +131,10 @@ div .pick-font-color {
   
 }
 .home .twiz-client-border {
-   border-right:1px dashed #7ad260    ;   /*#50e08a neon green*/
-   border-left:1px dashed  #7ad260;
-   border-bottom:1px dashed #7ad260;
-   border-right:1px dashed #7ad260;
+   border-right:1px dashed #6ebf62    ;   /*#50e08a neon green*/ /*silent green #6ebf62*/
+   border-left:1px dashed  #6ebf62;
+   border-bottom:1px dashed #6ebf62;
+   border-right:1px dashed #6ebf62;
   
 
 }
@@ -139,7 +148,7 @@ div .pick-font-color {
    color: #8350e0;
 }
 .home  .twiz-client-on-line {
-   color: #7ad260;
+   color: #6ebf62;
 }
 .project-sphere {
    width:200px;
@@ -160,23 +169,29 @@ div .pick-font-color {
   /* border-bottom:2px solid red; */
   /* border-top:2px solid blue;   */
   /* border-right:2px solid lime; */
+  -webkit-transition: border-bottom .2s;
+  -o-transition: border-bottom .2s;
   transition: border-bottom .2s;
 }
 .hmac-sha1-corona {
   border-bottom:2px solid #e07c50 ;
-  box-shadow: -2px 16px 70px -64px #e07c50; 
+  -webkit-box-shadow: -2px 16px 70px -64px #e07c50;
+          box-shadow: -2px 16px 70px -64px #e07c50; 
 }
 .quote-owlet-corona {
   border-bottom:2px solid #50e0c0;
-  box-shadow: -2px 16px 70px -64px #50e0c0;
+  -webkit-box-shadow: -2px 16px 70px -64px #50e0c0;
+          box-shadow: -2px 16px 70px -64px #50e0c0;
 }
 .twiz-server-corona {
   border-bottom:2px solid #9369e0; 
-  box-shadow: -2px 16px 70px -64px #9369e0;
+  -webkit-box-shadow: -2px 16px 70px -64px #9369e0; 
+          box-shadow: -2px 16px 70px -64px #9369e0;
 }
 .twiz-client-corona {
-  border-bottom:2px solid #7ad260;
-  box-shadow: -2px 16px 70px -64px #7ad260;
+  border-bottom:2px solid #6ebf62;
+  -webkit-box-shadow: -2px 16px 70px -64px #6ebf62;
+          box-shadow: -2px 16px 70px -64px #6ebf62;
 }
 
 .hide-corona {
@@ -218,7 +233,7 @@ div .pick-font-color {
 .home h3{
   background-color: #505050;
   margin-bottom:4px;
-  padding-left:4px; 
+  padding:1px 0px 0px 4px;
   font-size:1.3em;
   color:#333333;
   font-weight:bold;

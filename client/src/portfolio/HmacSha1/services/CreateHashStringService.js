@@ -8,7 +8,7 @@ angular.module('Portfolio.HmacSha1')
         let hash = '';
         let k; // index
 
-        for (let i = 0; i < 40; i++){
+        for (let i = 0; i < 35; i++){
             k = Math.round( Math.random() * length); // Make index number random, goes up to aplhanum.length
             hash += alphaNums[k];                    // Take char from k-th place in alphaNums and put in hash
         }
