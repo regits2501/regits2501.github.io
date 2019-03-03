@@ -5,7 +5,8 @@ var portfolio = angular.module('Portfolio', [
     'Portfolio.Common',
     'Portfolio.QuoteOwlet',
     'Portfolio.HmacSha1',
-    'Portfolio.TwizClient'
+    'Portfolio.TwizClient',
+    'Portfolio.TwizServer'
 ])
 
 portfolio.config(function($routeProvider){

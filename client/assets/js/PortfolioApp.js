@@ -317,11 +317,12 @@ angular.module('Portfolio.Common')
  
            }
 
-           function sideWithOtherOverflow(pageName){           // Sides that need overflow value other then 'visible'
+           function sideWithOtherOverflow(pageName){      // Sides that need overflow value other then 'visible'
                                                     // in order for vertical scroll to work (chrome mobile issue)
                 return   (pageName !== 'quote-owlet' 
                        && pageName !== 'twiz-client'
-                       && pageName !== 'hmac-sha1'); 
+                       && pageName !== 'hmac-sha1'
+                       && pageName !== 'twiz-server'); 
            }
        };
 
@@ -1382,7 +1383,7 @@ angular.module('Portfolio.TwizClient')
         circles.push(bothGreen)
 
         circles.push([ angular.element($window.document.querySelector('.col-right #out_3')), 'outer-blue']);
-        circles.push([ angular.element($window.document.querySelector('.col-middle #out_4')),'col-middle outer-gray']);
+        circles.push([ angular.element($window.document.querySelector('.col-middle #out_4')),'col-middle outer-grey']);
         circles.push([ angular.element($window.document.querySelector('.col-right #out_4')), 'outer-blue']);   
         
         return circles;
@@ -1396,8 +1397,9 @@ angular.module('Portfolio.TwizClient')
    
 
      let timeouts = [];
+     let circles;
 
-     function cancelTimeouts(){
+     function cancelTimeouts(timeouts){
                                       console.log('in CANCEL TIMEOUTS');
         let len = timeouts.length;
                                         console.log('length:', len)
@@ -1406,11 +1408,23 @@ angular.module('Portfolio.TwizClient')
         }
      }
 
-     let circles = GetCirclesService();        // Get elements that repesent circles and class names to be added 
+     let twc_circles = GetCirclesService();    // Get elements that repesent circles and class names to be added 
+     let twc_timeouts = []; 
 
-     return function animateTwizClient(){
+     return function animateTwizClient(tws_circles, tws_timeouts){
 
-         if(timeouts.length) cancelTimeouts();
+        // if(timeouts.length) cancelTimeouts(tws_timeouts);  // If function was called cancel any previous animations that 
+                                                // were suppose to run
+         if(tws_circles){
+               timeouts = tws_timeouts; 
+               if(timeouts.length) cancelTimeouts(tws_timeouts); // Cancel any previous twiz-server animation
+               circles = tws_circles;                                // Use twiz-server circles
+         }
+         else {
+           timeouts = twc_timeouts;
+           if(timeouts.length) cancelTimeouts(timeouts); // Cancel any previous twiz-client animation
+           circles = twc_circles;                        // Use twiz-client circles for animation
+         }
 
          let timeStart = 0;
          
@@ -1462,10 +1476,62 @@ angular.module('Portfolio.TwizClient')
 
      let twcCtrl = this;
 
-     twcCtrl.animateTwizClient = function(){
+     twcCtrl.animateTwizClient = function(){  // Animate circles (tokens) on page that represent 
+                                              // twiz-client process
           AnimateTwizClientService(); 
      };
 
+ })
+
+angular.module('Portfolio.TwizServer', ['Portfolio.TwizClient']);
+
+angular.module('Portfolio.TwizServer')
+ .factory('GetTwizServerCirclesService', function($window){
+
+     
+    return function getTwizServerCircles(){
+       let circles = []; // placeholder for green and blue elements (mosty circles on page)  
+        
+        // Add to purple, blue and grey circles in format [element, className]
+
+       let pref ='.twiz-server '; // selector prefix fot the circles (elements) on twiz-server page
+
+       circles.push([ angular.element($window.document.querySelector(pref +'.twiz-start')), 'start-grey']);
+       circles.push([ angular.element($window.document.querySelector(pref +'.col-middle #out_1')), 'outer-purple']);
+       circles.push([ angular.element($window.document.querySelector(pref +'.col-right #out_1')), 'outer-blue']);
+     
+   
+
+       circles.push([ angular.element($window.document.querySelector(pref +'.col-middle #out_2')), 'outer-purple']);
+       circles.push([ angular.element($window.document.querySelector(pref +'.col-right #out_2')),'outer-blue']);
+       circles.push([ angular.element($window.document.querySelector(pref +'.col-left #out_3')), 'outer-grey']);   
+       return circles;
+    }
+
+ })
+
+angular.module('Portfolio.TwizServer')
+ .factory('AnimateTwizServerService', function(AnimateTwizClientService, GetTwizServerCirclesService){
+
+
+     let tws_circles = GetTwizServerCirclesService();  // get the circles from twiz-server page
+     let tws_timeouts = [];
+     return function animateTwizServer () {
+             console.log('twiz-server circles', tws_circles);
+          AnimateTwizClientService(tws_circles, tws_timeouts);      // animation logic is same as for the twiz-client page
+     }
+
+ })
+
+angular.module('Portfolio.TwizServer')
+ .controller('TwizServerController', function(AnimateTwizServerService){
+     
+     let twsCtrl = this;
+
+     twsCtrl.animateTwizServer = function(){
+                                       console.log("twiz-server ON-CLICK")     
+          AnimateTwizServerService();
+     }
  })
 
 var portfolio = angular.module('Portfolio', [
@@ -1475,7 +1541,8 @@ var portfolio = angular.module('Portfolio', [
     'Portfolio.Common',
     'Portfolio.QuoteOwlet',
     'Portfolio.HmacSha1',
-    'Portfolio.TwizClient'
+    'Portfolio.TwizClient',
+    'Portfolio.TwizServer'
 ])
 
 portfolio.config(function($routeProvider){

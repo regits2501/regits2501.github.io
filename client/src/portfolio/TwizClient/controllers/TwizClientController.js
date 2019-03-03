@@ -4,7 +4,8 @@ angular.module('Portfolio.TwizClient')
 
      let twcCtrl = this;
 
-     twcCtrl.animateTwizClient = function(){
+     twcCtrl.animateTwizClient = function(){  // Animate circles (tokens) on page that represent 
+                                              // twiz-client process
           AnimateTwizClientService(); 
      };
 

@@ -5,12 +5,12 @@ gulp.task('concat', function(){
      var base = 'client/src/portfolio/'
      return gulp.src([ 
           
-          base + 'Home/Home.js',
+          base + 'Home/Home.js',                                         // Home
           base + 'Home/services/ShowProjectService.js',
           base + 'Home/services/ShortenOnSmallScreensService.js',
           base + 'Home/directives/GetContent.js',
 
-          base + 'Common/Common.js',
+          base + 'Common/Common.js',                                     // Common
           base + 'Common/services/CalculateOffsetService.js',
           base + 'Common/services/RotateCubeEventService.js', 
           base + 'Common/services/PositionService.js', 
@@ -37,7 +37,7 @@ gulp.task('concat', function(){
           base + 'Common/directives/HideTopAndBottom.js', 
           base + 'Common/directives/SetNavbar.js', 
    
-          base + 'QuoteOwlet/QuoteOwlet.js',
+          base + 'QuoteOwlet/QuoteOwlet.js',                             // QuoteOwlet
           base + 'QuoteOwlet/services/AnimationService.js',
           base + 'QuoteOwlet/services/FormEncodeService.js',
           base + 'QuoteOwlet/services/UtilsService.js',
@@ -54,11 +54,17 @@ gulp.task('concat', function(){
 
           base + 'HmacSha1/controllers/HmacSha1Controller.js',  
          
-          base + 'TwizClient/TwizClient.js',
+          base + 'TwizClient/TwizClient.js',                             // Twiz-Client
           base + 'TwizClient/services/GetCirclesService.js',
           base + 'TwizClient/services/AnimateTwizClientService.js',
           base + 'TwizClient/controllers/TwizClientController.js',
                           
+          base + 'TwizServer/TwizServer.js',                            // Twiz-Server
+          base + 'TwizServer/services/GetTwizServerCirclesService.js',
+          base + 'TwizServer/services/AnimateTwizServerService.js',
+          base + 'TwizServer/controllers/TwizServerController.js',
+          
+ 
  
           base + 'Portfolio.js'
      ])

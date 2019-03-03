@@ -114,13 +114,6 @@ div .selected {
 /*.quote-owlet {                         /* bottom*/
 
 
-
-.twiz-server {                        /* left */
-  background-color: #333333;
-  -webkit-transform: rotateY(-90deg);
-          transform: rotateY(-90deg);
-}
-
 .tittle {
   text-align:center;
   color: #87c6ff;                                    /* does nothing (good for reference)*/

@@ -4,8 +4,9 @@ angular.module('Portfolio.TwizClient')
    
 
      let timeouts = [];
+     let circles;
 
-     function cancelTimeouts(){
+     function cancelTimeouts(timeouts){
                                       console.log('in CANCEL TIMEOUTS');
         let len = timeouts.length;
                                         console.log('length:', len)
@@ -14,11 +15,23 @@ angular.module('Portfolio.TwizClient')
         }
      }
 
-     let circles = GetCirclesService();        // Get elements that repesent circles and class names to be added 
+     let twc_circles = GetCirclesService();    // Get elements that repesent circles and class names to be added 
+     let twc_timeouts = []; 
 
-     return function animateTwizClient(){
+     return function animateTwizClient(tws_circles, tws_timeouts){
 
-         if(timeouts.length) cancelTimeouts();
+        // if(timeouts.length) cancelTimeouts(tws_timeouts);  // If function was called cancel any previous animations that 
+                                                // were suppose to run
+         if(tws_circles){
+               timeouts = tws_timeouts; 
+               if(timeouts.length) cancelTimeouts(tws_timeouts); // Cancel any previous twiz-server animation
+               circles = tws_circles;                                // Use twiz-server circles
+         }
+         else {
+           timeouts = twc_timeouts;
+           if(timeouts.length) cancelTimeouts(timeouts); // Cancel any previous twiz-client animation
+           circles = twc_circles;                        // Use twiz-client circles for animation
+         }
 
          let timeStart = 0;
          

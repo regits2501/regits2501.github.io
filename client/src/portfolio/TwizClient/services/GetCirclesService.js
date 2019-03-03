@@ -30,7 +30,7 @@ angular.module('Portfolio.TwizClient')
         circles.push(bothGreen)
 
         circles.push([ angular.element($window.document.querySelector('.col-right #out_3')), 'outer-blue']);
-        circles.push([ angular.element($window.document.querySelector('.col-middle #out_4')),'col-middle outer-gray']);
+        circles.push([ angular.element($window.document.querySelector('.col-middle #out_4')),'col-middle outer-grey']);
         circles.push([ angular.element($window.document.querySelector('.col-right #out_4')), 'outer-blue']);   
         
         return circles;

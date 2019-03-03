@@ -1,0 +1,23 @@
+/*twiz-server*/
+
+.twiz-server {
+   font-family:"Inconsolata";
+   background-color:#333333;
+}
+.twiz-server .tittle {
+   text-align:left;
+   border-bottom:2px solid #8350e0;
+   color:#6e6e6e;
+   padding:2px 10px;
+}
+
+.purple {
+  color: #9f6ef9;
+}
+
+.outer-purple {
+   background-color: #9f6ef9;  
+}
+.start-grey {
+  color:#e1e1e1; 
+}

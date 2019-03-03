@@ -1,3 +1,100 @@
 <div class="twiz-server-wrapper" equal-dimensions="">
-  <p class="tittle">{{side.name}}</p>
+  <div class="twiz-server">
+
+   <div class = "upper">
+     <p class="tittle">{{side.name}}</p>
+     <p class="description">Server part of Twitter's OAuth1.0a. This is part that runs as Express middleware in node.js</p>
+   </div>
+   <div class="twc-main main-padding" ng-controller="TwizServerController as twsCtrl">
+
+      <div class="col-left pos-color">      
+         <p class="col-name">twiz-c</p>            
+         <div class="token-wrapper " id="wrp_1">
+               <p class="twiz-start" ng-click="twsCtrl.animateTwizServer()">></p> 
+         </div>
+        
+         <div class="token-wrapper" id="wrp_2"> 
+           <div class="outer out-hidden" id="out_2">
+             <div class="inner" id="inr_2"><p class="token-text">RT</p> 
+             </div>
+           </div>
+        </div>        
+
+         <div class="token-wrapper" id="wrp_3"> 
+           <div class="outer" id="out_3">
+             <div class="inner" id="inr_3"> 
+                <img class="twitter-img" alt="twitter" src="client/assets/pics/twitterLogo.svg" width="50" height"50">
+             </div>
+           </div>
+        </div>
+
+         <div class="token-wrapper" id="wrp_4"> 
+           <div class="outer out-hidden" id="out_4">
+           </div>
+        </div>
+
+      </div>
+   
+      <div class="col-middle pos-color">
+         <p class="col-name purple">twiz-s</p>            
+        <div class="token-wrapper" id="wrp_1"> 
+           <div class="outer" id="out_1">
+              <div class="inner" id="inr_1"><p class="token-text">AT</p> 
+             </div>
+
+           </div>
+        </div>        
+
+         <div class="token-wrapper" id="wrp_2"> 
+           <div class="outer" id="out_2">
+             <div class="inner" id="inr_2"><p class="token-text">AT</p> 
+             </div>
+
+           </div>
+
+        </div>
+
+         <div class="token-wrapper" id="wrp_3"> 
+           <div class="outer out-hidden" id="out_3">
+           </div>
+        </div>
+        <div class="token-wrapper" id="wrp_4">
+          <div class="outer out-hidden" id="out_4">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-right pos-color">
+         <p class="col-name blue">twitter</p>            
+
+         <div class="token-wrapper" id="wrp_1"> 
+           <div class="outer" id="out_1">
+             <div class="inner" id="inr_1"><p class="token-text">AT+</p> 
+             </div>
+           </div>
+        </div>        
+
+         <div class="token-wrapper" id="wrp_2"> 
+           <div class="outer" id="out_2">
+             <div class="inner" id="inr_2">
+                <img class="twitter-img" alt="twitter" src="client/assets/pics/twitterLogo.svg" width="50" height"50">
+             </div>
+           </div>
+        </div>
+
+         <div class="token-wrapper" id="wrp_3"> 
+           <div class="outer out-hidden" id="out_3">
+           </div>
+        </div>
+        <div class="token-wrapper " id="wrp_4">
+            <div class="outer out-hidden" id="out_4">
+            </div>
+         </div>
+
+      </div>
+
+      <p class="text-legend">RT = Request Token<br>VF = Verifier<br>AT = Access Token</p> 
+   </div>
+ </div>
+
 </div>
