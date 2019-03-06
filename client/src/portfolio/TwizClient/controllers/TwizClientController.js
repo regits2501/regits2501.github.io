@@ -1,5 +1,6 @@
 angular.module('Portfolio.TwizClient')
- .controller('TwizClientController', function(AnimateTwizClientService){
+ .controller('TwizClientController', function($scope, AnimateTwizClientService, StartAnimationService,
+                                                CURRENT_SIDE){
 
 
      let twcCtrl = this;
@@ -8,5 +9,10 @@ angular.module('Portfolio.TwizClient')
                                               // twiz-client process
           AnimateTwizClientService(); 
      };
+     
+     $scope.current_side = CURRENT_SIDE;
 
+     $scope.$watch('current_side.value' , function(newSide, oldSide){ 
+               StartAnimationService(newSide.name);
+     });
  })

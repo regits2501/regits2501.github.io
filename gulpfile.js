@@ -17,6 +17,9 @@ gulp.task('concat', function(){
           base + 'Common/services/EqualDimensionsEventService.js',
           base + 'Common/services/HidesAddressBarEventService.js',
           base + 'Common/services/NotShownPagesCleanService.js',
+          base + 'Common/services/SideWithOtherOverflowService.js',
+          base + 'Common/services/SetSideOverflowService.js',
+          
           base + 'Common/services/EqualDimensionsService.js', 
 
           base + 'Common/services/HideTopAndBottomEventService.js', 
@@ -55,6 +58,7 @@ gulp.task('concat', function(){
           base + 'HmacSha1/controllers/HmacSha1Controller.js',  
          
           base + 'TwizClient/TwizClient.js',                             // Twiz-Client
+          base + 'TwizClient/services/StartAnimationService.js',
           base + 'TwizClient/services/GetCirclesService.js',
           base + 'TwizClient/services/AnimateTwizClientService.js',
           base + 'TwizClient/controllers/TwizClientController.js',

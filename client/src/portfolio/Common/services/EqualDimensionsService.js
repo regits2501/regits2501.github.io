@@ -1,9 +1,10 @@
 angular.module('Portfolio.Common')
  .factory('EqualDimensionsService', function(CURRENT_SIDE, ADDRESS_BAR_HIDDEN, RESIZE_EVENT,
-                                              NotShownPagesCleanService){ // set element's height and width 
-                                                                         // to be just like window's
-                                                          // all in order for a cube/box to rotate without pages 
-                                                          // sticking out from it and each other
+                                              NotShownPagesCleanService,      // set element's height and width 
+                                              SideWithOtherOverflowService,   // to be just like window's
+                                              SetSideOverflowService){        // all in order for a cube/box 
+                                                                              // to rotate without pages 
+                                                                          // sticking out from it and each other
              
        function EqualDimensions(args){
              console.log("ADDRESS_BAR_HIDDEN: ", ADDRESS_BAR_HIDDEN.value, " RESIZE_EVENT: ", RESIZE_EVENT.value)     
@@ -32,13 +33,8 @@ angular.module('Portfolio.Common')
            let pageName    = attrs.class;
                pageName    = pageName.substring(0, pageName.indexOf('-wrapper')) // get page NAme
          
-       //////////// NEW SERVICE /////
-           let overflowSide = sideWithOtherOverflow(pageName); // check if side needs overflow to be auto (other then visible)
-           let respectSideValue = '';
-
-           if(overflowSide) respectOverflow = 'visible';// for sides that have vertical scroll issue(chrome mobile)
-           else respectOverflow = 'auto';
-      ////////////////////////////////////////////
+           let respectOverflow = SetSideOverflowService(pageName) // check if we need new overflow value 
+                                                                  // (other then visible - chrome mobile issue)
 
            let dimensionsAndOverflow = {
 
@@ -61,9 +57,9 @@ angular.module('Portfolio.Common')
               CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){// Return dimensions
                                                                          // after one sec to whatever page height
 
-                   let overflowSide = sideWithOtherOverflow(pageName);
-                                                                         // Check if
-                                                                        //  we are on any lateral side of the box
+                   let overflowSide = SideWithOtherOverflowService(pageName);
+                                                                         // Check if we need overflow auto
+                                                                          
 
                    page.css({
                       height: overflowSide ? 'initial' : sceneHeight ,  // sceneHeight we need for top and bottom
@@ -77,14 +73,7 @@ angular.module('Portfolio.Common')
  
            }
 
-           function sideWithOtherOverflow(pageName){      // Sides that need overflow value other then 'visible'
-                                                    // in order for vertical scroll to work (chrome mobile issue)
-                return   (pageName !== 'quote-owlet' 
-                       && pageName !== 'twiz-client'
-                       && pageName !== 'hmac-sha1'
-                       && pageName !== 'twiz-server'); 
-           }
-       };
+      };
 
        return EqualDimensions;
  });

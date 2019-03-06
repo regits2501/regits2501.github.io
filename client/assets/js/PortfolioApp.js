@@ -239,11 +239,44 @@ angular.module('Portfolio.Common')
  })
 
 angular.module('Portfolio.Common')
+ .factory('SideWithOtherOverflowService', function(){
+
+     return function sideWithOtherOverflow(pageName){      // Sides that need overflow value other then 'visible'
+                                                    // in order for vertical scroll to work (chrome mobile issue)
+                return   (pageName !== 'quote-owlet' 
+                       && pageName !== 'twiz-client'
+                       && pageName !== 'hmac-sha1'
+                       && pageName !== 'twiz-server'); 
+           
+     }
+ })
+
+angular.module('Portfolio.Common')
+ .factory('SetSideOverflowService', function(SideWithOtherOverflowService){
+
+    return function(pageName){
+           let overflowSide = SideWithOtherOverflowService(pageName); // check if side needs overflow to be auto
+                                                                      //  (other then visible)
+
+           if(overflowSide){ 
+               respectOverflow = 'visible';
+               return respectOverflow;
+           }          
+           else {
+               respectOverflow = 'auto';     // for sides that have vertical scroll issue (on chrome mobile)
+               return respectOverflow;
+           }
+
+    }
+})
+
+angular.module('Portfolio.Common')
  .factory('EqualDimensionsService', function(CURRENT_SIDE, ADDRESS_BAR_HIDDEN, RESIZE_EVENT,
-                                              NotShownPagesCleanService){ // set element's height and width 
-                                                                         // to be just like window's
-                                                          // all in order for a cube/box to rotate without pages 
-                                                          // sticking out from it and each other
+                                              NotShownPagesCleanService,      // set element's height and width 
+                                              SideWithOtherOverflowService,   // to be just like window's
+                                              SetSideOverflowService){        // all in order for a cube/box 
+                                                                              // to rotate without pages 
+                                                                          // sticking out from it and each other
              
        function EqualDimensions(args){
              console.log("ADDRESS_BAR_HIDDEN: ", ADDRESS_BAR_HIDDEN.value, " RESIZE_EVENT: ", RESIZE_EVENT.value)     
@@ -272,13 +305,8 @@ angular.module('Portfolio.Common')
            let pageName    = attrs.class;
                pageName    = pageName.substring(0, pageName.indexOf('-wrapper')) // get page NAme
          
-       //////////// NEW SERVICE /////
-           let overflowSide = sideWithOtherOverflow(pageName); // check if side needs overflow to be auto (other then visible)
-           let respectSideValue = '';
-
-           if(overflowSide) respectOverflow = 'visible';// for sides that have vertical scroll issue(chrome mobile)
-           else respectOverflow = 'auto';
-      ////////////////////////////////////////////
+           let respectOverflow = SetSideOverflowService(pageName) // check if we need new overflow value 
+                                                                  // (other then visible - chrome mobile issue)
 
            let dimensionsAndOverflow = {
 
@@ -301,9 +329,9 @@ angular.module('Portfolio.Common')
               CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){// Return dimensions
                                                                          // after one sec to whatever page height
 
-                   let overflowSide = sideWithOtherOverflow(pageName);
-                                                                         // Check if
-                                                                        //  we are on any lateral side of the box
+                   let overflowSide = SideWithOtherOverflowService(pageName);
+                                                                         // Check if we need overflow auto
+                                                                          
 
                    page.css({
                       height: overflowSide ? 'initial' : sceneHeight ,  // sceneHeight we need for top and bottom
@@ -317,14 +345,7 @@ angular.module('Portfolio.Common')
  
            }
 
-           function sideWithOtherOverflow(pageName){      // Sides that need overflow value other then 'visible'
-                                                    // in order for vertical scroll to work (chrome mobile issue)
-                return   (pageName !== 'quote-owlet' 
-                       && pageName !== 'twiz-client'
-                       && pageName !== 'hmac-sha1'
-                       && pageName !== 'twiz-server'); 
-           }
-       };
+      };
 
        return EqualDimensions;
  });
@@ -1352,6 +1373,58 @@ angular.module('Portfolio.HmacSha1')
 angular.module('Portfolio.TwizClient', ['Portfolio.Common']);
 
 angular.module('Portfolio.TwizClient')
+ .factory('StartAnimationService', function($window){ // animates twiz client or server start , to indicate 
+                                                      // to the  user where to click for full animation display
+ 
+     function addAndRemoveCss(element, className, delay){ // add class and remove it in deley ms
+
+          element.addClass(className)
+  
+          setTimeout(function(){
+              element.removeClass(className)
+          }, delay) 
+     }
+
+     function animateStart(elementClassName, animationClassName){  // Animate twiz client or server start 
+
+          let start    = angular.element($window.document.querySelector(elementClassName));    
+          addAndRemoveCss(start, animationClassName, 700);
+
+             
+     }
+
+     function animateStartWithTimeout(elementClassName, animationClassName, timeout){
+         setTimeout(animateStart.bind(null, elementClassName, animationClassName), timeout);
+     }
+ 
+     let twiz_server_done = false;            // flags used to run start animations only once (after initial run)
+     let twiz_client_done = false;
+
+     return function startAnimation(side_name){
+
+
+          if(side_name === 'twiz-client'){
+             if(twiz_client_done) return;
+
+             animateStartWithTimeout('.twiz-start', 'twiz-start-color', 1200);
+             twiz_client_done = true;
+          }
+          else 
+            if(side_name === 'twiz-server') {
+               if(twiz_server_done) return;
+
+               animateStartWithTimeout('.twiz-server .twiz-start', 'start-grey', 1200)
+               twiz_server_done = true;
+          }
+          
+           
+     }
+
+     
+
+ })
+
+angular.module('Portfolio.TwizClient')
  .factory('GetCirclesService', function($window){ // Gets elements that represent circles on page, also set class
                                               // names to be added to those elements
 
@@ -1471,7 +1544,8 @@ angular.module('Portfolio.TwizClient')
  })
 
 angular.module('Portfolio.TwizClient')
- .controller('TwizClientController', function(AnimateTwizClientService){
+ .controller('TwizClientController', function($scope, AnimateTwizClientService, StartAnimationService,
+                                                CURRENT_SIDE){
 
 
      let twcCtrl = this;
@@ -1480,7 +1554,12 @@ angular.module('Portfolio.TwizClient')
                                               // twiz-client process
           AnimateTwizClientService(); 
      };
+     
+     $scope.current_side = CURRENT_SIDE;
 
+     $scope.$watch('current_side.value' , function(newSide, oldSide){ 
+               StartAnimationService(newSide.name);
+     });
  })
 
 angular.module('Portfolio.TwizServer', ['Portfolio.TwizClient']);
