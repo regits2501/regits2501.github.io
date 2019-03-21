@@ -1,5 +1,5 @@
 angular.module('Portfolio.Common')
- .factory('GetNavbarCssClass', function($window){
+ .factory('GetNavbarCssClass', function($window){ // shiff screen size then gets apropriate css class
 
       function getNavbarCssClass(remove){
 

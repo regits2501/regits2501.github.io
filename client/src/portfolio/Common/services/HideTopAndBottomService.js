@@ -1,4 +1,4 @@
-angular.module('Portfolio.Common')
+/* angular.module('Portfolio.Common')  // OBSOLETED -for removel
  .factory('HideTopAndBottomService', function(CURRENT_SIDE){
 
       let ref = {          // ref will save timeout in order to be cleared/removed when fastclicking sides happen
@@ -6,7 +6,7 @@ angular.module('Portfolio.Common')
       }
                                                            // DO THIS only when window.height > window.width !!!
       function htab(){
-         
+
          let current_position  = CURRENT_SIDE.current_position;
          let previous_position = CURRENT_SIDE.previous_position;
 

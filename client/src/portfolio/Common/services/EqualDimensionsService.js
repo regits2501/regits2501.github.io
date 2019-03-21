@@ -7,7 +7,7 @@ angular.module('Portfolio.Common')
                                                                           // sticking out from it and each other
              
        function EqualDimensions(args){
-             console.log("ADDRESS_BAR_HIDDEN: ", ADDRESS_BAR_HIDDEN.value, " RESIZE_EVENT: ", RESIZE_EVENT.value)     
+
            let overflow = false;
 
            if(ADDRESS_BAR_HIDDEN.value && RESIZE_EVENT.value){ // Address bar is hiden and EqualDims(..) fired
@@ -51,7 +51,7 @@ angular.module('Portfolio.Common')
  
            if(CURRENT_SIDE.value.name === pageName){ // if we are on the side the is shown to the user
                console.log("SHOWN SIDE IS -> ", pageName)
-                                                              // remove any not pageName from sides to be shown
+                                                            // Remove any side not picked, from sides to be shown
               NotShownPagesCleanService(CURRENT_SIDE, pageName);
 
               CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){// Return dimensions
@@ -59,8 +59,6 @@ angular.module('Portfolio.Common')
 
                    let overflowSide = SideWithOtherOverflowService(pageName);
                                                                          // Check if we need overflow auto
-                                                                          
-
                    page.css({
                       height: overflowSide ? 'initial' : sceneHeight ,  // sceneHeight we need for top and bottom
                                                                        // page (scroll bug on chrome mobile)

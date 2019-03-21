@@ -52,10 +52,10 @@ angular.module('Portfolio.Common')
        }
     }
  })
- .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION, RESIZE_EVENT,
+ .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION, RESIZE_EVENT, ORIENTATION_ON_LOAD,
                                   ShortenOnSmallScreensService, HidesAddressBarEventService,
                                   RotateCubeEventService, EqualDimensionsEventService,
-                                  HideTopAndBottomEventService, SetNavbarEventService,
+                                  GetOrientationService, SetNavbarEventService,
                                   SelectNavbarOptionService, ShowProjectService){ 
    
      let main = this;
@@ -146,7 +146,7 @@ angular.module('Portfolio.Common')
          this.setCurrentSide(side);               // set side that is currently shown
          console.log('CURRENT_SIDE', CURRENT_SIDE)
          this.setEqualDimensions();               // Set dimension to equal those of the window/tab
-         this.hideTopAndBottom();                 // Hides top and bottom sides when when other sides are shown
+     //  this.hideTopAndBottom();                 // Hides top and bottom sides when when other sides are shown
          this.selectNavbarOption(this.sides);     // Handles css animation for selected (clicked) navbar option
      }
      setTimeout(function(){
@@ -207,7 +207,12 @@ angular.module('Portfolio.Common')
         }  
      }
      
+     main.setOrientationOnLoad = function(){                 // get orientation mode we are on page load
+        ORIENTATION_ON_LOAD.value = GetOrientationService();
+     }
      
+     main.setOrientationOnLoad();
+
      HidesAddressBarEventService();                              // (dont chop off page)  
     
  })
@@ -215,3 +220,4 @@ angular.module('Portfolio.Common')
  .value('NAVBAR_POSITION',    { shown:''})
  .value('ADDRESS_BAR_HIDDEN', { value:'', counter: 6 })
  .value('RESIZE_EVENT',       { value: ''})
+ .value('ORIENTATION_ON_LOAD',{ value: ''})

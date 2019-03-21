@@ -118,19 +118,23 @@ angular.module('Portfolio.Common')
 
       let calculateOffset = this;
 
-       calculateOffset.calc = function(args){
+      calculateOffset.calc = function(args){
                                                         // horisontal(x-axis) and (z-axis) sides we move
               let position = args.position;             // in relation to parent's width. Those are: 
               let Width    = args.width;                // left, right and front, back)
               let Height   = args.height; 
-            
+             
+              if(Height > Width){                       // This code branch sets sides for ShimTheWhiteSpace() 
+                if(position === 'front' || position === 'back') return Math.floor(Height/2); // move both in 
+                                                                                            // relation to Height
+              }
+              
               if(position !== 'top' && position !== 'bottom'){
                  return Math.floor(Width/2);      
                                                                
               }
-              else                   
-                return Math.floor(Height/2)              // vertical (top, bottom) move in relation 
-                                                         // to parent's height
+              else return Math.floor(Height/2)              // vertical (top, bottom) move in relation 
+                                                            // to parent's height
            
 
       }
@@ -179,7 +183,9 @@ angular.module('Portfolio.Common')
 
                                                  console.log("PositionService: ",transformStr);
          elem.css({
-             transform: transformStr                                    // set elements css
+             transform: transformStr,                                    // set elements css
+             '-webkit-transform': transformStr,
+             '-ms-transform': transformStr
          }) 
       }
 
@@ -196,11 +202,105 @@ angular.module('Portfolio.Common')
  })
 
 angular.module('Portfolio.Common')
- .factory('HidesAddressBarEventService', function($window, ADDRESS_BAR_HIDDEN){ // Checks if browser 
+ .factory('GetOrientationService', function($window){
+
+      return function getOrientation(){
+
+         let scene = angular.element($window.document.querySelector('.scene')) // get ref. element for dimensions
+         let sceneHeight = scene.outerHeight();
+         let sceneWidth  = scene.outerWidth();
+        
+         if(sceneHeight > sceneWidth){          // we are in portrait mode
+            return 'portrait';
+         }
+        
+         if(sceneWidth > sceneHeight){         // we are in landscape mode
+            return 'landscape';
+         }
+         else  return 'cube'                   // dimensions are equal  
+
+         
+      }
+
+ })
+
+angular.module('Portfolio.Common')
+ .factory('CleanLeftoverShimsService', function($window, ORIENTATION_ON_LOAD, GetOrientationService){ 
+                         // Removes shim elements that were added in previous
+                                                           // ShimTheWhiteSpaceService(..) call 
+
+     let document  = $window.document;
+     let browserIsSniffed = false;
+
+     let safariBrowser = false; // Certain safari versions first emit 'resize' event then 'orientationchange' event
+     let otherBrowser = false;  // Most of other browser first emit orientationchange (Chrome, FF..) then 'resize' event
+     
+
+     function removeShims(orientationShims){
+
+          for(let side in orientationShims){ // we remove shims (if any were added in previous orientationChange)
+              orientationShims[side] = angular.element(document.querySelector('.'+ side + '-shim')); // get shim
+                console.log('REMOVE orientation-shim: ', orientationShims[side]);
+              orientationShims[side].remove(); // remove shim element from page
+          }
+
+     }
+
+     function CleanLeftoverShims(){
+
+
+       let landscapeShims = {'top':'', 'bottom': ''};  // prop names refer to sides on the cube/box
+       let portraitShims  = {'left':'', 'right': ''};
+       
+      
+       let currentOrientation = GetOrientationService(); // get orientaiton mode we are currently in
+       
+       if(!browserIsSniffed){
+           console.log('ORIENTATION_ON_LOAD: ', ORIENTATION_ON_LOAD.value)
+          if(ORIENTATION_ON_LOAD.value === currentOrientation) // Sniff for other browsers
+             otherBrowser = true;                        // we are in some other browser (Chrome, FF...)
+
+          if(ORIENTATION_ON_LOAD.value !== currentOrientation) // Sniff for certain safari versions
+             safariBrowser = true                        // we are in safari browser
+
+          browserIsSniffed = true;
+       }
+         
+       if(otherBrowser){                             // Chrome, FFox 
+                                               console.log('CHROME')
+          if(currentOrientation === 'portrait')      // We are actually in landscape mode, since orient.change
+              removeShims(portraitShims)            // happens before any 'resize' event.
+                                                     // Remove any shims that were added in portrait mode
+          if(currentOrientation === 'landscape')
+              removeShims(landscapeShims)           // We are in actualy in portrait mode. Remove landscapeShims
+          else return 
+       }
+
+       if(safariBrowser){                           // Certain Safari versions (new ones)
+                                                 console.log('SAFARI: ')
+          if(currentOrientation === "portrait")
+             removeShims(landscapeShims)
+          
+          if(currentOrientation === "landscape")
+             removeShims(portraitShims);
+          else return
+       }
+       
+     }
+   
+     return CleanLeftoverShims;
+
+ })
+
+angular.module('Portfolio.Common')
+ .factory('HidesAddressBarEventService', function($window, ADDRESS_BAR_HIDDEN,CleanLeftoverShimsService){ // Checks if browser 
                                                           // (usualy on mobile) hides address 
                                                           // bar in order not to trigger EqualDimension service
                                                           // so we don't have page size chop off in the  middle
                                                           // of scroll.
+   
+
+
    function hidesAddressBarFix(){   // Puts flags that make EqualDimension(..) NOT execute when browser
                                     // hides address(url) bar
 
@@ -216,7 +316,10 @@ angular.module('Portfolio.Common')
           
           ADDRESS_BAR_HIDDEN.value = true;             // If there was flag set before this event, clean it
           ADDRESS_BAR_HIDDEN.counter = 6;
+
+        // CleanLeftoverShimsService();
       });
+
     } 
     
     return hidesAddressBarFix;
@@ -271,6 +374,96 @@ angular.module('Portfolio.Common')
 })
 
 angular.module('Portfolio.Common')
+ .factory('ShimTheWhiteSpaceService',function($window, CleanLeftoverShimsService){
+
+      let document = $window.document;            // convenience variable
+      
+      function shimTheWhiteSpace(verticalSides, horizontalSides, attrs){ //
+            let side_;
+            let scene      = angular.element(document.querySelector('.scene'))
+            let sceneWidth = scene.outerWidth();
+            let sceneHeight = scene.outerHeight();
+
+            let shim = {
+                 sides: '',                   // Sides of cube(box) to which we add shim elements
+                 position:'',                 // Position of side we currently shim
+                 offset:'',                   // How much shim needs to be moved to cover the white space
+                 element:'',                  // Holds reference to element that represents shim on page
+                 newCss:'',                   // How much we need to move shim in order to cover white space
+                 isThere:''                   // Indicate if shim element is already inserted into page
+            }
+
+            // Decide whether you're doing horizontal (top-bottom) shim or vertical(left-right)
+
+            if(sceneWidth > sceneHeight){                                   // White space is on horizontal sides
+
+                shim.sides  = horizontalSides ;                                // We are shiming horizontal sides
+                shim.offset = '-' + ((sceneWidth - sceneHeight) / 2 ) + 'px';  // How much px we move the shim to
+                                                                               // Cover the white(empty) space
+
+                shim.newCss = {
+                   bottom: shim.offset,
+                   height: sceneWidth 
+                }
+            }
+            else 
+               if(sceneHeight > sceneWidth){                               // White space is on vertical sides of                                                                           // of the cube(box)
+                   shim.sides  = verticalSides;                                 
+                   shim.offset = '-' + ((sceneHeight - sceneWidth) / 2 ) + 'px';
+
+                   shim.newCss = { 
+                     left:  shim.offset,
+                     width: sceneHeight  
+                   }
+               } 
+               else return;     // remove shim here also  // if equal, there is no white space so just return;
+
+            let firstSide  = shim.sides[0];
+            let secondSide = shim.sides[1];
+
+            firstSide.reg  = new RegExp(firstSide.name);    // regexp for selecting the right sides for shiming 
+            secondSide.reg = new RegExp(secondSide.name);
+
+            if(firstSide.reg.test(attrs.class)){
+                side_ = angular.element(document.querySelector('.'+ firstSide.name)); // set reference of first  
+                                                                                      // side element we shim
+                shim.position = firstSide.position;
+            }
+
+            if(secondSide.reg.test(attrs.class)){  
+                side_ = angular.element(document.querySelector('.'+ secondSide.name)); // set reference of second
+                                                                                       // element
+                shim.position = secondSide.position;
+            }
+            
+            if(!side_) return;
+            
+            shim.isThere = angular.element(document.querySelector('.'+ shim.position +"-shim")).context;
+
+            if(!shim.isThere)                                                             // Shim is not inserted
+               side_.prepend('<div class="side-shim side '+ shim.position +'-shim"></div>');// Add shim into page
+
+            shim.element = angular.element(document.querySelector('.' + shim.position + '-shim')); // Select shim
+
+            shim.element.css(shim.newCss); // set shim to cover the white space of the cube(box)
+   
+         }
+
+        
+       
+         angular.element($window).on('orientationchange', function(){
+            CleanLeftoverShimsService();  // remove any shim that were added previous to orientationChange event
+            
+            // Call here the ShimTheWhiteSpace_ since sfary mobile doesnt call resize event after
+            // orientation-change event. Doesn't add shims as it apears now. Remove CleanLeftOverShims from
+            // HidesAddresBarEventService
+         })
+       
+         
+         return shimTheWhiteSpace;
+  })
+
+angular.module('Portfolio.Common')
  .factory('EqualDimensionsService', function(CURRENT_SIDE, ADDRESS_BAR_HIDDEN, RESIZE_EVENT,
                                               NotShownPagesCleanService,      // set element's height and width 
                                               SideWithOtherOverflowService,   // to be just like window's
@@ -279,7 +472,7 @@ angular.module('Portfolio.Common')
                                                                           // sticking out from it and each other
              
        function EqualDimensions(args){
-             console.log("ADDRESS_BAR_HIDDEN: ", ADDRESS_BAR_HIDDEN.value, " RESIZE_EVENT: ", RESIZE_EVENT.value)     
+
            let overflow = false;
 
            if(ADDRESS_BAR_HIDDEN.value && RESIZE_EVENT.value){ // Address bar is hiden and EqualDims(..) fired
@@ -323,7 +516,7 @@ angular.module('Portfolio.Common')
  
            if(CURRENT_SIDE.value.name === pageName){ // if we are on the side the is shown to the user
                console.log("SHOWN SIDE IS -> ", pageName)
-                                                              // remove any not pageName from sides to be shown
+                                                            // Remove any side not picked, from sides to be shown
               NotShownPagesCleanService(CURRENT_SIDE, pageName);
 
               CURRENT_SIDE.toBeShown[pageName] = setTimeout(function removeEqualDimensions(){// Return dimensions
@@ -331,8 +524,6 @@ angular.module('Portfolio.Common')
 
                    let overflowSide = SideWithOtherOverflowService(pageName);
                                                                          // Check if we need overflow auto
-                                                                          
-
                    page.css({
                       height: overflowSide ? 'initial' : sceneHeight ,  // sceneHeight we need for top and bottom
                                                                        // page (scroll bug on chrome mobile)
@@ -349,78 +540,6 @@ angular.module('Portfolio.Common')
 
        return EqualDimensions;
  });
-
-angular.module('Portfolio.Common')
- .service('HideTopAndBottomEventService', function($rootScope){  // make a service so we can use dependencu injecton 
-                                                           // to easy spot what components use it 
-      
-      this.broadcast = function(){console.log('hidetopandbottom BROADCAST'); $rootScope.$broadcast('hideTopEndBottom') };   // broadcast event
-      this.listen    = function(func){ console.log('hidetopandbottom LISTENER');$rootScope.$on('hideTopEndBottom', func)}; // set listener for event
- })
-
-angular.module('Portfolio.Common')
- .factory('HideTopAndBottomService', function(CURRENT_SIDE){
-
-      let ref = {          // ref will save timeout in order to be cleared/removed when fastclicking sides happen
-         timeouts: []
-      }
-                                                           // DO THIS only when window.height > window.width !!!
-      function htab(){
-         
-         let current_position  = CURRENT_SIDE.current_position;
-         let previous_position = CURRENT_SIDE.previous_position;
-
-                                              console.log('in htab');
-                                              console.log('current_position:', current_position);
-                                              console.log('previous_position:', previous_position);
-         let shown    = current_position;
- 
-         let top    = angular.element(document.querySelector('.twiz-client')) // top side  
-         let bottom = angular.element(document.querySelector('.quote-owlet')) // bottom side
-
-         if( shown !== 'top' && shown !== 'bottom'){  console.log('LATERAL --')
-         
-           let dim = {
-              display: 'block',
-              opacity: '1',
-              transition: 'opacity .4s cubic-bezier(1.000, 0.025, 1.000, -0.185) .6s',// slow beggining, fast end
-              opacity: '0'                         
-           }
-
-           let remove =  {
-              display:'none'
-           }
-
-           top.css(dim);                // dim top and bottom 
-           bottom.css(dim);
-
-           ref.timeouts.push(setTimeout(function(){// Remove them from flow in order for top and bottom sides not
-                                                  // to stick out from the edges of the window/tab. Save timeout.
-                   top.css(remove);
-                   bottom.css(remove) 
-           }, 1000))                                // 1s - since the cube rotates that much time to show a side
-           
-         }
-         else{
-            
-            if (previous_position === 'top' || previous_position === 'bottom') return; 
-                                      // if we were on top or bottom do nothing
-            for(var i in ref.timeouts){ clearTimeout(ref.timeouts[i]) };
-           
-            let show = {
-               display: 'block',
-               opacity: '0',
-               transition: 'opacity .2s cubic-bezier(0.025, 1.170, 0.000, 0.960) ', // fast beggining, slow end
-               opacity: '1'
-             }
-
-            top.css(show);
-            bottom.css(show); 
-         }
-      }
-
-     return htab
- })
 
 angular.module('Portfolio.Common')
  .service('SetNavbarEventService', function($rootScope){  // make a service so we can use dependencu injecton 
@@ -483,7 +602,7 @@ angular.module('Portfolio.Common')
  })
 
 angular.module('Portfolio.Common')
- .factory('GetNavbarCssClass', function($window){
+ .factory('GetNavbarCssClass', function($window){ // shiff screen size then gets apropriate css class
 
       function getNavbarCssClass(remove){
 
@@ -513,8 +632,8 @@ angular.module('Portfolio.Common')
  })
 
 angular.module('Portfolio.Common')
- .factory('RemoveNavbarCssClass', function(GetNavbarCssClass, NAVBAR_POSITION, $window){
-
+ .factory('RemoveNavbarCssClass', function(GetNavbarCssClass, NAVBAR_POSITION, $window){ // Controls hide & show
+                                                                                         // of the navbar
      function removeNavbarCssClass (){  // is set on resize event (see setnavbar directive)
 
         let navbar = angular.element(document.querySelector('.navbar'));
@@ -524,7 +643,6 @@ angular.module('Portfolio.Common')
             navbar.removeClass('navbar-horizontal-hide navbar-horizontal-hide2 navbar-horizontal-hide3');
            if(!NAVBAR_POSITION.shown){
              navbar.addClass('navbar-vertical-hide'); // when switched to vertical 
-             console.log("FINESE")
            }                                                                   // from hidden horizontal, 
         }                                                                      // add vertical-hide
         else
@@ -536,9 +654,6 @@ angular.module('Portfolio.Common')
         let remove = GetNavbarCssClass(true);
         let add    = GetNavbarCssClass();   
         let len = remove.length;
-         console.log('RemoveNavbarCssClass:', remove) 
-         console.log('AddNavbarCssClass:', add)
-        
 
         navbar.addClass('navbar-' + add); // first add one that we need
 
@@ -560,7 +675,6 @@ angular.module('Portfolio.Common')
            if (CURRENT_SIDE.previous_position === CURRENT_SIDE.current_position) return;// same option is clicked 
            
            let prevSelected;
-                                         console.log('IN SELECT NAVBAR Option:::')
            for(let i in sides){
 
                 let side = sides[i];
@@ -568,7 +682,6 @@ angular.module('Portfolio.Common')
                    
                   
                    prevSelected = angular.element(document.querySelector('.nav-' + side.name));
-                       console.log('prevSelected:', prevSelected);
                    prevSelected.removeClass('selected'); // unselect previously selected navbar option
                 }
            }
@@ -576,7 +689,6 @@ angular.module('Portfolio.Common')
            let side = CURRENT_SIDE.value;
            let newSelected = angular.element(document.querySelector('.nav-' + side.name));// currentSide
                                                                                           // becomes newSelected
-            console.log("NEw SElected:", side.name)
      //      newSelected.selected = true;                   // mark it as selected
            newSelected.addClass('selected');              // add animation to selected navbar option
       } 
@@ -636,10 +748,10 @@ angular.module('Portfolio.Common')
        }
     }
  })
- .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION, RESIZE_EVENT,
+ .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION, RESIZE_EVENT, ORIENTATION_ON_LOAD,
                                   ShortenOnSmallScreensService, HidesAddressBarEventService,
                                   RotateCubeEventService, EqualDimensionsEventService,
-                                  HideTopAndBottomEventService, SetNavbarEventService,
+                                  GetOrientationService, SetNavbarEventService,
                                   SelectNavbarOptionService, ShowProjectService){ 
    
      let main = this;
@@ -730,7 +842,7 @@ angular.module('Portfolio.Common')
          this.setCurrentSide(side);               // set side that is currently shown
          console.log('CURRENT_SIDE', CURRENT_SIDE)
          this.setEqualDimensions();               // Set dimension to equal those of the window/tab
-         this.hideTopAndBottom();                 // Hides top and bottom sides when when other sides are shown
+     //  this.hideTopAndBottom();                 // Hides top and bottom sides when when other sides are shown
          this.selectNavbarOption(this.sides);     // Handles css animation for selected (clicked) navbar option
      }
      setTimeout(function(){
@@ -791,7 +903,12 @@ angular.module('Portfolio.Common')
         }  
      }
      
+     main.setOrientationOnLoad = function(){                 // get orientation mode we are on page load
+        ORIENTATION_ON_LOAD.value = GetOrientationService();
+     }
      
+     main.setOrientationOnLoad();
+
      HidesAddressBarEventService();                              // (dont chop off page)  
     
  })
@@ -799,6 +916,7 @@ angular.module('Portfolio.Common')
  .value('NAVBAR_POSITION',    { shown:''})
  .value('ADDRESS_BAR_HIDDEN', { value:'', counter: 6 })
  .value('RESIZE_EVENT',       { value: ''})
+ .value('ORIENTATION_ON_LOAD',{ value: ''})
 
 angular.module('Portfolio.Common')
  .directive('positionside', function(PositionService, $window){
@@ -976,27 +1094,6 @@ angular.module('Portfolio.Common')
  })
 
 angular.module('Portfolio.Common')
- .directive('hideTopAndBottom', function(HideTopAndBottomEventService, HideTopAndBottomService){
-
-      let linker = function(scope, elem, attrs){
-
-         console.log('HideTopAndBottom DIRECTIVE');
-          HideTopAndBottomEventService.listen(function(){
-         
-               HideTopAndBottomService(); // check what needs to be redone in the main controler
-          })
-         
-          HideTopAndBottomEventService.broadcast();  // hide top and bottom on initial directive compile
-      } 
-
-      return {
-        restrict: 'A', 
-        link: linker
-         
-      }
- })
-
-angular.module('Portfolio.Common')
  .directive('setNavbar', function(SetNavbarEventService, SetNavbarService, RemoveNavbarCssClass, $window){
 
       let linker = function(scope, elem, attrs){
@@ -1018,6 +1115,43 @@ angular.module('Portfolio.Common')
          restrict: 'A',
          link: linker
       }
+ })
+
+angular.module('Portfolio.Common')
+ .directive('shimControll', function($window, ShimTheWhiteSpaceService){
+
+     function linker(scope, elem, attrs){
+      
+          
+         let horizontalSides = [
+            { name: 'twiz-client', position: 'top'},
+            { name: 'quote-owlet', position: 'bottom'}
+         ]                                                 // Top and Bottom sides
+
+         let verticalSides = [                             // Left and Right sides
+            { name: 'twiz-server', position: 'left'},
+            { name: 'hmac-sha1', position: 'right'}
+         ]
+
+        
+         setTimeout(function(){ ShimTheWhiteSpaceService(verticalSides, horizontalSides, attrs) }, 0)// Call asap
+
+         let shimTheWhiteSpace_ = ShimTheWhiteSpaceService.bind(null, verticalSides, horizontalSides, attrs);
+         let window_ = angular.element($window);
+         
+         window_.on('resize', shimTheWhiteSpace_)          // Deal with white space on every resize event also
+
+         scope.$on('destroy', function(){ 
+            window_.off('resize', shimTheWhiteSpace_)     // When scope is gone remove listener to prevent mem.
+                                                          // leaks.
+         })
+   
+     }
+
+     return {
+        restrict: 'A',
+        link: linker
+     }
  })
 
 angular.module('Portfolio.QuoteOwlet', ['Portfolio.Common'])
@@ -1255,7 +1389,7 @@ angular.module('Portfolio.HmacSha1')
         let hash = '';
         let k; // index
 
-        for (let i = 0; i < 35; i++){
+        for (let i = 0; i < 27; i++){
             k = Math.round( Math.random() * length); // Make index number random, goes up to aplhanum.length
             hash += alphaNums[k];                    // Take char from k-th place in alphaNums and put in hash
         }

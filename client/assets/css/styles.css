@@ -12,6 +12,10 @@
        url('fonts/MKR17/mkr17-webfont.woff2') format("woff2");
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 /* -------- sceletor --------- */
 
 .col-1 { width: 8.33%; }
@@ -36,6 +40,16 @@ body {
 }
 .miaxHeight {
    height:100%;
+}
+
+.loading{                      
+   min-height: 100%;
+   min-width:100%;
+   /* background-color:lightgreen; */
+   z-index:5;
+  float:left;
+  
+    
 }
 .navbar {
    position: absolute;
@@ -205,6 +219,10 @@ div .selected {
 
 }
 
+.side-shim {
+  background-color: #333333;
+  z-index:-1;
+}
 .navbar-vertical-hide {
     left: -64px;
 }

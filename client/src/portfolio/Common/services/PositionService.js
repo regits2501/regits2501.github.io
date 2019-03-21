@@ -33,7 +33,9 @@ angular.module('Portfolio.Common')
 
                                                  console.log("PositionService: ",transformStr);
          elem.css({
-             transform: transformStr                                    // set elements css
+             transform: transformStr,                                    // set elements css
+             '-webkit-transform': transformStr,
+             '-ms-transform': transformStr
          }) 
       }
 

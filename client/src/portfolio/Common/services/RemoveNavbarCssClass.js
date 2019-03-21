@@ -1,6 +1,6 @@
 angular.module('Portfolio.Common')
- .factory('RemoveNavbarCssClass', function(GetNavbarCssClass, NAVBAR_POSITION, $window){
-
+ .factory('RemoveNavbarCssClass', function(GetNavbarCssClass, NAVBAR_POSITION, $window){ // Controls hide & show
+                                                                                         // of the navbar
      function removeNavbarCssClass (){  // is set on resize event (see setnavbar directive)
 
         let navbar = angular.element(document.querySelector('.navbar'));
@@ -10,7 +10,6 @@ angular.module('Portfolio.Common')
             navbar.removeClass('navbar-horizontal-hide navbar-horizontal-hide2 navbar-horizontal-hide3');
            if(!NAVBAR_POSITION.shown){
              navbar.addClass('navbar-vertical-hide'); // when switched to vertical 
-             console.log("FINESE")
            }                                                                   // from hidden horizontal, 
         }                                                                      // add vertical-hide
         else
@@ -22,9 +21,6 @@ angular.module('Portfolio.Common')
         let remove = GetNavbarCssClass(true);
         let add    = GetNavbarCssClass();   
         let len = remove.length;
-         console.log('RemoveNavbarCssClass:', remove) 
-         console.log('AddNavbarCssClass:', add)
-        
 
         navbar.addClass('navbar-' + add); // first add one that we need
 

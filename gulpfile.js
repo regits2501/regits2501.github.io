@@ -15,15 +15,18 @@ gulp.task('concat', function(){
           base + 'Common/services/RotateCubeEventService.js', 
           base + 'Common/services/PositionService.js', 
           base + 'Common/services/EqualDimensionsEventService.js',
+          base + 'Common/services/GetOrientationService.js',
+          base + 'Common/services/CleanLeftoverShimsService.js',
           base + 'Common/services/HidesAddressBarEventService.js',
           base + 'Common/services/NotShownPagesCleanService.js',
           base + 'Common/services/SideWithOtherOverflowService.js',
           base + 'Common/services/SetSideOverflowService.js',
+          base + 'Common/services/ShimTheWhiteSpaceService.js',
           
           base + 'Common/services/EqualDimensionsService.js', 
 
-          base + 'Common/services/HideTopAndBottomEventService.js', 
-          base + 'Common/services/HideTopAndBottomService.js', 
+        //  base + 'Common/services/HideTopAndBottomEventService.js',      // remove HideTopAndBottom ability
+        //  base + 'Common/services/HideTopAndBottomService.js', 
 
           base + 'Common/services/SetNavbarEventService.js', 
           base + 'Common/services/SetNavbarService.js',
@@ -37,8 +40,9 @@ gulp.task('concat', function(){
 	  base + 'Common/directives/PositionCube.js',
 	  base + 'Common/directives/RotateCube.js',
 	  base + 'Common/directives/EqualDimensions.js',
-          base + 'Common/directives/HideTopAndBottom.js', 
+      //  base + 'Common/directives/HideTopAndBottom.js', 
           base + 'Common/directives/SetNavbar.js', 
+          base + 'Common/directives/ShimControll.js', 
    
           base + 'QuoteOwlet/QuoteOwlet.js',                             // QuoteOwlet
           base + 'QuoteOwlet/services/AnimationService.js',

@@ -22,7 +22,9 @@
    width:120px;
    margin:0px auto;
 }
-
+.visit-app-link {
+  color: inherit;
+}
 .quotes-wrap {
   padding:0 8.3333%;
   margin-left:62px;

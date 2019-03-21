@@ -1,4 +1,4 @@
-angular.module('Portfolio.Common')
+/*angular.module('Portfolio.Common')
  .directive('hideTopAndBottom', function(HideTopAndBottomEventService, HideTopAndBottomService){
 
       let linker = function(scope, elem, attrs){
@@ -17,4 +17,4 @@ angular.module('Portfolio.Common')
         link: linker
          
       }
- })
+ }) */
