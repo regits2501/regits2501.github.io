@@ -1,5 +1,5 @@
 angular.module('Portfolio.TwizClient')
- .factory('AnimateTwizClientService', function($window, GetCirclesService){
+ .factory('AnimateTwizClientService', function($window, GetCirclesService, CURRENT_SIDE){
 
    
 
@@ -7,9 +7,8 @@ angular.module('Portfolio.TwizClient')
      let circles;
 
      function cancelTimeouts(timeouts){
-                                      console.log('in CANCEL TIMEOUTS');
+
         let len = timeouts.length;
-                                        console.log('length:', len)
         for(let i = 0; i < len; i++){
               $window.clearTimeout(timeouts[i]);
         }
@@ -20,17 +19,18 @@ angular.module('Portfolio.TwizClient')
 
      return function animateTwizClient(tws_circles, tws_timeouts){
 
-        // if(timeouts.length) cancelTimeouts(tws_timeouts);  // If function was called cancel any previous animations that 
-                                                // were suppose to run
-         if(tws_circles){
-               timeouts = tws_timeouts; 
-               if(timeouts.length) cancelTimeouts(tws_timeouts); // Cancel any previous twiz-server animation
-               circles = tws_circles;                                // Use twiz-server circles
+         let side = CURRENT_SIDE.value.name;
+                                                
+         if(side === 'twiz-server'){ 
+            timeouts = tws_timeouts; 
+            if(timeouts.length) cancelTimeouts(tws_timeouts); // Cancel any previous twiz-server animation
+            circles = tws_circles;                                // Use twiz-server circles
          }
-         else {
-           timeouts = twc_timeouts;
-           if(timeouts.length) cancelTimeouts(timeouts); // Cancel any previous twiz-client animation
-           circles = twc_circles;                        // Use twiz-client circles for animation
+         
+         if(side === 'twiz-client'){
+            timeouts = twc_timeouts;
+            if(timeouts.length) cancelTimeouts(timeouts); // Cancel any previous twiz-client animation
+            circles = twc_circles;                        // Use twiz-client circles for animation
          }
 
          let timeStart = 0;
@@ -52,7 +52,7 @@ angular.module('Portfolio.TwizClient')
             timeouts.push(timeout_);                                // we push only timeouts that add classes
 
             if(removeTimeNegative) removeTime = (-1) * removeTime; // Make it positive to set same offset for
-                                                                   // class removal like all in other calls
+                                                                   // class removal like in other calls
 
             setTimeout(function(){                       // remove class
                element.removeClass(className);
@@ -60,10 +60,11 @@ angular.module('Portfolio.TwizClient')
          } 
 
 
-         let len = circles.length; //  longest array length           
+         let len = circles.length; //  longest array length     
+      
          for (let i = 0; i < len; i++){  
             let circle = circles[i]; 
-                                         console.log('circle:', circle)
+
             if(circle.first){
                addClassTimeout(circle.first[0], circle.first[1], 400, 700)       
                addClassTimeout(circle.second[0], circle.second[1], 0, -700); // we add 0 for same time as prevoius call

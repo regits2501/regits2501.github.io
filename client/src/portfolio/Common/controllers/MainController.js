@@ -52,11 +52,11 @@ angular.module('Portfolio.Common')
        }
     }
  })
- .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION, RESIZE_EVENT, ORIENTATION_ON_LOAD,
-                                  ShortenOnSmallScreensService, HidesAddressBarEventService,
-                                  RotateCubeEventService, EqualDimensionsEventService,
+ .controller('MainCtrl', function($scope, CURRENT_SIDE, NAVBAR_POSITION, RESIZE_EVENT, ORIENTATION_ON_LOAD, PILL
+                                  , ShortenOnSmallScreensService, HidesAddressBarEventService,
+                                  RotateCubeEventService, EqualDimensionsEventService, 
                                   GetOrientationService, SetNavbarEventService,
-                                  SelectNavbarOptionService, ShowProjectService){ 
+                                  SelectNavbarOptionService, ShowProjectService, TakeThePillService){ 
    
      let main = this;
 
@@ -144,21 +144,22 @@ angular.module('Portfolio.Common')
 
          RotateCubeEventService.broadcast(side);  // rotate cube/box to side we want (we clicked)
          this.setCurrentSide(side);               // set side that is currently shown
-         console.log('CURRENT_SIDE', CURRENT_SIDE)
+     //    console.log('CURRENT_SIDE', CURRENT_SIDE)
          this.setEqualDimensions();               // Set dimension to equal those of the window/tab
      //  this.hideTopAndBottom();                 // Hides top and bottom sides when when other sides are shown
          this.selectNavbarOption(this.sides);     // Handles css animation for selected (clicked) navbar option
      }
-     setTimeout(function(){
-        main.setEqualDimensions();     
-     }, 0)
    
-     main.setEqualDimensions = function(){ console.log('main.setEqualDimensions')
+     main.setEqualDimensions = function(){ //console.log('main.setEqualDimensions')
 
          RESIZE_EVENT.value = false;              // mark that EqualDim(..) was not called on resize event
          EqualDimensionsEventService.broadcast(); // brodcast event for setting height and width to all sides
      }
- 
+
+     setTimeout(function(){           
+        main.setEqualDimensions();
+     }, 500);
+
      main.setCurrentSide = function(side){       // mark which side is currently shown
         CURRENT_SIDE.value     = side;           // ref to the side object
 
@@ -173,7 +174,7 @@ angular.module('Portfolio.Common')
 
      NAVBAR_POSITION.shown = true;              // initialy is rendered as shown on page
 
-     main.setNavbar = function(){        console.log("SET NAVABAR")
+     main.setNavbar = function(){       
         SetNavbarEventService.broadcast();
      }
 
@@ -193,7 +194,7 @@ angular.module('Portfolio.Common')
      main.pickedProject;         
      main.previousPickedOnLine;  // previously clicked text near horizontal line
 
-     main.pickProject = function(side){ console.log("pickedProject: ", side)
+     main.pickProject = function(side){ //console.log("pickedProject: ", side)
           ShowProjectService(side, this, $scope);
         
      } 
@@ -207,11 +208,25 @@ angular.module('Portfolio.Common')
         }  
      }
      
-     main.setOrientationOnLoad = function(){                 // get orientation mode we are on page load
+     main.setOrientationOnLoad = function(){               // Get orientation mode (portrait/landscape)
         ORIENTATION_ON_LOAD.value = GetOrientationService();
      }
      
-     main.setOrientationOnLoad();
+     main.setOrientationOnLoad();                         // Get it when controller compiles
+
+     let saved = TakeThePillService;         // remember reference
+     let debounce = function(){              // return back TakeThePillService ability
+            if(TakeThePillService === debounce)
+                 TakeThePillService = saved;
+     };
+
+
+     main.takeThePill = function(){                       // Do smiley rain animation, change pill color
+        TakeThePillService(PILL.color);
+        TakeThePillService = debounce;        // remove TakeThePillService - so nothing happens in immediate call
+ 
+        setTimeout(debounce.bind(null), 2000)  // afther interval bring back TakeThePillService
+     }
 
      HidesAddressBarEventService();                              // (dont chop off page)  
     
@@ -221,3 +236,4 @@ angular.module('Portfolio.Common')
  .value('ADDRESS_BAR_HIDDEN', { value:'', counter: 6 })
  .value('RESIZE_EVENT',       { value: ''})
  .value('ORIENTATION_ON_LOAD',{ value: ''})
+ .value('PILL',{ color: 'red'})                         // initialy user is offered with red pill 

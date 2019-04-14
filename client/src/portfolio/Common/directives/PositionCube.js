@@ -20,7 +20,7 @@ angular.module('Portfolio.Common')
          function PositionCube(){
            
             domArgs.side = CURRENT_SIDE.value;   // To correctly position in reference to currently shown side
-              	console.log('positionCube - CURRENT_SIDE.value.position', CURRENT_SIDE.value.position)
+              	//console.log('positionCube - CURRENT_SIDE.value.position', CURRENT_SIDE.value.position)
 
             PositionService(domArgs, cssArgs);
             

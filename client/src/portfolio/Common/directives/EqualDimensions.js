@@ -4,7 +4,7 @@ angular.module('Portfolio.Common')
                                          RESIZE_EVENT){
 
        let linker = function(scope, elem, attrs, ctrl){
-          console.log('equalDimensions DIRECTIVE')
+        //  console.log('equalDimensions DIRECTIVE')
           let scene = angular.element(document.querySelector('.scene'));
            // console.log('sceneHeight', scene.outerHeight());
 
@@ -20,7 +20,7 @@ angular.module('Portfolio.Common')
           EqualDimensionsEventService.listen(EqualDimensions);    // Set listener for any broadcast events
           
           function EqualDimensionsOnResize(){
-                                              console.log('EqualDimensions on RESIZE_EVENT')
+                                             // console.log('EqualDimensions on RESIZE_EVENT')
               RESIZE_EVENT.value = true;                         // Mark that EqualDims was called on resize evt
               EqualDimensions();
           }

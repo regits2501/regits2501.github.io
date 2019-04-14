@@ -1,5 +1,7 @@
 var gulp   = require('gulp');
 var concat = require('gulp-concat');
+var babel  = require('gulp-babel');
+
 
 gulp.task('concat', function(){
      var base = 'client/src/portfolio/'
@@ -22,6 +24,12 @@ gulp.task('concat', function(){
           base + 'Common/services/SideWithOtherOverflowService.js',
           base + 'Common/services/SetSideOverflowService.js',
           base + 'Common/services/ShimTheWhiteSpaceService.js',
+          base + 'Common/services/PillColorService.js',
+          base + 'Common/services/MakeCubeTransparentService.js',
+          base + 'Common/services/RainTextService.js',
+          base + 'Common/services/RainService.js',
+          base + 'Common/services/TakeThePillService.js',
+         
           
           base + 'Common/services/EqualDimensionsService.js', 
 
@@ -43,6 +51,7 @@ gulp.task('concat', function(){
       //  base + 'Common/directives/HideTopAndBottom.js', 
           base + 'Common/directives/SetNavbar.js', 
           base + 'Common/directives/ShimControll.js', 
+          base + 'Common/directives/ResizeRain.js', 
    
           base + 'QuoteOwlet/QuoteOwlet.js',                             // QuoteOwlet
           base + 'QuoteOwlet/services/AnimationService.js',
@@ -77,5 +86,44 @@ gulp.task('concat', function(){
           base + 'Portfolio.js'
      ])
      .pipe(concat('PortfolioApp.js'))
+     .pipe(babel())                                                     // transpile
      .pipe(gulp.dest('client/assets/js')) 
 })
+
+gulp.task('concat-css1', function(){
+     var base = 'client/assets/css/';
+     
+     return gulp.src([
+
+           base + 'normalize.css',
+           base + 'styles.css',
+           base + 'home.css',
+           base + 'cv.css'
+     ])
+     .pipe(concat('cube-part1.css'))
+     .pipe(gulp.dest(base))
+})
+
+
+gulp.task('concat-css2', function(){
+     var base = 'client/assets/css/';
+     
+     return gulp.src([
+
+           base + 'quote-owlet.css', 
+           base + 'hmac-sha1.css', 
+           base + 'twiz-client.css',
+           base + 'twiz-server.css',
+           base + 'reset.css', 
+     ])
+     .pipe(concat('cube-part2.css'))
+     .pipe(gulp.dest(base))
+})
+
+gulp.task('build', [
+          'concat', 
+          'concat-css1',
+          'concat-css2']);  // concats js , then concats css into 2 files
+
+
+

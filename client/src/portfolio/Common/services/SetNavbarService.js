@@ -22,7 +22,6 @@ angular.module('Portfolio.Common')
                     nav.addClass('nav-vertical-hide');
                }
                else{                    // it is in horisontal position 
-                   console.log("IS HORIZONTAL")
                    navbar.addClass('navbar-' + horizontalHide);
                    screenEdge.addClass('screen-edge-horizontal-hide');
                    nav.addClass('nav-horizontal-hide');

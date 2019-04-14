@@ -4,15 +4,8 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="client/assets/css/normalize.css" type="text/css">
-      <link rel="stylesheet" href="client/assets/css/styles.css" type="text/css"></link>
-      <link rel="stylesheet" href="client/assets/css/home.css"> 
-      <link rel="stylesheet" href="client/assets/css/cv.css"> 
-      <link rel="stylesheet" href="client/assets/css/quote-owlet.css"> 
-      <link rel="stylesheet" href="client/assets/css/hmac-sha1.css"> 
-      <link rel="stylesheet" href="client/assets/css/twiz-client.css"> 
-      <link rel="stylesheet" href="client/assets/css/twiz-server.css">
-      <link rel="stylesheet" href="client/assets/css/reset.css">
+      <link rel="stylesheet" href="client/assets/css/cube-part1.css">
+      <link rel="stylesheet" href="client/assets/css/cube-part2.css">
       
       <script src="client/vendor/head.load.min.js"></script>
       <script src="client/assets/js/boot.js"></script>
@@ -21,7 +14,13 @@
    </head>
 
  <body ng-controller="MainCtrl as main">
-    <div class="loading">
+    <div class="make-it-rain">
+        <canvas class="smiley-rain" resize-rain>.</canvas>
+        <p class="rain-text">
+            <span class="first-line"></span>
+            <br>
+            <span class="second-line"></span>
+        </p>
     </div>
     <div class="navbar" ng-cloak="">
 
@@ -39,9 +38,9 @@
              <div class="nav">
             </div>
         </div>
-        <div class="red-pill">
+        <div class="rain" ng-click="main.takeThePill()">
             <div class="pill"></div>
-            <p class="element-info">soon</p>
+            <p class="element-info">pill</p>
         </div>
     </div>
 

@@ -1,7 +1,7 @@
 angular.module('Portfolio.Common')
  .directive('positionside', function(PositionService, $window){
 
-      console.log('positionSide directive')
+  //    console.log('positionSide directive')
 
       let linker = function(scope, elem, attrs, ctrl){
               //  console.log('scope:', scope) 

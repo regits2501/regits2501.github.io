@@ -14,10 +14,11 @@ angular.module('Portfolio.Common')
 
           for(let side in orientationShims){ // we remove shims (if any were added in previous orientationChange)
               orientationShims[side] = angular.element(document.querySelector('.'+ side + '-shim')); // get shim
-                console.log('REMOVE orientation-shim: ', orientationShims[side]);
-              orientationShims[side].remove(); // remove shim element from page
+                
+             setTimeout(function(){ orientationShims[side].remove() }, 0); // Remove shim element from page 
+                                                                           // Newer chrome act like previous code                                                                           // was asynchronous, so we remove it 
+                                                                           // in setTimeout(..). 
           }
-
      }
 
      function CleanLeftoverShims(){
@@ -30,7 +31,7 @@ angular.module('Portfolio.Common')
        let currentOrientation = GetOrientationService(); // get orientaiton mode we are currently in
        
        if(!browserIsSniffed){
-           console.log('ORIENTATION_ON_LOAD: ', ORIENTATION_ON_LOAD.value)
+
           if(ORIENTATION_ON_LOAD.value === currentOrientation) // Sniff for other browsers
              otherBrowser = true;                        // we are in some other browser (Chrome, FF...)
 
@@ -41,7 +42,7 @@ angular.module('Portfolio.Common')
        }
          
        if(otherBrowser){                             // Chrome, FFox 
-                                               console.log('CHROME')
+
           if(currentOrientation === 'portrait')      // We are actually in landscape mode, since orient.change
               removeShims(portraitShims)            // happens before any 'resize' event.
                                                      // Remove any shims that were added in portrait mode
@@ -51,7 +52,7 @@ angular.module('Portfolio.Common')
        }
 
        if(safariBrowser){                           // Certain Safari versions (new ones)
-                                                 console.log('SAFARI: ')
+            //                                     console.log('SAFARI: ')
           if(currentOrientation === "portrait")
              removeShims(landscapeShims)
           

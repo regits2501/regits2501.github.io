@@ -31,11 +31,12 @@ angular.module('Portfolio.Common')
          if(!rotate) transformStr =  translateZ;                     // Just offset element without rotation
           
 
-                                                 console.log("PositionService: ",transformStr);
+                                          //       console.log("PositionService: ",transformStr);
          elem.css({
              transform: transformStr,                                    // set elements css
              '-webkit-transform': transformStr,
-             '-ms-transform': transformStr
+             '-ms-transform': transformStr,
+             '-o-transform': transformStr
          }) 
       }
 

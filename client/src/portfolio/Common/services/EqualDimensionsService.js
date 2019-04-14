@@ -22,9 +22,8 @@ angular.module('Portfolio.Common')
                 overflow = true;  // return               // Browser hided address bar, don't chop off page;
            }
      
-           console.log('EqualDimensions fires:', args.page)
-           let sceneHeight = args.scene.outerHeight() + 'px'; //  Height of the scene elment (root elment where 
-                                                              //  3D context is set)
+          // console.log('EqualDimensions fires:', args.page)
+           let sceneHeight = args.scene.outerHeight() + 'px'; //  Height of the element (where 3D context is set)
            let sceneWidth  = args.scene.outerWidth() + 'px';  //  Width of the scene
 
 
@@ -50,7 +49,7 @@ angular.module('Portfolio.Common')
                     
  
            if(CURRENT_SIDE.value.name === pageName){ // if we are on the side the is shown to the user
-               console.log("SHOWN SIDE IS -> ", pageName)
+            //   console.log("SHOWN SIDE IS -> ", pageName)
                                                             // Remove any side not picked, from sides to be shown
               NotShownPagesCleanService(CURRENT_SIDE, pageName);
 
@@ -66,7 +65,7 @@ angular.module('Portfolio.Common')
                       overflow: overflowSide ? 'visible' : 'auto'  // was 'visible' check this on any cross 
                                                    // browser issues with vertical scroll on top and bottom pages
                    })
-              }, 1000)                                    // 1s is the time the cube rotates to any of it's side
+              }, 1000)                                    // 1s is the time the cube rotates to any side
               
  
            }

@@ -6,31 +6,16 @@
 }
 
 @font-face{
-  font-family:"MKR17";
-  src: url('fonts/MKR17/mkr17-webfont.ttf') format("truetype"),
-       url('fonts/MKR17/mkr17-webfont.woff') format("woff"),
-       url('fonts/MKR17/mkr17-webfont.woff2') format("woff2");
+  font-family:"EmojiMonochrome";/* Emoji Symbols Font (c)blockworks - Kenichi Kaneko - http://emojisymbols.com */
+  src: url('fonts/Emoji/EmojiSymbols-Regular.woff') format("woff"),
+       url('fonts/Emoji/emojisymbols-Regular.ttf') format("truetype"); 
+  text-decoration: none;
+  font-style: normal;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
-
-/* -------- sceletor --------- */
-
-.col-1 { width: 8.33%; }
-.col-2 { width: 16.66%; }
-.col-3 { width: 25%; }
-.col-4 { width: 33.33%; }
-.col-5 { width: 41.66%; }
-.col-6 { width: 50%; }
-.col-7 { width: 58.33%; }
-.col-8 { width: 66.66%; }
-.col-9 { width: 75%; }
-.col-10{ width: 83.33%; }
-.col-11{ width: 91.66%; }
-.col-12{ width: 100%; }
-/* ------ end --------------- */
 
 html {
   height: 100%;
@@ -38,18 +23,37 @@ html {
 body {
   height: 100%;
 }
-.miaxHeight {
-   height:100%;
-}
 
-.loading{                      
-   min-height: 100%;
-   min-width:100%;
-   /* background-color:lightgreen; */
+.make-it-rain{                      
+   height: 100%;
+   width:100%;
+   background-color: #eceaea;/*#555555;*/
    z-index:5;
-  float:left;
-  
+   float:left;
+   font-size: 10px;
     
+}
+.smiley-rain {
+   height:100%;
+   width:100%;
+   position:absolute;
+   font-family: EmojiMonochrome;
+}
+.rain-text-wrapp {
+   position: relative;
+   height: 100%;
+}
+.rain-text {
+   width:100%;
+   font:2.5em Inconsolata;
+   font-style: italic;
+   color:#afbabf;
+   text-align:center;
+   
+   position:relative;
+   margin:0 auto;
+   top: 48%;
+   display: inline-block;
 }
 .navbar {
    position: absolute;
@@ -118,15 +122,18 @@ div .selected {
 .side {                   
    min-height:100%;                       /* */ 
    min-width:100%;
-   /*opacity: 0.8; */    
+   opacity: 1;    
    position: absolute;
- /*  border: 2px solid #0abf85;*/ 
+   transition: opacity 2s;
 }
 
+.no-display {                 
+  display:none;
+}
 
-/* delete this class when you start working on this page*/
-/*.quote-owlet {                         /* bottom*/
-
+.transparent-side {
+   opacity: 0;
+}
 
 .tittle {
   text-align:center;
@@ -134,16 +141,32 @@ div .selected {
   font-size:2.5em;
 }
 
-.red-pill .pill {            /* position the pill */
-       display:inline-block;
-       width: 40px;
-       height:14px;
-       margin:36% auto 3px;;
-       background-color: gray;
-       border-radius: 6px;
+div .rain .red-pill {
+   background-color: #844654;
+   box-shadow: 0px 0px 3px 1px #9e7f68;
 }
-.red-pill .element-info {
-       margin-top:1.2%;
+
+div .rain .blue-pill {
+   background-color: #3a4f77;
+   box-shadow: 0px 0px 3px 1px #207975;
+}
+
+.rain .pill {            /* position the pill */
+   display:inline-block;
+   width: 40px;
+   height:18px;
+   margin:30% auto 2px;
+   background-color: #844654;
+   box-shadow: 0px 0px 3px 1px #9e7f68;
+   border-radius: 10px;
+   transition: background-color 1s, box-shadow 1s;
+}
+
+.rain .pill::after{
+  
+}
+.rain .element-info {
+   margin-top:1.2%;
 }
 .navbar-abstract {
    left:45%;
@@ -203,7 +226,7 @@ div .selected {
       transition: left 0.6s;
    } 
    
-   .red-pill{                   /* set red-pill navbar block to the empty place of navbar abstract */
+   .rain{                   /* set rain navbar block to the empty place of navbar abstract */
       position:relative;
       top:-62px;
    }
@@ -216,7 +239,9 @@ div .selected {
 
      left:-5px;
    }
-
+   .rain-text {
+      font-size:3.5em;
+   }
 }
 
 .side-shim {
@@ -289,13 +314,15 @@ div .selected {
      bottom: 5px;
    }
 
-   div .red-pill { 
-     background-color: #101011;
+   div .rain { 
      position:relative;
      top:-62px;
      left: 302px;
    } 
-
+   .rain-text {
+      width:70%;
+      margin-left:15%;  
+   }
 }
 .navbar-horizontal-hide {
       top: -67px;
@@ -335,16 +362,24 @@ div .selected {
      height:1px;
    }
 
-   div .red-pill {
+   div .rain {
       top:-52px; 
       left: 252px;
    }
-
-   .red-pill .element-info {            /* position the pill */
-      position:relative;
-      top:-3px; 
+  
+   div .rain .pill {
+      height:15.1px;   /* value is set in ralation to 40/62 (initial_length / length_of_the_nav_squere)*/
+      width: 33.54px;    /* value is set in ralation to 18/62* (init_with/ width_nav_squere)*/
    }
-   
+   .rain .element-info {            /* position the pill */
+      position:relative;
+      top:-0.5px; 
+   }
+  
+   .rain-text {
+      width:70%;
+      margin-left: 15%;
+   }
 }
 
 .navbar-horizontal-hide2 {
@@ -388,22 +423,27 @@ div .selected {
      height:1px;
    }
 
-   div .red-pill {
+   div .rain {
       top:-45px; 
       left: 217px;
    }
 
-   div .red-pill .pill {            /* position the pill */
+   div .rain .pill {            /* position the pill */
        position:relative;
-       width: 36px;
-       height:13px;
-
+       width: 29.02px;
+       height:13.06px;
+       left:1px;
+       margin-top:29%;
    }
 
-   div .red-pill .element-info {
+   div .rain .element-info {
        position:relative;
-       bottom:5.5px;
-        
+       bottom:1px;
+   }
+   .rain-text{
+      width:70%;
+      margin-left: 15%;
+      font-size:2em;
    }
 }
 

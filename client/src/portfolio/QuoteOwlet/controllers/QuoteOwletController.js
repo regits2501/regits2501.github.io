@@ -26,8 +26,6 @@ angular.module('Portfolio.QuoteOwlet')
       owletCtrl.updateQuote = function(num) {
            GetQuoteModel()
            .then(function(quote){
-                console.log("in owletCtrl quote:", quote)
-    
                
                 setTimeout(function(){                   // delay model update while post quote animation lasts
                    $scope.$apply(function(){

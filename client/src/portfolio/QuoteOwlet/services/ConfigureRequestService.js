@@ -13,7 +13,6 @@ angular.module('Portfolio.QuoteOwlet')
          this.url = 'https://quoteowlet.herokuapp.com/fetch/https://api.forismatic.com/api/1.0/'// Server address
                                                                                                // with endpoint.
                                                                                                // (is proxy serv)
-         console.log('this.url:', this.url) 
          this.queryParams = {      // making params object specific to server endpoint we are connnecting to. 
              method: 'getQuote',
              format: 'text',

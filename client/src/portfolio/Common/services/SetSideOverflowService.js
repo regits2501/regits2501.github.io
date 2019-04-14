@@ -4,6 +4,7 @@ angular.module('Portfolio.Common')
     return function(pageName){
            let overflowSide = SideWithOtherOverflowService(pageName); // check if side needs overflow to be auto
                                                                       //  (other then visible)
+           let respectOverflow;
 
            if(overflowSide){ 
                respectOverflow = 'visible';

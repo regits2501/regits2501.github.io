@@ -1,9 +1,9 @@
 angular.module('Portfolio.Common')
  .directive('rotatecube', function(RotateCubeEventService, PositionService){
 
-      let linker = function(scope, elem, attrs, ctrl){
+      let linker = function(scope, elem, attrs){
              let cube = elem;
-                                                       console.log('rotateCube directive')
+                                         //              console.log('rotateCube directive')
             
              let domArgs = {
                   'side' : '',
@@ -19,7 +19,7 @@ angular.module('Portfolio.Common')
 
 
              function RotateCube(){
-                                                          console.log('cubeRotated@@');
+                                                      //    console.log('cubeRotated@@');
                 domArgs.side = arguments[1];       // side is passed as second argument to listener
                 PositionService(domArgs, cssArgs)  // Rotate the cube 
              }
@@ -27,19 +27,9 @@ angular.module('Portfolio.Common')
              RotateCubeEventService.listen(RotateCube);
 
       } 
-
-
-      let controller = function($scope){
-         rotateCube = this;
-         rotateCube.print = function(){
- 
-           console.log('cube rotated');
-         }
-      }
-
+     
       return {
         restrict: 'A',
         link: linker,
-        controller: controller
       }
  })

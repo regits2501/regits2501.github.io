@@ -1,0 +1,1476 @@
+/* normalize.css v2.1.0 | MIT License | git.io/normalize */
+/* ==========================================================================
+   HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined in IE 8/9.
+ */
+/* line 22, ../sass/normalize.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+/**
+ * Correct `inline-block` display not defined in IE 8/9.
+ */
+/* line 32, ../sass/normalize.scss */
+audio,
+canvas,
+video {
+  display: inline-block;
+}
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+/* line 41, ../sass/normalize.scss */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+/* line 50, ../sass/normalize.scss */
+[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+/* line 64, ../sass/normalize.scss */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+}
+
+/**
+ * Remove default margin.
+ */
+/* line 74, ../sass/normalize.scss */
+body {
+  margin: 0;
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+/* line 86, ../sass/normalize.scss */
+a:focus {
+  outline: thin dotted;
+}
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+/* line 95, ../sass/normalize.scss */
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari 5, and Chrome.
+ */
+/* line 108, ../sass/normalize.scss */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/**
+ * Address styling not present in IE 8/9, Safari 5, and Chrome.
+ */
+/* line 117, ../sass/normalize.scss */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
+ */
+/* line 126, ../sass/normalize.scss */
+b,
+strong {
+  font-weight: bold;
+}
+
+/**
+ * Address styling not present in Safari 5 and Chrome.
+ */
+/* line 134, ../sass/normalize.scss */
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+/* line 142, ../sass/normalize.scss */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+/* line 152, ../sass/normalize.scss */
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+/**
+ * Correct font family set oddly in Safari 5 and Chrome.
+ */
+/* line 164, ../sass/normalize.scss */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+
+/**
+ * Improve readability of pre-formatted text in all browsers.
+ */
+/* line 173, ../sass/normalize.scss */
+pre {
+  white-space: pre-wrap;
+}
+
+/**
+ * Set consistent quote types.
+ */
+/* line 181, ../sass/normalize.scss */
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+/* line 189, ../sass/normalize.scss */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+/* line 198, ../sass/normalize.scss */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* line 205, ../sass/normalize.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 209, ../sass/normalize.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* ==========================================================================
+   Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9.
+ */
+/* line 221, ../sass/normalize.scss */
+img {
+  border: 0;
+}
+
+/**
+ * Correct overflow displayed oddly in IE 9.
+ */
+/* line 229, ../sass/normalize.scss */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Figures
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari 5.
+ */
+/* line 241, ../sass/normalize.scss */
+figure {
+  margin: 0;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+/**
+ * Define consistent border, margin, and padding.
+ */
+/* line 253, ../sass/normalize.scss */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+/* line 264, ../sass/normalize.scss */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+/**
+ * 1. Correct font family not being inherited in all browsers.
+ * 2. Correct font size not being inherited in all browsers.
+ * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+ */
+/* line 278, ../sass/normalize.scss */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+}
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+/* line 290, ../sass/normalize.scss */
+button,
+input {
+  line-height: normal;
+}
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+/* line 302, ../sass/normalize.scss */
+button,
+select {
+  text-transform: none;
+}
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+/* line 317, ../sass/normalize.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */
+}
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+/* line 327, ../sass/normalize.scss */
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/**
+ * 1. Address box sizing set to `content-box` in IE 8/9.
+ * 2. Remove excess padding in IE 8/9.
+ */
+/* line 337, ../sass/normalize.scss */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+/* line 348, ../sass/normalize.scss */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  /* 2 */
+  box-sizing: content-box;
+}
+
+/**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+/* line 361, ../sass/normalize.scss */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+/* line 370, ../sass/normalize.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/**
+ * 1. Remove default vertical scrollbar in IE 8/9.
+ * 2. Improve readability and alignment in all browsers.
+ */
+/* line 380, ../sass/normalize.scss */
+textarea {
+  overflow: auto;
+  /* 1 */
+  vertical-align: top;
+  /* 2 */
+}
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+/* line 393, ../sass/normalize.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* added by me (gits2501)*/
+
+* {
+    box-sizing: border-box;
+}
+
+p {
+  margin:0;
+}
+
+@font-face{
+  font-family:"Inconsolata";
+  src: url('fonts/Inconsolata/inconsolata-webfont.ttf') format("truetype"),
+       url('fonts/Inconsolata/inconsolata-webfont.woff') format("woff"),
+       url('fonts/Inconsolata/inconsolata-webfont.woff2') format("woff2");
+}
+
+@font-face{
+  font-family:"EmojiMonochrome";/* Emoji Symbols Font (c)blockworks - Kenichi Kaneko - http://emojisymbols.com */
+  src: url('fonts/Emoji/EmojiSymbols-Regular.woff') format("woff"),
+       url('fonts/Emoji/emojisymbols-Regular.ttf') format("truetype"); 
+  text-decoration: none;
+  font-style: normal;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+
+.make-it-rain{                      
+   height: 100%;
+   width:100%;
+   background-color: #eceaea;/*#555555;*/
+   z-index:5;
+   float:left;
+   font-size: 10px;
+    
+}
+.smiley-rain {
+   height:100%;
+   width:100%;
+   position:absolute;
+   font-family: EmojiMonochrome;
+}
+.rain-text-wrapp {
+   position: relative;
+   height: 100%;
+}
+.rain-text {
+   width:100%;
+   font:2.5em Inconsolata;
+   font-style: italic;
+   color:#afbabf;
+   text-align:center;
+   
+   position:relative;
+   margin:0 auto;
+   top: 48%;
+   display: inline-block;
+}
+.navbar {
+   position: absolute;
+   z-index:2;
+   border-width:1px;
+   border-style: solid;
+   border-color: #505050;           /*  #c8c8c84d;*/
+   font-family: "Inconsolata";
+   width:375px;
+   top:5px;
+   left:0;
+   right:0;
+   margin:auto;
+   
+   & div:hover {
+      cursor: pointer;
+   }
+}
+.navbar div{
+   height:62px;
+   width:62px;
+   border-right: 1px solid #505050;
+   color: #b3b3b3 ;
+   background-color: #333333;
+   text-align: center;
+   font-weight: bold;
+   display:inline-block;
+
+   -webkit-transition: background-color 0s;
+
+   -o-transition: background-color 0s;
+
+   transition: background-color 0s;
+    
+}
+
+div .selected {
+   background-color: #292929;
+}
+.element {
+   font-size: 2.1em;
+   padding: 15% 10% 0;
+}
+.element-info {
+   font-weight:normal;
+}
+.navbar div:last-child{
+   border-right:none;
+}
+
+
+.scene {
+   height: 100%;
+   -webkit-perspective: 2500px;
+           perspective: 2500px;         /* set observer perspective (how small/big we as viewers are  to the element) */
+  /* overflow:hidden;*/ 
+}
+
+.cube {
+   height:100%;
+   position:relative;                     /* position element relative to its parent*/
+   -webkit-transform-style: preserve-3d;
+           transform-style: preserve-3d;          /* cube child elements (sides) live in same 3d space as cube */
+   -webkit-transition: -webkit-transform 1s;
+   transition: -webkit-transform 1s;
+   -o-transition: transform 1s;
+   transition: transform 1s;
+   transition: transform 1s, -webkit-transform 1s;
+}
+.side {                   
+   min-height:100%;                       /* */ 
+   min-width:100%;
+   opacity: 1;    
+   position: absolute;
+   transition: opacity 2s;
+}
+
+.no-display {                 
+  display:none;
+}
+
+.transparent-side {
+   opacity: 0;
+}
+
+.tittle {
+  text-align:center;
+  color: #87c6ff;                                    /* does nothing (good for reference)*/
+  font-size:2.5em;
+}
+
+div .rain .red-pill {
+   background-color: #844654;
+   box-shadow: 0px 0px 3px 1px #9e7f68;
+}
+
+div .rain .blue-pill {
+   background-color: #3a4f77;
+   box-shadow: 0px 0px 3px 1px #207975;
+}
+
+.rain .pill {            /* position the pill */
+   display:inline-block;
+   width: 40px;
+   height:18px;
+   margin:30% auto 2px;
+   background-color: #844654;
+   box-shadow: 0px 0px 3px 1px #9e7f68;
+   border-radius: 10px;
+   transition: background-color 1s, box-shadow 1s;
+}
+
+.rain .pill::after{
+  
+}
+.rain .element-info {
+   margin-top:1.2%;
+}
+.navbar-abstract {
+   left:45%;
+}
+@media (min-width: 1024px) {
+   .navbar {                       /* position navbar to the left screen edge */
+      top:100px;
+      width: auto; 
+      height: 436px;              /* 7 x 62 px*/
+      right: initial;
+      left:5px;
+      -webkit-transition: left .6s;
+      -o-transition: left .6s;
+      transition: left .6s;
+   }
+
+   .navbar div {                   /* verticaly align nav blocks */  
+      border-right: initial;
+      border-bottom: 1px solid #505050;
+      display: block;
+   }
+  
+   .navbar div:last-child{           /* remove bottom border from last element */
+      border-bottom:none;
+   }
+
+   div .navbar-abstract {            /* position the hide-show element to the middle of the navabar*/
+      position:relative;
+      top:-45%;
+      left:65px;
+      border-bottom:none;
+      width: 31px;
+      background-color:transparent;
+   }
+   
+   div .screen-edge {
+      position:relative;
+      display:inline-block;
+      border-left: 5px solid #505050;
+      height:52px;
+      bottom:5px;
+      border-bottom:none;
+      width:5px;
+      left:10px;
+      -webkit-transition: left 0.6s;
+      -o-transition: left 0.6s;
+      transition: left 0.6s;
+   }
+   div .nav {
+      position:relative;
+      display:inline-block;
+      left:-9px;
+      border-left: 1px solid #505050; 
+      width:1px;
+      -webkit-transition: left 0.6s;
+      -o-transition: left 0.6s;
+      transition: left 0.6s;
+   } 
+   
+   .rain{                   /* set rain navbar block to the empty place of navbar abstract */
+      position:relative;
+      top:-62px;
+   }
+
+   div .screen-edge-vertical-hide {
+
+     left: 0px;
+   }
+   div .nav-vertical-hide {
+
+     left:-5px;
+   }
+   .rain-text {
+      font-size:3.5em;
+   }
+}
+
+.side-shim {
+  background-color: #333333;
+  z-index:-1;
+}
+.navbar-vertical-hide {
+    left: -64px;
+}
+
+@media (max-width: 1023px){
+
+   .navbar {
+      width:436px;
+      height:64px;
+
+      -webkit-transition: top .6s;
+
+      -o-transition: top .6s;
+
+      transition: top .6s;
+   }
+  
+   div .navbar-abstract {
+      position:relative;
+      top: -30px;
+     /* left:160px; */
+      border-right:none;
+      width: 62px;
+      height:31px;
+      
+      background-color:transparent;
+      
+   }
+
+
+   div .screen-edge {
+      position:relative;
+      display:inline-block;
+      border-top: 5px solid #505050;
+      height:5px;
+      width:52px;
+      bottom:5px;
+      border-bottom:none;
+
+      top:16px;                  /* 6px transition */
+      -webkit-transition: top .6s;
+      -o-transition: top .6s;
+      transition: top .6s;
+
+   }
+
+   div .screen-edge-horizontal-hide {
+      top:6px;
+   }
+
+   div .nav {
+     position:relative;
+     width:62px;
+     height:1px;
+     border-bottom: 1px solid #505050;
+    
+     bottom: 9px;              /* 5px transition */
+     -webkit-transition: bottom .6s;
+     -o-transition: bottom .6s;
+     transition: bottom .6s;
+   }
+ 
+   div .nav-horizontal-hide {
+     bottom: 5px;
+   }
+
+   div .rain { 
+     position:relative;
+     top:-62px;
+     left: 302px;
+   } 
+   .rain-text {
+      width:70%;
+      margin-left:15%;  
+   }
+}
+.navbar-horizontal-hide {
+      top: -67px;
+}
+
+@media (min-width:366px) and (max-width: 440px) {
+
+   .navbar {                      /* reduce width of the navbar*/
+     width: 366px;
+     height: 54px;
+   }
+   .navbar div {                  /* reduce the size of navbar */
+      height: 52px;
+      width:52px;
+
+   }
+   
+   .element {
+      font-size: 1.761em;        /* 83% of the font-size that we set when screen width is >= 1024*/
+   }
+    
+   .element-info {               /* 83% of the font-size that we set when screen width is >= 1024*/
+      font-size: 0.8387em;       
+   }
+
+   div .navbar-abstract {
+     /* right: 30px; */
+      top: -26px;
+   }
+
+   div .screen-edge {
+      width: 42px;
+      height: 5px;
+   }
+
+   div .nav {
+     height:1px;
+   }
+
+   div .rain {
+      top:-52px; 
+      left: 252px;
+   }
+  
+   div .rain .pill {
+      height:15.1px;   /* value is set in ralation to 40/62 (initial_length / length_of_the_nav_squere)*/
+      width: 33.54px;    /* value is set in ralation to 18/62* (init_with/ width_nav_squere)*/
+   }
+   .rain .element-info {            /* position the pill */
+      position:relative;
+      top:-0.5px; 
+   }
+  
+   .rain-text {
+      width:70%;
+      margin-left: 15%;
+   }
+}
+
+.navbar-horizontal-hide2 {
+     top:-53px;
+}
+.main-padding {
+  padding:8.3333%;
+  margin-left:62px;  
+}
+
+@media (max-width:365px){
+   
+   .navbar {
+      height:47px;
+      width:317px;
+   } 
+   .navbar div {
+      height: 45px;
+      width: 45px;
+   }
+   
+   .element { 
+      font-size: 1.45em;       /* 0.72% of the default em size */
+   } 
+
+   .element-info {
+      font-size: 0.725em;  /* 72.5% of the default em size*/
+   }
+  
+   div .navbar-abstract {
+     /* left:140px; */
+      top:-20px;
+   }
+
+   div .screen-edge {
+      width: 35px;
+      height: 5px;
+   }
+
+   div .nav {
+     height:1px;
+   }
+
+   div .rain {
+      top:-45px; 
+      left: 217px;
+   }
+
+   div .rain .pill {            /* position the pill */
+       position:relative;
+       width: 29.02px;
+       height:13.06px;
+       left:1px;
+       margin-top:29%;
+   }
+
+   div .rain .element-info {
+       position:relative;
+       bottom:1px;
+   }
+   .rain-text{
+      width:70%;
+      margin-left: 15%;
+      font-size:2em;
+   }
+}
+
+.navbar-horizontal-hide3 {
+  top: -47px;
+}
+
+/* home styles*/
+
+.home {                              
+  background-color: #333333;          /*#1b1b1d; */         /* #2a2a2d; */ 
+  font-family: "Inconsolata";           
+}
+.home h1{
+  color: #e1e1e1;
+  font-size:2.5em;
+  margin:10px; 
+  text-align:center;
+}
+.home h2 {
+  color: #87c6ff;
+  font-size:2.3em;
+}
+.home p {
+   color: #e1e1e1;
+   font-size:1.3em;
+}
+.upper {
+   padding:8.333%;
+}
+
+.programming {
+  font-family: "MKR17";
+  font-size: 1.3em;
+  line-height: 4;
+}
+  
+.project-container {
+   margin-left:62px;
+   padding:0 8.3333%;
+}
+
+.picker-line {
+   height:1px;
+   border-top:1px dashed #505050;
+   z-index:2;
+   position:relative;
+   top:-100px;
+}
+.project-picker {
+   height:50px;
+   width:260px;
+   margin:0 auto;
+  /* border:1px solid #505050; */
+   position:relative;
+   top:-25px;
+   &, :hover{
+     cursor: pointer;
+  }
+}
+.pick-hmac-sha1{
+   position:relative;
+   top:-29px;
+   left:110%;
+}
+.picker-width {
+   width:130px;
+   /* border:1px solid red; */
+}
+div .pick-font-color {
+   color:#b3b3b3;
+}
+.pick-twiz-server{
+   position:relative;
+   top: -34px;
+   left:110%;
+   
+}
+.pick-twiz-client{
+   position:relative;
+   right:60%;
+   top:-13px;
+   text-align: right;
+}
+.pick-quote-owlet{
+   position:relative;
+   left:-60%;
+   top:-7px;
+   text-align:right;
+}
+.project-view {
+   width: 85%;
+   height:300px;
+   margin:0 auto;
+   border-right:1px dashed #c50c0c;
+   border-left:1px dashed #c50c0c;
+   border-bottom:1px dashed #c50c0c;
+   border-right:1px dashed #c50c0c;
+   border-bottom-left-radius:8px;
+   border-bottom-right-radius:8px;
+ 
+   opacity:1;
+   position:relative;
+   top: -30px;
+ /*  box-shadow: -2px 16px 70px -64px red; */
+
+  -webkit-transition: opacity .2s, -webkit-box-shadow .2s;
+
+  transition: opacity .2s, -webkit-box-shadow .2s;
+
+  -o-transition: box-shadow .2s, opacity .2s;
+
+  transition: box-shadow .2s, opacity .2s;
+
+  transition: box-shadow .2s, opacity .2s, -webkit-box-shadow .2s;            /* border-left .3s, border-right .3s, border-bottom .3s; */
+}
+.hide-view {
+   opacity: 0; 
+   -webkit-box-shadow: none; 
+           box-shadow: none;
+}
+
+.home .hmac-sha1-border {
+   border-right:1px dashed #e07c50;
+   border-left:1px dashed #e07c50;
+   border-bottom:1px dashed #e07c50;
+   border-right:1px dashed #e07c50;
+}
+.home .quote-owlet-border {
+   border-right:1px dashed #50e0c0;      /*#50e0c0; neon light blue*/
+   border-left:1px dashed #50e0c0;
+   border-bottom:1px dashed #50e0c0;
+   border-right:1px dashed #50e0c0;
+  
+}
+.home .twiz-server-border {
+   border-right:1px dashed #7668bf;
+   border-left:1px dashed #7668bf;
+   border-bottom:1px dashed #7668bf;
+   border-right:1px dashed #7668bf;
+  
+}
+.home .twiz-client-border {
+   border-right:1px dashed #6ebf62    ;   /*#50e08a neon green*/ /*silent green #6ebf62*/
+   border-left:1px dashed  #6ebf62;
+   border-bottom:1px dashed #6ebf62;
+   border-right:1px dashed #6ebf62;
+  
+
+}
+.home .hmac-sha1-on-line {
+   color: #e07c50;
+}
+.home .quote-owlet-on-line {
+   color: #50e0c0;
+}
+.home .twiz-server-on-line {
+   color: #8350e0;
+}
+.home  .twiz-client-on-line {
+   color: #6ebf62;
+}
+.project-sphere {
+   width:200px;
+   height:200px;
+   border-radius:100px;
+   background-color: #1f1f1f;
+   position:relative;
+   top:5px;
+   left:5px;
+
+}
+.project-sphere-outer {
+   width:210px;
+   height:210px;
+   border-radius:110px;
+   background-color: #4d4d4d;
+   margin:0 auto; 
+  /* border-bottom:2px solid red; */
+  /* border-top:2px solid blue;   */
+  /* border-right:2px solid lime; */
+  -webkit-transition: border-bottom .2s;
+  -o-transition: border-bottom .2s;
+  transition: border-bottom .2s;
+}
+.hmac-sha1-corona {
+  border-bottom:2px solid #e07c50 ;
+  -webkit-box-shadow: -2px 16px 70px -64px #e07c50;
+          box-shadow: -2px 16px 70px -64px #e07c50; 
+}
+.quote-owlet-corona {
+  border-bottom:2px solid #50e0c0;
+  -webkit-box-shadow: -2px 16px 70px -64px #50e0c0;
+          box-shadow: -2px 16px 70px -64px #50e0c0;
+}
+.twiz-server-corona {
+  border-bottom:2px solid #9369e0; 
+  -webkit-box-shadow: -2px 16px 70px -64px #9369e0; 
+          box-shadow: -2px 16px 70px -64px #9369e0;
+}
+.twiz-client-corona {
+  border-bottom:2px solid #6ebf62;
+  -webkit-box-shadow: -2px 16px 70px -64px #6ebf62;
+          box-shadow: -2px 16px 70px -64px #6ebf62;
+}
+
+.hide-corona {
+  border-bottom: 0px solid #4d4d4d;
+}
+
+.home .left {
+   float:left;
+   padding: 5% 2% 2%;
+   width:50%;
+   height:200px;
+  /*  border:1px solid blue;*/
+}
+.home .right {
+   float:right;
+   padding:5% 2% 2%;
+   width:50%;
+   height:200px;
+   /* border:1px solid blue; */
+}
+.home .text-padding{
+  padding:8px;
+}
+
+.home .github-link {
+   height:100px;
+ /*  border:1px solid blue; */
+   clear: both;
+}
+.home .github-image {
+  display:block;
+  width:42px; 
+  height:42px;
+  margin:29px auto;
+  position:relative;
+  top:29px;
+   
+}
+.home h3{
+  background-color: #505050;
+  margin-bottom:4px;
+  padding:1px 0px 0px 4px;
+  font-size:1.3em;
+  color:#333333;
+  font-weight:bold;
+}
+
+.project {
+   display: block;
+   float:left;
+   width:20%;
+   height:450px;
+   background-color: #1f1f1f;
+   border:1px solid #505050;
+   margin: 2.5%; 
+}
+
+
+.short-desc {
+  border:1px solid #505050;
+  
+}
+.wrap-words {
+  overflow-wrap: break-word;
+}
+@media (min-width: 1024px){
+  .upper {
+      margin-left:62px;            /* on this size navbar is positioned to the left screen edge */
+  }
+  
+}
+@media (min-width:1280px) and (max-width:1439px){
+  .upper {
+     padding-top:4%;
+  }
+}
+
+
+@media (min-width: 420px) and (max-width: 1023px){ 
+  .upper {
+
+     margin-top: 62px;
+  }
+  .home .project-container {
+     margin-left:0;
+     padding-top:8.333%;
+  }
+
+  .home .project-view {
+     height: 350px;      /* 16% taller*/
+  }
+  .home .left {
+     height:233px;
+     margin-top:20px;
+  }
+  .home .right {
+     margin-top:20px;
+     height:233px;
+  }
+}
+
+@media (min-width:578px) and (max-width: 696px){
+   .home .project-container {
+      padding-top: 8.333%;
+   }
+   .home .picker-line {
+     top:-93px;
+   }
+   .home .project-sphere-outer {
+      height: 186px;       /* 23% reduced sphere*/ 
+      width: 186px;                
+   }
+   .home .project-sphere {
+      height: 176px;
+      width: 176px;
+   }
+   .home .project-picker{
+      width:200px;           /* 23% reduced width */
+   }
+   .home .pick-quote-owlet {
+      left: -73.8%;         /* 23% added distance */
+   }
+
+   .home .pick-twiz-client {
+      right: 73.8%;
+   }
+}
+@media (min-width: 450px) and (max-width:578px){  /* reduce for another 30% percent everything*/
+   .home .project-container {
+      padding-top:10.333%;
+   } 
+   .home .project-picker {
+      width: 140px;      /* 30% decrease (-60px)*/ 
+   }
+   .home .pick-quote-owlet {
+      left:-101.94%;
+   }
+   .home .pick-twiz-client {
+      right: 101.94%;
+   }
+   .home .project-sphere-outer {
+      height: 136px;      /* 30% decrease */
+      width:136px;
+   }
+   .home .project-sphere {
+      height: 126px;
+      width: 126px;  
+   }
+   .home .picker-line {
+      top: -68px;
+   }
+  
+ 
+}
+@media (min-width:1px) and (max-width:449px){
+   .upper {
+      padding: 8.333% 6%;
+   } 
+   
+   .home .project-container {
+      margin-left: 0px;
+      padding: 8.333% 6%;
+   }
+   .home p{
+      font-size: 1em;
+   }
+   .home .project-sphere-outer {
+      height: 88px;              /* 30% decrease */
+      width: 88px;
+   }
+   .home .project-sphere {
+      height: 78px;
+      width: 78px;  
+   }
+   .home .picker-line {
+      top: -43px;
+   }
+   .home .project-picker {
+     width: 140px;
+   }
+   .home .pick-quote-owlet {
+      left: -109.94%;
+      top: 2px;
+   }
+   .home .pick-twiz-client {
+      right: 109.94%;
+      top: -5px;
+   }
+   .home .pick-hmac-sha1 {
+      top: -14px;
+      left: 107%;
+   }
+   .home .pick-twiz-server {
+      top: -21px;
+      left: 107%;
+   }
+
+ 
+   .home .project-picker {
+      width: 96px;
+   }
+   .home .picker-width {
+      width: 100px;
+   }
+   .home .left {
+      display:block;
+      float:none;
+      width:auto;
+      height:auto;
+      margin-top:20px;
+      padding-top:7%;
+   }
+   .home .right {
+      display:block;
+      float:none;
+      width:auto;
+      height:auto;
+      padding-top:7%;
+   }
+   .home .project-view {
+      height:auto;
+   } 
+   .home h1 {
+     font-size:2.3em;
+   }
+   .home h2 {
+     font-size:2.2em;
+   }
+   .home h3{
+      text-align:center;
+   }
+}
+
+@media (max-width: 420px){
+
+  .upper {
+      margin-top: 52px;          /* since nav is smaller make margin smaller*/
+      
+   }
+}
+
+
+
+
+
+  /*cv css*/
+
+ .cv {
+   background-color: #333333;
+   font-family:"Inconsolata";
+}
+.paper {
+  /* background-color: #b3b3b3;*/        /* #505050; */
+   margin:0 10% 0%;
+  /* border-bottom:4px double #87c6ff;
+   border-top:4px double #87c6ff; */
+   color: #b3b3b3;
+   display:inline-block
+}
+.cv h1 {
+   font-size:2.4em;
+   text-align:center;
+}
+.cv h3 {
+  padding:20px 10px 10px;
+  font-size:2.2em;
+}
+.cv .right{
+  border-top:1px solid #333333;
+}
+.cv .upper {
+   padding-bottom:0px;
+   margin-left:0px;
+}
+
+.personal-info {
+  border: 1px solid #87c6ff; 
+  margin: 5% 20% 40px;
+  text-align:center;
+  padding:5% 2.5% 0px;
+}
+.personal-info h4 {
+  background-color:#292929;
+  display:inline-block;
+  margin:0px auto;
+  padding:3px;
+  border-radius:2px;
+ 
+}
+.text-padding {
+   padding:10px 10px 20px;
+}
+.text-size {
+  font-size: 1.3em;
+}
+.top-right-border {
+  border-top:1px solid #87c6ff;
+  border-right:1px solid #87c6ff;
+  
+}
+.right-border {
+  border-right:1px solid #87c6ff;
+}
+.left-border {
+  border-left:1px solid #87c6ff;
+}
+.top-border {
+   border-top: 1px solid #87c6ff;
+}
+.position-left {
+   float:left;
+}
+.position-right {
+   float:right; 
+}
+.text-right {
+  text-align:right;
+}
+.text-center {
+  text-align:center;
+}
+
+.half-width {
+  width:50%;
+}
+
+.delimiter {
+  color: #333333;
+}
+.footer {
+  height:250px;
+  width: 40%;
+  
+
+  border-top: 4px double #87c6ff;
+  border-radius:200px;
+  margin:40px 30% 0px;
+  display:inline-block;
+}
+.stand-out {
+   background-color: #292929;
+   padding:1px 5px;
+   margin: 2px 0px;
+   border-radius:2px;
+}
+.inline-block {
+   display:inline-block
+}
+
+.github-lnk {
+  color:#b3b3b3;
+  text-decoration:none;
+}
+
+.download-btn {
+  padding:5px 0 5px 0 ;
+  position:relative;
+  width:auto;
+}
+.download-img {
+     background-color:#292929;
+     border-radius:25px;
+}
+
+@media (min-width:1280px) and (max-width:1440px){  /* adjust for lower dpi on laptops */
+  .text-size {
+    font-size:1em;
+  }
+  .cv h3 {
+    font-size:1.5em;
+  }
+}
+
+@media (min-width:1024px) {
+  .cv .upper {
+     padding-top:2%;
+  }
+  .personal-info {
+     margin-top:2%;
+     padding-top:2.5%;
+  }
+  
+}
+
+@media (min-width:320px) and (max-width:475px){
+
+    .text-size {
+      font-size:1em
+    }
+    .cv h3 {
+      font-size:1.8em;
+    }
+    .cv h1 {
+      font-size:2em; 
+    }
+
+    .personal-info {
+       margin-left:10%;
+       margin-right:10%;
+    }
+
+    .paper {
+       margin-left:5%;
+       margin-right:5%;
+    }
+}

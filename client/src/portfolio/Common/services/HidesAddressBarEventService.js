@@ -13,12 +13,12 @@ angular.module('Portfolio.Common')
       let window_ = angular.element($window);
       
       window_.on('touchmove', function(){ // Mark potential address bar hide on resize event, after touchmove evt
-                                          console.log('::touchMove event')
+                                          // console.log('::touchMove event')
           ADDRESS_BAR_HIDDEN.value = true;
           ADDRESS_BAR_HIDDEN.counter = 6;   // set counter number, since afther touchmove we have resize event
       }); 
 
-      window_.on('orientationchange', function(){ console.log(' ~~ orientation-CHANGE ~~');
+      window_.on('orientationchange', function(){ //console.log(' ~~ orientation-CHANGE ~~');
           
           ADDRESS_BAR_HIDDEN.value = true;             // If there was flag set before this event, clean it
           ADDRESS_BAR_HIDDEN.counter = 6;
