@@ -92,7 +92,7 @@
   display: hidden;
 }
 
-.box {
+.flexbox {
     display: flex;
     flex-direction: column;
 }
