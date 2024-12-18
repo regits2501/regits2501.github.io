@@ -28,6 +28,10 @@
 .quotes-wrap {
   padding:0 8.3333%;
   margin-left:62px;
+
+  & p:hover {
+    cursor:pointer;
+  }
 }
 .quote {
   min-height:120px;

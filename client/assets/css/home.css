@@ -47,6 +47,10 @@
   /* border:1px solid #505050; */
    position:relative;
    top:-25px;
+   
+   &, .p:hover {
+     cursor: pointer;
+   }
 }
 .pick-hmac-sha1{
    position:relative;

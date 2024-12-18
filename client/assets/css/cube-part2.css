@@ -92,6 +92,11 @@
   display: hidden;
 }
 
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
 .text-padding {
   padding:15px;
 }

@@ -45,6 +45,10 @@
 }
 .function-call {
   margin-bottom: 4%;
+  
+  &, :hover{
+     cursor: pointer;
+  }
 }
 .function-apstraction {
    height:10px;

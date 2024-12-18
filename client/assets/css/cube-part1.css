@@ -1412,6 +1412,8 @@ div .pick-font-color {
    padding:1px 5px;
    margin: 2px 0px;
    border-radius:2px;
+
+   align-self: flex-start;
 }
 .inline-block {
    display:inline-block

@@ -70,6 +70,10 @@
    text-align:center;
    line-height:1.6em ;
 
+    &, :hover {
+      cursor: pointer;
+    }
+
    -webkit-transition: color .7s;
 
    -o-transition: color .7s;
