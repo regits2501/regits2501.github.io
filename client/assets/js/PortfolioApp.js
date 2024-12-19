@@ -957,7 +957,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     url: 'client/src/portfolio/QuoteOwlet/tmpl/quote-owlet.html',
     selected: '',
     info: {
-      desc: 'Random quote machine. Integrates Twiz in order to interact with Twitter.',
+      desc: 'Random quote machine. Integrates Twiz in order to interact with X.',
       tech: 'Vanilla JS.',
       github: 'https://github.com/gits2501/QuoteOwlet'
     }
@@ -985,7 +985,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     url: 'client/src/portfolio/TwizClient/tmpl/twiz-client.html',
     selected: '',
     info: {
-      desc: 'Browser part of Twitter\'s authentication and authorization algorithm (OAuth 1.0a).',
+      desc: 'Browser part of X\'s authentication and authorization algorithm (OAuth 1.0a).',
       tech: 'Vanilla JS, Browserify, NPM, Istanbul, Mocha, Coveralls, Mocha-Headless-Chrome, Eslint.',
       github: 'https://github.com/gits2501/twiz-client'
     }
@@ -1001,7 +1001,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     url: 'client/src/portfolio/TwizServer/tmpl/twiz-server.html',
     selected: '',
     info: {
-      desc: 'Server part of Twitter\'s authentication and authorization algorithm (OAuth 1.0a).',
+      desc: 'Server part of X\'s authentication and authorization algorithm (OAuth 1.0a).',
       tech: 'Node, Express, NPM, Nyc, Mocha, Nock, Node-Mocks-Http, Coveralls, Eslint.',
       github: 'https://github.com/gits2501/twiz-server'
     }

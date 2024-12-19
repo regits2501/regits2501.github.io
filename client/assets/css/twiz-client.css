@@ -127,7 +127,7 @@
 .col-left #wrp_3 .outer, .col-middle #wrp_2 .outer , .col-right #wrp_2 .outer{  /* group together circles*/
    display:inline-block;
 }
-.twitter-img {
+.x-img {
    margin:14% 12% auto ;
   
 }
@@ -195,7 +195,7 @@
 
     }
 
-    .twitter-img {
+    .x-img {
        height:34px;
        width:34px;
        margin:16.5% 10.5% auto;
@@ -258,7 +258,7 @@
 
     }
 
-    .twitter-img {
+    .x-img {
        height:26px;
        width:26px;
        margin:13.5% 10.5% auto;
