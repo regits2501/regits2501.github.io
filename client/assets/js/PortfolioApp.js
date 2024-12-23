@@ -959,7 +959,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     info: {
       desc: 'Random quote machine. Integrates Twiz in order to interact with X.',
       tech: 'Vanilla JS.',
-      github: 'https://github.com/gits2501/QuoteOwlet'
+      github: 'https://github.com/regits2501/QuoteOwlet'
     }
   }, {
     name: "hmac-sha1",
@@ -973,7 +973,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     info: {
       desc: "Form of a digital signature. Can produce hash string that is used to provide data integrity and authentication.",
       tech: " Vanilla JS, NPM, Node, Crypto, Tap. ",
-      github: "https://github.com/gits2501/Hmac_Sha1"
+      github: "https://github.com/regits2501/Hmac_Sha1"
     }
   }, {
     name: "twiz-client",
@@ -1440,7 +1440,7 @@ angular.module('Portfolio.QuoteOwlet').service('ConfigureRequestService', functi
   };
 
   crs.setUrl = function () {
-    this.url = 'https://quoteowlet.herokuapp.com/fetch/https://api.forismatic.com/api/1.0/'; // Server address
+    this.url = 'https://random-quotes-proxy.onrender.com/fetch/https://api.forismatic.com/api/1.0/'; // Server address
     // with endpoint.
     // (is proxy serv)
 
