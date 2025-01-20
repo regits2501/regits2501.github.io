@@ -959,7 +959,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     info: {
       desc: 'Random quote machine. Integrates Twiz in order to interact with X.',
       tech: 'Vanilla JS.',
-      github: 'https://github.com/gits2501/QuoteOwlet'
+      github: 'https://github.com/regits2501/QuoteOwlet'
     }
   }, {
     name: "hmac-sha1",
@@ -1003,7 +1003,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     info: {
       desc: 'Server part of X\'s authentication and authorization algorithm (OAuth 1.0a).',
       tech: 'Node, Express, NPM, Nyc, Mocha, Nock, Node-Mocks-Http, Coveralls, Eslint.',
-      github: 'https://github.com/gits2501/twiz-server'
+      github: 'https://github.com/regits2501/twiz-server'
     }
   }];
   CURRENT_SIDE.value = main.sides[0]; // home side is initialy shown

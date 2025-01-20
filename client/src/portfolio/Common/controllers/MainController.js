@@ -90,7 +90,7 @@ angular.module('Portfolio.Common')
           info:{
             desc: 'Random quote machine. Integrates Twiz in order to interact with X.',
             tech: 'Vanilla JS.',
-            github: 'https://github.com/gits2501/QuoteOwlet'
+            github: 'https://github.com/regits2501/QuoteOwlet'
           }
         },
         {
@@ -104,7 +104,7 @@ angular.module('Portfolio.Common')
           info: {
              desc: "Form of a digital signature. Can produce hash string that is used to provide data integrity and authentication.",
              tech: " Vanilla JS, NPM, Node, Crypto, Tap. ",
-             github: "https://github.com/gits2501/Hmac_Sha1"
+             github: "https://github.com/regits2501/Hmac_Sha1"
           }
         },
         {
@@ -132,7 +132,7 @@ angular.module('Portfolio.Common')
           info: {
              desc: 'Server part of X\'s authentication and authorization algorithm (OAuth 1.0a).',
              tech: 'Node, Express, NPM, Nyc, Mocha, Nock, Node-Mocks-Http, Coveralls, Eslint.' ,
-             github: 'https://github.com/gits2501/twiz-server'
+             github: 'https://github.com/regits2501/twiz-server'
           }
         }
      ];
