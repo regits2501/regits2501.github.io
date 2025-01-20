@@ -10,7 +10,7 @@ angular.module('Portfolio.QuoteOwlet')
       } 
 
       crs.setUrl = function(){
-         this.url = 'https://random-quotes-proxy.onrender.com/fetch/https://api.forismatic.com/api/1.0/'// Server address
+         this.url = 'https://quote-owlet-twiz-server-1.onrender.com/proxy/fetch/https://zenquotes.io/api/random'// Server address
                                                                                                // with endpoint.
                                                                                                // (is proxy serv)
          this.queryParams = {      // making params object specific to server endpoint we are connnecting to. 
