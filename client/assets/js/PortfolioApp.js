@@ -959,7 +959,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     info: {
       desc: 'Random quote machine. Integrates Twiz in order to interact with X.',
       tech: 'Vanilla JS.',
-      github: 'https://github.com/regits2501/QuoteOwlet'
+      github: 'https://github.com/gits2501/QuoteOwlet'
     }
   }, {
     name: "hmac-sha1",
@@ -1405,20 +1405,14 @@ angular.module('Portfolio.QuoteOwlet').service('UtilsService', function () {
 
   utils.parseQuote = function (response) {
     // Parses quote text and quote author from string 
-    if (response.data.length !== 0) {
-      var q = response.data; // Take string that server has sent
-      // Server response is in text format like bellow:
-      // This is the quote string. (Here goes the author)  
+    var quoteText = '',
+        quoteAuthor = '',
+        quotes = response.data;
 
-      var quoteEnd = q.indexOf("(") === -1 ? q.length : q.indexOf("(") - 1; // Get index of the "(" - 1. 
-      // Emty space before "(" .
-
-      var quoteText = q.substring(0, quoteEnd); // Get quote string up to dot(including).
-
-      var authorEnd = q.indexOf(")");
-      var quoteAuthor = "";
-      if (authorEnd !== -1) quoteAuthor = q.substring(quoteEnd + 2, authorEnd); // Get author string, 
-      // up to ")" . If there is one.
+    if (quotes.length !== 0) {
+      var quote = quotes[0];
+      quoteText = quote.q;
+      quoteAuthor = quote.a;
     } else {
       console.log('There is no quote string from server ...');
       return;
