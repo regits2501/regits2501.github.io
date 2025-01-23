@@ -973,7 +973,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     info: {
       desc: "Form of a digital signature. Can produce hash string that is used to provide data integrity and authentication.",
       tech: " Vanilla JS, NPM, Node, Crypto, Tap. ",
-      github: "https://github.com/regits2501/Hmac_Sha1"
+      github: "https://github.com/gits2501/Hmac_Sha1"
     }
   }, {
     name: "twiz-client",
