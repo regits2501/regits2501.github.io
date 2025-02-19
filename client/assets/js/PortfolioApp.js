@@ -987,7 +987,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     info: {
       desc: 'Browser part of X\'s authentication and authorization algorithm (OAuth 1.0a).',
       tech: 'Vanilla JS, Browserify, NPM, Istanbul, Mocha, Coveralls, Mocha-Headless-Chrome, Eslint.',
-      github: 'https://github.com/gits2501/twiz-client'
+      github: 'https://github.com/regits2501/xwiz-client'
     }
   }, {
     name: "twiz-server",
@@ -1003,7 +1003,7 @@ angular.module('Portfolio.Common').filter('shorten', function () {
     info: {
       desc: 'Server part of X\'s authentication and authorization algorithm (OAuth 1.0a).',
       tech: 'Node, Express, NPM, Nyc, Mocha, Nock, Node-Mocks-Http, Coveralls, Eslint.',
-      github: 'https://github.com/regits2501/twiz-server'
+      github: 'https://github.com/regits2501/xwiz-server'
     }
   }];
   CURRENT_SIDE.value = main.sides[0]; // home side is initialy shown

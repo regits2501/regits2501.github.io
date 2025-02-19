@@ -118,7 +118,7 @@ angular.module('Portfolio.Common')
           info: {
             desc: 'Browser part of X\'s authentication and authorization algorithm (OAuth 1.0a).',
             tech: 'Vanilla JS, Browserify, NPM, Istanbul, Mocha, Coveralls, Mocha-Headless-Chrome, Eslint.',
-            github: 'https://github.com/gits2501/twiz-client'
+            github: 'https://github.com/regits2501/xwiz-client'
           }
         },
         {
@@ -132,7 +132,7 @@ angular.module('Portfolio.Common')
           info: {
              desc: 'Server part of X\'s authentication and authorization algorithm (OAuth 1.0a).',
              tech: 'Node, Express, NPM, Nyc, Mocha, Nock, Node-Mocks-Http, Coveralls, Eslint.' ,
-             github: 'https://github.com/regits2501/twiz-server'
+             github: 'https://github.com/regits2501/xwiz-server'
           }
         }
      ];
