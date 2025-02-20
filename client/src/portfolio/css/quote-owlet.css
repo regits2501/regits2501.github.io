@@ -1,9 +1,17 @@
-.quote-owlet .upper {
+/* quote-owlet */
+
+.quote-owlet {
+
+  font-size: 0.9em;
+  
+  & .upper {
   padding-bottom: 6%;
+  }
 }
 .quote-owlet-wrapper {
   background-color: #333333;
   font-family:"Inconsolata";
+ 
 }
 .tittle {
   margin-bottom:30px;
@@ -90,6 +98,11 @@
 .spacer {
  /*min-height:120px;*/
   display: hidden;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: column;
 }
 
 .text-padding {

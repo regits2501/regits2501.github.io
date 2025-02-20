@@ -1,10 +1,12 @@
+/* hmac-sha1 */
+
 .hmac-sha1-wrapper {
    font-family:"Inconsolata";
-   
 }
 .hmac-sha1 {
 
   background-color:#333333;
+  font-size: 0.9em;
 }
 .hmac-sha1 .upper{
 

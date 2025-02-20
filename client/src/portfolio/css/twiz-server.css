@@ -1,8 +1,9 @@
-/*twiz-server*/
+/*twiz-server */
 
 .twiz-server {
    font-family:"Inconsolata";
    background-color:#333333;
+   font-size: 0.9em;
 }
 .twiz-server .tittle {
    text-align:left;

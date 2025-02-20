@@ -1,9 +1,17 @@
-.quote-owlet .upper {
+/* quote-owlet */
+
+.quote-owlet {
+
+  font-size: 0.9em;
+  
+  & .upper {
   padding-bottom: 6%;
+  }
 }
 .quote-owlet-wrapper {
   background-color: #333333;
   font-family:"Inconsolata";
+ 
 }
 .tittle {
   margin-bottom:30px;
@@ -196,13 +204,15 @@
    
 }
 
+/* hmac-sha1 */
+
 .hmac-sha1-wrapper {
    font-family:"Inconsolata";
-   
 }
 .hmac-sha1 {
 
   background-color:#333333;
+  font-size: 0.9em;
 }
 .hmac-sha1 .upper{
 
@@ -243,7 +253,7 @@
 }
 .function-call {
   margin-bottom: 4%;
-
+  
   &, :hover{
      cursor: pointer;
   }
@@ -408,9 +418,12 @@
 }
 
 
+/* twiz-client */
+
 .twiz-client {
    font-family: 'Inconsolata';
    background-color: #333333;
+   font-size: 0.9em;
   
 }
 .twiz-client .tittle {
@@ -478,9 +491,9 @@
    font-size:2.2em;
    color: #292929;
    text-align:center;
-   line-height:1.6em;
+   line-height:1.6em ;
 
-   &, :hover {
+    &, :hover {
       cursor: pointer;
     }
 
@@ -528,7 +541,7 @@
    vertical-align:center;
    font-weight:bold;
    color:#505050;
-   line-height:2em;
+   line-height:2.3em;
 }
 .out-hidden {
    visibility:hidden;
@@ -537,7 +550,6 @@
 .col-left #wrp_3 .outer, .col-middle #wrp_2 .outer , .col-right #wrp_2 .outer{  /* group together circles*/
    display:inline-block;
 }
-
 .x-img {
    margin:14% 12% auto ;
    height: 45px;
@@ -558,7 +570,7 @@
   background-color: #e1e1e1;
 }
 .text-legend {
-  color:#6e6e6e;
+  color:#e4e1e1;
   clear:both;
   padding-top:13px;
   font-size: .9em;
@@ -682,11 +694,12 @@
     }
 }
 
-/*twiz-server*/
+/*twiz-server */
 
 .twiz-server {
    font-family:"Inconsolata";
    background-color:#333333;
+   font-size: 0.9em;
 }
 .twiz-server .tittle {
    text-align:left;

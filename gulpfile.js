@@ -3,7 +3,7 @@ var concat = require('gulp-concat');
 var babel  = require('gulp-babel');
 
 
-gulp.task('concat', function(){
+gulp.task('concat-js', function(){
      var base = 'client/src/portfolio/'
      return gulp.src([ 
           
@@ -90,8 +90,11 @@ gulp.task('concat', function(){
      .pipe(gulp.dest('client/assets/js')) 
 })
 
+
+let distCSSFolder = 'client/assets/css';
+
 gulp.task('concat-css1', function(){
-     var base = 'client/assets/css/';
+     var base = 'client/src/portfolio/css/';
      
      return gulp.src([
 
@@ -101,12 +104,12 @@ gulp.task('concat-css1', function(){
            base + 'cv.css'
      ])
      .pipe(concat('cube-part1.css'))
-     .pipe(gulp.dest(base))
+     .pipe(gulp.dest(distCSSFolder))
 })
 
 
 gulp.task('concat-css2', function(){
-     var base = 'client/assets/css/';
+     var base = 'client/src/portfolio/css/';
      
      return gulp.src([
 
@@ -117,13 +120,19 @@ gulp.task('concat-css2', function(){
            base + 'reset.css', 
      ])
      .pipe(concat('cube-part2.css'))
-     .pipe(gulp.dest(base))
+     .pipe(gulp.dest(distCSSFolder))
 })
 
-gulp.task('build', [
-          'concat', 
-          'concat-css1',
-          'concat-css2']);  // concats js , then concats css into 2 files
+gulp.task('watch-build', function() {
+ 
+  // watch for js files then run 'build' task
+  gulp.watch('client/src/portfolio/**/*.js',  gulp.series('concat-js'));
+
+  // watch for .css files then run 'build' task
+  gulp.watch('client/src/portfolio/css/**/*.css', gulp.series('concat-css1', 'concat-css2'));
+});
+
+
 
 
 

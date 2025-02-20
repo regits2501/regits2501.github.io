@@ -7,20 +7,20 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "gulp build",
+    "watch-build": "gulp watch-build",
     "test": "karma start --single-run --browsers Chrome client/tests/karma.conf.js"
   },
   "dependencies": {
+    "http-server": "^14.1.1",
     "serve": "^10.0.2"
   },
-
   "engines": {
-    "node": ">=8.17.3 <8.20"
+    "node": ">=22"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
-    "gulp": "^3.9.1",
+    "gulp": "^5.0.0",
     "gulp-babel": "^8.0.0-beta.2",
     "gulp-concat": "^2.6.1",
     "karma": "^2.0.5",

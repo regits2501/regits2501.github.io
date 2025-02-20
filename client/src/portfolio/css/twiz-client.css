@@ -1,6 +1,9 @@
+/* twiz-client */
+
 .twiz-client {
    font-family: 'Inconsolata';
    background-color: #333333;
+   font-size: 0.9em;
   
 }
 .twiz-client .tittle {
@@ -118,7 +121,7 @@
    vertical-align:center;
    font-weight:bold;
    color:#505050;
-   line-height:2em;
+   line-height:2.3em;
 }
 .out-hidden {
    visibility:hidden;
@@ -129,7 +132,8 @@
 }
 .x-img {
    margin:14% 12% auto ;
-  
+   height: 45px;
+   width: 45px;
 }
 
 .twiz-start-color{                   /* for twiz-start*/
@@ -146,7 +150,7 @@
   background-color: #e1e1e1;
 }
 .text-legend {
-  color:#6e6e6e;
+  color:#e4e1e1;
   clear:both;
   padding-top:13px;
   font-size: .9em;

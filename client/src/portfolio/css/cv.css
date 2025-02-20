@@ -1,8 +1,9 @@
-  /*cv css*/
+  /* cv */
 
  .cv {
    background-color: #333333;
    font-family:"Inconsolata";
+   font-size: 0.9em;
 }
 .paper {
   /* background-color: #b3b3b3;*/        /* #505050; */
@@ -97,6 +98,8 @@
    padding:1px 5px;
    margin: 2px 0px;
    border-radius:2px;
+   
+   align-self: flex-start;
 }
 .inline-block {
    display:inline-block

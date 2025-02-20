@@ -1,8 +1,9 @@
-/* home styles*/
+/* home */
 
 .home {                              
   background-color: #333333;          /*#1b1b1d; */         /* #2a2a2d; */ 
-  font-family: "Inconsolata";           
+  font-family: "Inconsolata";
+  font-size: 0.9em;          
 }
 .home h1{
   color: #e1e1e1;
@@ -48,13 +49,13 @@
    position:relative;
    top:-25px;
    
-   &, .p:hover {
+   &, :hover {
      cursor: pointer;
    }
 }
 .pick-hmac-sha1{
    position:relative;
-   top:-29px;
+   top:-25px;
    left:110%;
 }
 .picker-width {
@@ -66,14 +67,14 @@ div .pick-font-color {
 }
 .pick-twiz-server{
    position:relative;
-   top: -34px;
+   top: -18px;
    left:110%;
    
 }
 .pick-twiz-client{
    position:relative;
    right:60%;
-   top:-13px;
+   top:-1px;
    text-align: right;
 }
 .pick-quote-owlet{
@@ -261,13 +262,13 @@ div .pick-font-color {
 .wrap-words {
   overflow-wrap: break-word;
 }
-@media (min-width: 1024px){
+@media (min-width: 1024px) and (max-width: 720){
   .upper {
       margin-left:62px;            /* on this size navbar is positioned to the left screen edge */
   }
   
 }
-@media (min-width:1280px) and (max-width:1439px){
+@media (min-width:1280px){
   .upper {
      padding-top:4%;
   }
